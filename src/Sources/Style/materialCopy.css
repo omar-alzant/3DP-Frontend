@@ -1,0 +1,81 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2rem;
+    padding: 1rem;
+    max-width: 95%;
+    overflow-y: scroll;
+  }
+  
+  .card {
+    position: relative;
+    background: white;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #e74c3c;
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    font-weight: bold;
+  }
+  
+  .image-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.8rem;
+  }
+  
+  .material-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+  }
+  
+  .material-name {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  
+  .material-price {
+    color: #555;
+    font-size: 0.9rem;
+  }
+  
+  .card.selected {
+    border-color: #007bff;
+    background-color: #eef6ff;
+  }
+  
+  .spinner {
+    border: 3px solid #f3f3f3; 
+    border-top: 3px solid #3498db; 
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

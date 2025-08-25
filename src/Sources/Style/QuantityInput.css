@@ -1,0 +1,35 @@
+.quantity-container {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    /* border: 1px solid #ddd; */
+    border-radius: 6px;
+    overflow: hidden;
+    width: fit-content;
+  }
+  
+  .quantity-btn {
+    /* background: #f9f9f9; */
+    background: #0077b630;
+    border: none;
+    margin: 8px 12px !important;
+    cursor: pointer;
+    font-size: 18px;
+    max-width: 20px !important; 
+    max-height: 20px !important;
+    color: #333;
+  }
+  
+  .quantity-btn:hover {
+    background: #eee;
+  }
+  
+  .quantity-value {
+    max-width: 40px;
+    text-align: center;
+    font-size: 18px;
+    /* border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd; */
+    padding: 8px;
+  }
+  

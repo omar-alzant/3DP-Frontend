@@ -1,0 +1,104 @@
+/* === Container === */
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-height: 100dvh;
+  min-height: 80dvh;
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  padding: 20px;
+  font-family: 'Cairo', sans-serif;
+  border-radius: 16px;
+
+}
+
+/* === Card === */
+.auth-card {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+  max-width: 420px;
+  width: 100%;
+  animation: fadeIn 0.4s ease-in-out;
+  transition: transform 0.2s ease;
+}
+
+.auth-card:hover {
+  transform: translateY(-4px);
+}
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* === Inputs === */
+.auth-card input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  font-size: 15px;
+  background: #f9fafb;
+  transition: all 0.3s ease;
+}
+
+.auth-card input:focus {
+  border-color: #6366f1;
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* === Buttons === */
+.auth-card button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-card button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.3);
+}
+
+/* === Links === */
+.auth-card p {
+  text-align: center;
+  font-size: 14px;
+  color: #475569;
+  margin-top: 1rem;
+}
+
+.auth-card a {
+  color: #6366f1;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.auth-card a:hover {
+  text-decoration: underline;
+  color: #4f46e5;
+}
+
+/* === Animation === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

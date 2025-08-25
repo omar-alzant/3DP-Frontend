@@ -1,0 +1,179 @@
+/* src/components/Navbar.css */
+.nav-ontainer{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  height: 50px;
+  position: sticky; /* stays on top when scrolling */
+  font-family: "Cairo";
+  top: 0;
+}
+
+.navbar {
+  display: flex;
+  font-family: "Cairo";
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0077b6; /* unify with your theme color */
+  padding: 12px 24px;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky; /* stays on top when scrolling */
+  height: 50px;
+}
+
+
+
+  /* قسم الفوائد */
+  .benefits-section {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    justify-content: center;
+    gap: 5px;
+    /* padding: 30px 15px; */
+    border-radius: 16px;
+    margin-bottom: 5px;
+    background: #f9fafb5a; /* لون خفيف تحت الـ navbar */
+    margin-top: 0; /* يلتصق بالـ navbar */
+  }
+  
+  /* كرت الفائدة */
+  .benefit-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.398);
+    padding: 5px;
+    max-width: 260px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+  }
+  
+  .benefit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  }
+  
+  /* صورة */
+  .benefit-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 20%;
+    object-fit: contain;
+  }
+  
+  /* العنوان */
+  .benefit-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  /* النص */
+  .benefit-text {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+  }
+  
+    
+    @media (max-width: 600px) {
+      .home-container {
+        padding: 15px;
+      }
+      
+      .home-header h1 {
+        font-size: 1.8rem;
+      }
+    }
+  
+    /* الأزرار */
+  .slider-btn {
+    position: absolute;
+    top: 0; /* يأخذ من أعلى العنصر */
+    bottom: 0; /* يأخذ حتى أسفل العنصر */
+    background: rgba(0, 122, 204, 0.7); /* نصف شفاف */
+    color: white;
+    border: none;
+    width: 50px; /* عرض الزر */
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;  /* لتوسيط السهم عمودياً */
+    justify-content: center; /* لتوسيط السهم أفقياً */
+    transition: background 0.3s;
+  }
+  
+  .slider-btn:hover {
+    background: rgba(0, 90, 153, 0.9);
+  }
+  
+  .slider-btn.left {
+    left: 0;
+  }
+  
+  .slider-btn.right {
+    right: 0;
+  }
+  
+    
+.logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.nav-links a:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateY(-2px);
+}
+
+.nav-links li.active-link a {
+  background: rgba(179, 6, 6, 0.25);
+  color: #fff;
+}
+
+
+.cart-link {    
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: white;
+  font-weight: 600;
+  position: relative;
+}
+
+
+.cart-badge {
+  background: #e74c3c;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 10%;
+  padding: 2px 5px;
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}

@@ -1,0 +1,141 @@
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 25px;
+  height: clamp(400px, 65dvh, 800px);
+  max-width: 100%;
+  padding: 30px;
+  background: #0077b630;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(59, 33, 33, 0.1);
+  text-align: center;
+}
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .upload-box {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .file-input {
+    display: none;
+  }
+  
+  .file-label {
+    padding: 12px 25px;
+    background-color: #4caf50;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .file-label:hover {
+    background-color: #45a049;
+  }
+  
+  .file-name {
+    font-size: 14px;
+    color: #555;
+  }
+
+  .viewer-result{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .result-box {
+    text-align: right;
+    margin-top: 20px;
+    width: auto;
+    height: auto;
+    padding: 20px;
+    border: 2px dashed #4caf50;
+    border-radius: 12px;
+    background-color: #f0fff0;
+    color: #333;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .result-box p {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+  
+  .result-box strong {
+    color: #2e7d32;
+  }
+  
+  .result-box.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .result-box:hover {
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
+  }
+    
+  .stlFile-volumePrice{
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+    width: 60dvw;
+    max-width: 60dvw;
+  }
+
+  Viewer {
+    margin-top: 30px;
+    width: 30dvw;
+    height: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+  }
+  
+  .warning-msg {
+    font-size: 14px;
+    margin-top: 8px;
+    display: block;
+  }
+  
+  
+  button {
+    margin-top: 10px;
+    background: #444;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: #222;
+  }
+
+ .quantity-input{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  direction: rtl;
+  gap: 10px;
+ }

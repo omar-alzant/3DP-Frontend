@@ -1,0 +1,94 @@
+/* الحاوية الأساسية */
+.admin-container {
+  display: flex;
+  height: 90dvh;
+  min-height: 150px;
+  font-family: 'Cairo', sans-serif;
+  background: #0077b630;
+  direction: rtl;
+  overflow: auto;
+  border-radius: 1%;
+}
+
+/* الشريط الجانبي */
+.admin-sidebar {
+  width: 220px;
+  background-color: #1f2937;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+/* العنوان */
+.admin-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* الروابط */
+.admin-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.admin-link:hover {
+  background-color: #374151;
+  transform: translateX(-4px);
+}
+
+/* الروابط النشطة */
+.active-materials {
+  background-color: #3b82f6;
+}
+
+.active-benefits {
+  background-color: #10b981;
+}
+
+/* منطقة المحتوى */
+.admin-content {
+  flex: 1;
+  padding: 2rem;
+  background: #0077b630;
+  overflow-y: auto;
+  max-width: calc(100% - 220px);
+}
+
+/* بطاقات المحتوى */
+.admin-card {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 768px) {
+  .admin-container {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1rem;
+  }
+
+  .admin-content {
+    max-width: 100%;
+    padding: 1rem;
+  }
+}

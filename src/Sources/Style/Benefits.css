@@ -1,0 +1,87 @@
+/* الحاوية الأساسية */
+.benefit-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    font-family: 'Cairo', sans-serif;
+    direction: rtl; /* لأن النص عربي */
+  }
+  
+  /* العنوان */
+  .benefit-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+  
+  /* نموذج الإدخال */
+  .benefit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* الحقول */
+  .benefit-form input,
+  .benefit-form textarea {
+    font-family: "Cairo";
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.2s ease;
+  }
+  
+  .benefit-form input:focus,
+  .benefit-form textarea:focus {
+    border-color: #4a90e2;
+  }
+  
+  /* زر الإضافة */
+  .benefit-form button {
+    background: #4a90e2;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .benefit-form button:hover {
+    background: #357ab8;
+  }
+  
+
+  .label {
+    display: flex;
+    grid-column: span 2;
+    cursor: Pointer;
+    flex-direction: column;
+    font-weight: bold;
+    color: #444;
+    font-size: 14px;
+    gap: 6px;
+  }
+
+  .imageContainer {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .previewImage {
+    max-width: 200px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
