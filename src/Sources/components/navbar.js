@@ -11,33 +11,30 @@ const Navbar = () => {
   let decoded = "";
   let isAdmin = false;
   const [benefits, setBenefits] = useState([]);
-  const [current, setCurrent] = useState(0); // الفائدة الحالية
   const [expanded, setExpanded] = useState(false); // 👈 new state
-  const [token, settoken] = useState(sessionStorage.getItem("token") || ""); // 👈 new state
+  const [token] = useState(sessionStorage.getItem("token") || ""); // 👈 new state
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    // Check if data already exists in localStorage
-    const storedBenefits = localStorage.getItem("benefits");
-    if (storedBenefits) {
-      // Parse and set state from localStorage
-      setBenefits(JSON.parse(storedBenefits));
-    } else if(token)
-    {
-      // Fetch from API if not in localStorage
-      fetch(`${process.env.REACT_APP_API_URL}/benefits`,{
-        headers:{        
-          'Authorization': `Bearer ${token}`,
+    const fetchBenefits = async () => {
+      try {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/benefits`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        const data = await res.json();
+        setBenefits(data);
+        localStorage.setItem("benefits", JSON.stringify(data));
+      } catch (err) {
+        console.error("Error fetching benefits:", err);
       }
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setBenefits(data);
-          localStorage.setItem("benefits", JSON.stringify(data)); // Save to localStorage
-        })
-        .catch((err) => console.error("Error fetching benefits:", err));
-    }
-  }, []);
+    };
+  
+    const stored = localStorage.getItem("benefits");
+    if (stored) setBenefits(JSON.parse(stored));
+    else if (token) fetchBenefits();
+  }, [token]); // ✅ no ESLint warning now
+  
+
   const nextBenefit = () => {
     scrollRef.current.scrollBy({ left: 280, behavior: "smooth" });
   };

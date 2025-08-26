@@ -16,7 +16,7 @@ function Upload() {
   const [fileName, setFileName] = useState('لم يتم اختيار ملف بعد');
   const [warningMsg, setWarningMsg] = useState('');
   const [wireframe, setwireframe] = useState(true);
-  const [uploadMessage, setUploadMessage] = useState("");
+  const [setUploadMessage] = useState("");
   const [selectedMaterial, setSelectedMaterial] = useState(null);
   const [Volume, setVolume] = useState(0);
   const [Face, setFace] = useState(null);

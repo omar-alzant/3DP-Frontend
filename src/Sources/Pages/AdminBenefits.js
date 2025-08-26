@@ -4,7 +4,7 @@ import "../Style/Benefits.css"; // 👈 نربط ملف CSS
 function AdminPage() {
   const [Title, setTitle] = useState("");
   const [Image, setImage] = useState("");
-  const [ImageBase64, setImageBase64] = useState("");
+  const [setImageBase64] = useState("");
   const [Details, setDetails] = useState("");
 
   const handleSubmit = async (e) => {

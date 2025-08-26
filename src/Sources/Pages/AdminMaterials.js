@@ -18,19 +18,27 @@ export default function AdminMaterials() {
     materialType: '',
   });
 
-  // Fetch materials on component mount
   useEffect(() => {
-    setLoading(true)
-    fetch(`${process.env.REACT_APP_API_URL}/admin/materials`,
-      { 
-        method: 'GET', 
-        headers: { 'Authorization': `Bearer ${token}` } 
-      })
-      .then(res => res.json())
-      .then(data => {setMaterials(data); setLoading(false)})
-      .catch(err => console.error('Error fetching materials:', err));
-  }, []);
-
+    setLoading(true);
+  
+    const fetchMaterials = async () => {
+      try {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/admin/materials`, {
+          method: 'GET',
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        const data = await res.json();
+        setMaterials(data);
+      } catch (err) {
+        console.error('Error fetching materials:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    if (token) fetchMaterials();
+  }, [token]); // ✅ include token
+  
   const startEditing = (material) => {
     setEditingId(material.id);
     setForm({
@@ -328,7 +336,6 @@ export default function AdminMaterials() {
       backgroundColor: '#fff',
       borderRadius: '12px',
       boxShadow: '0 6px 18px rgba(0,0,0,0.1)',
-      fontFamily: 'Arial, sans-serif',
     },
     heading: {
       fontFamily: "Cairo",

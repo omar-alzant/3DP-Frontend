@@ -14,27 +14,19 @@ export function AuthProvider({ children }) {
     setToken(newToken);
     sessionStorage.setItem('token', newToken);
   };
-
-  useEffect(() => {
-    // Retrieve user from sessionStorage
-    const storedEmail = sessionStorage.getItem("email");
-    setIsAdmin(sessionStorage.getItem("email"));
-
   
-    if (storedEmail) {
-      try {
-        setemail(storedEmail); // parse JSON string to object
-      } catch (error) {
-        console.error("Failed to parse user from sessionStorage", error);
-        setemail(null);
-      }
-    } else {
-      setemail(null);
-      navigate('/login'); 
+  useEffect(() => {
+    const storedEmail = sessionStorage.getItem("email");
+    setIsAdmin(Boolean(storedEmail));
+    setemail(storedEmail || null);
+  
+    if (!storedEmail) {
+      navigate('/login');
     }
-
-    setLoading(false); // done loading after this
-  }, []);
+  
+    setLoading(false);
+  }, [navigate]);
+  
 
   return (
     <AuthContext.Provider value={{ email, loading, setemail, IsAdmin, setIsAdmin, token, saveToken }}>

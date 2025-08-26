@@ -3,13 +3,12 @@ import '../Style/Meshy.css';
 
 function MeshyGenerator() {
   const [prompt, setPrompt] = useState('');
-  const [DataToDownload, setDataToDownload] = useState(null);
   const [ThumbnalMeshy, setThumbnalMeshy] = useState(null);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const [ValidationError, setValidationError] = useState(null);
+  const [setValidationError] = useState(null);
   const [Progress, setProgress] = useState(0);
   const [DownloadProgress, setDownloadProgress] = useState(0);
-  const [Status, setStatus] = useState(0);
+  const [setStatus] = useState(0);
   const [loading, setLoading] = useState(false);
   const [TaskId, setTaskId] = useState("");
   const [error, setError] = useState(null);
@@ -22,7 +21,8 @@ function MeshyGenerator() {
     const token = sessionStorage.getItem('token');
 
     try {
-      // 1️⃣ Create task
+      // 1️⃣ Create task.3
+
       const res = await fetch(`${process.env.REACT_APP_API_URL}/threeDMaker`, {
         method: "POST",
         headers: {
@@ -42,7 +42,6 @@ function MeshyGenerator() {
       // 2️⃣ Poll until finished
       let finished = false;
       setTaskId(taskId);
-      const token = sessionStorage.getItem('token');
       
       while (!finished) {
         const checkRes = await fetch(`${process.env.REACT_APP_API_URL}/threeDMaker/${taskId}`, {

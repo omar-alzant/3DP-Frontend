@@ -3,7 +3,6 @@ import { OrbitControls } from '@react-three/drei';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 // import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import React, { Suspense } from 'react';
-import * as THREE from 'three';
 
 export default function Viewer({ fileUrl, wireframe, StlFile, ObjFile }) {
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
 import Viewer from "../components/preview";
-import { FaFolder, FaCube, FaCoins, FaTrash, FaCheck, FaTimes, FaQuora } from "react-icons/fa";
+import { FaFolder, FaCube, FaCoins, FaTrash, FaTimes, FaQuora } from "react-icons/fa";
 import CheckoutForm from "../components/CheckoutForm";
 import "../Style/CartPage.css";
 

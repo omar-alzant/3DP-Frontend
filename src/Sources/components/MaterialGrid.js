@@ -3,25 +3,23 @@ import '../Style/materials.css';
 
 function MaterialGrid({ FileExist, onMaterialSelect }) {
   const [printerTypes, setPrinterTypes] = useState([]);
-  const [materials, setMaterials] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
     if (!FileExist) return;
+  
     fetch(`${process.env.REACT_APP_API_URL}/admin/materials`, {
-      headers:
-      {
-        'Authorization': `Bearer ${token}`,
-      }
+      headers: { 'Authorization': `Bearer ${token}` },
     })
       .then(res => res.json())
       .then(data => {
-        setSelectedId(data[0].id)
-        setPrinterTypes(data)
+        setSelectedId(data[0].id);
+        setPrinterTypes(data);
       })
       .catch(err => console.error('Error fetching materials:', err));
-  }, [FileExist]);
+  }, [FileExist, token]); // ✅ include token
+  
 
   if (!FileExist || printerTypes.length === 0 || printerTypes === null) return null;
 

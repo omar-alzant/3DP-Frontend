@@ -117,9 +117,9 @@ const validateBinarySTL = (uint8Array) => {
       }
       
       // Validate normal vector (3 floats)
-      const normalX = new DataView(uint8Array.buffer, offset, 4).getFloat32(0, true);
-      const normalY = new DataView(uint8Array.buffer, offset + 4, 4).getFloat32(0, true);
-      const normalZ = new DataView(uint8Array.buffer, offset + 8, 4).getFloat32(0, true);
+      // const normalX = new DataView(uint8Array.buffer, offset, 4).getFloat32(0, true);
+      // const normalY = new DataView(uint8Array.buffer, offset + 4, 4).getFloat32(0, true);
+      // const normalZ = new DataView(uint8Array.buffer, offset + 8, 4).getFloat32(0, true);
       
       // Validate vertices (9 floats)
       for (let j = 0; j < 9; j++) {

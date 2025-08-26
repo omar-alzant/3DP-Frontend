@@ -5,7 +5,6 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const token = sessionStorage.getItem('token');
 
   const handleReset = async (e) => {
     e.preventDefault();
