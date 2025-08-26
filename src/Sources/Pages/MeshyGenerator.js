@@ -19,12 +19,16 @@ function MeshyGenerator() {
     const controller = new AbortController();
     const timeout = 60000;
     const timeoutId = setTimeout(() => controller.abort(), timeout);
-  
+    const token = sessionStorage.getItem('token');
+
     try {
       // 1️⃣ Create task
-      const res = await fetch("http://localhost:3001/threeDMaker", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/threeDMaker`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`,
+        },
         body: JSON.stringify({ prompt }),
         signal: controller.signal,
       });
@@ -38,10 +42,12 @@ function MeshyGenerator() {
       // 2️⃣ Poll until finished
       let finished = false;
       setTaskId(taskId);
-      console.log(TaskId);
+      const token = sessionStorage.getItem('token');
       
       while (!finished) {
-        const checkRes = await fetch(`http://localhost:3001/threeDMaker/${taskId}`);
+        const checkRes = await fetch(`${process.env.REACT_APP_API_URL}/threeDMaker/${taskId}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
         const checkData = await checkRes.json();
         // console.log("Polling data:", checkData);
         setProgress(checkData.progress);
@@ -94,12 +100,17 @@ const GetStlRef = async () => {
   const controller = new AbortController();
   controllerRef.current = controller;
   const timeoutId = setTimeout(() => controller.abort(), 60000);
+  const token = sessionStorage.getItem('token');
 
   try {
     // 1️⃣ Create task
-    const res = await fetch("http://localhost:3001/threeDMaker/remesh", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/threeDMaker/remesh`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+      
+      },
       body: JSON.stringify({ TaskId }),
       signal: controller.signal,
     });
@@ -112,8 +123,14 @@ const GetStlRef = async () => {
     const poll = async () => {
       try {
         const checkRes = await fetch(
-          `http://localhost:3001/threeDMaker/remesh/${newTaskId}`,
-          { signal: controller.signal }
+          `${process.env.REACT_APP_API_URL}/threeDMaker/remesh/${newTaskId}`,
+          { 
+            headers: 
+            {
+              'Authorization': `Bearer ${token}`,
+            },
+            signal: controller.signal
+          }
         );
         const checkData = await checkRes.json();
 

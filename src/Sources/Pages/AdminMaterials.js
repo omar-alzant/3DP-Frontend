@@ -5,6 +5,7 @@ export default function AdminMaterials() {
   const [materials, setMaterials] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
+  const token = sessionStorage.getItem('token');
 
   const [form, setForm] = useState({
     name: '',
@@ -20,7 +21,11 @@ export default function AdminMaterials() {
   // Fetch materials on component mount
   useEffect(() => {
     setLoading(true)
-    fetch('http://localhost:3001/admin/materials',{ method: 'GET' })
+    fetch(`${process.env.REACT_APP_API_URL}/admin/materials`,
+      { 
+        method: 'GET', 
+        headers: { 'Authorization': `Bearer ${token}` } 
+      })
       .then(res => res.json())
       .then(data => {setMaterials(data); setLoading(false)})
       .catch(err => console.error('Error fetching materials:', err));
@@ -45,15 +50,18 @@ export default function AdminMaterials() {
 
      const { name, basePrice, description,  color, isNew, materialType, pricePerCm3  } = form;
 
-    fetch('http://localhost:3001/admin/materials', {
+    fetch(`${process.env.REACT_APP_API_URL}/admin/materials`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
       body: JSON.stringify({ name, basePrice, description,  color, isNew, materialType, pricePerCm3  }),
     })
       .then(res => res.json())
       .then(() => {
         // Refresh the materials list
-        return fetch('http://localhost:3001/admin/materials');
+        return fetch(`${process.env.REACT_APP_API_URL}/admin/materials`);
       })
       .then(res => res.json())
       .then(data => {
@@ -63,10 +71,14 @@ export default function AdminMaterials() {
       .catch(err => console.error('Error adding material:', err));
   };
 
-  const deleteMaterial = (id) => {
-    console.log(id);
-    
-    fetch(`http://localhost:3001/admin/materials/${id}`, { method: 'DELETE' })
+  const deleteMaterial = (id) => {    
+    fetch(`${process.env.REACT_APP_API_URL}/admin/materials/${id}`, 
+      { method: 'DELETE', 
+        headers: 
+        {
+          'Authorization': `Bearer ${token}`,
+        } 
+      })
       .then(() => setMaterials(materials.filter(m => m.id !== id)))
       .catch(err => console.error('Error deleting material:', err));
   };
@@ -92,16 +104,21 @@ export default function AdminMaterials() {
   
     if (editingId) {
       // UPDATE
-      fetch(`http://localhost:3001/admin/materials/${editingId}`, {
+      const token = sessionStorage.getItem('token');
+
+      fetch(`${process.env.REACT_APP_API_URL}/admin/materials/${editingId}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
         body: JSON.stringify({ name, basePrice, description, color, isNew, materialType, pricePerCm3 }),
       })
         .then(res => res.json())
         .then(() => {
           setEditingId(null);
           resetForm();
-          return fetch('http://localhost:3001/admin/materials');
+          return fetch(`${process.env.REACT_APP_API_URL}/admin/materials`);
         })
         .then(res => res.json())
         .then(data => setMaterials(data));

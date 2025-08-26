@@ -9,16 +9,32 @@ function AdminPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:3001/benefits", {
+    const token = sessionStorage.getItem('token');
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/benefits`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
+      
       body: JSON.stringify({ Title, Image, Details }),
     });
+    
     if (res.ok) {
+      // get old benefits (if any)
+      const data = await res.json(); // <-- this is your inserted row(s)
+
+      const benefits = JSON.parse(localStorage.getItem("benefits")) || [];
+      const updated = [...benefits, data]; // data is a single object
+      localStorage.setItem("benefits", JSON.stringify(updated));
+    
       alert("تمت الإضافة ✅");
-      setTitle(""); setImage(""); setDetails(""); setImageBase64("");
-    }
-  };
+      setTitle(""); 
+      setImage(""); 
+      setDetails(""); 
+      setImageBase64("");
+      }
+    };
 
   const handleImageChange = (e) => {
     e.preventDefault(); // stops page refresh
@@ -31,7 +47,6 @@ function AdminPage() {
         const base64Only = typeof dataUrl === 'string' ? dataUrl.split(',')[1] : '';
         setImageBase64(base64Only)
         setImage(dataUrl)
-
     };
       reader.readAsDataURL(file);
     }

@@ -5,11 +5,16 @@ function MaterialGrid({ FileExist, onMaterialSelect }) {
   const [printerTypes, setPrinterTypes] = useState([]);
   const [materials, setMaterials] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
+  const token = sessionStorage.getItem('token');
 
   useEffect(() => {
     if (!FileExist) return;
-
-    fetch('http://localhost:3001/admin/materials')
+    fetch(`${process.env.REACT_APP_API_URL}/admin/materials`, {
+      headers:
+      {
+        'Authorization': `Bearer ${token}`,
+      }
+    })
       .then(res => res.json())
       .then(data => {
         setSelectedId(data[0].id)

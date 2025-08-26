@@ -39,10 +39,14 @@ const CheckoutForm = () => {
         customer: form,
         cartItems: cart
       };
+      const token = sessionStorage.getItem('token');
 
-      const res = await fetch("http://localhost:3001/mail/send-order", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/mail/send-order`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`,
+      },
         body: JSON.stringify(orderData) // cart هو اللي عندك في Context
       });
 
@@ -55,15 +59,15 @@ const CheckoutForm = () => {
         setMessage(data?.message);
         setForm({ name: "", phone: "", address: "" }); // تفريغ الفورم
         clearCart(); // مسح الكارت بعد الدفع
-        const saveStlToCloud = await fetch(`http://localhost:3001/supabase/UploadedSTL?id=${id}`, {
+        const saveStlToCloud = await fetch(`${process.env.REACT_APP_API_URL}/supabase/UploadedSTL?id=${id}`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`,
+          },
           body: JSON.stringify(orderData) // cart هو اللي عندك في Context  
-        });
-          console.log("stl");
-          
+        });          
           if(!saveStlToCloud.success){
-          console.log("errorrrrrrr");
           setMessage("فشل في تحفيظ البيانات في السحابة")
         }
       }
@@ -121,7 +125,7 @@ const CheckoutForm = () => {
 //     setLoading(true);
 
 //     try {
-//       const res = await fetch(`http://localhost:3001/Stripe/create-payment-intent`, {
+//       const res = await fetch(``${process.env.REACT_APP_API_URL}/Stripe/create-payment-intent`, {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({ id, amount: Math.round(total * 100) }),

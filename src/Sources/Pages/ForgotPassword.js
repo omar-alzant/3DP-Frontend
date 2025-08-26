@@ -5,15 +5,18 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const token = sessionStorage.getItem('token');
 
   const handleReset = async (e) => {
     e.preventDefault();
-    
+    const token = sessionStorage.getItem('token');
+
     try {
-      const res = await fetch('http://localhost:3001/supabase/ForgotPwd', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/supabase/ForgotPwd`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', // ✅ correct content type
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ email: email.trim() }),
       });

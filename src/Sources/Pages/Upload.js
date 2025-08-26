@@ -65,19 +65,23 @@ function Upload() {
       // const resultDiv = document?.getElementById('result');
       // resultDiv.textContent = '⏳ جارٍ رفع الملف وحساب الحجم...';
       setLoading(true)
+      const token = sessionStorage.getItem('token');
 
-      fetch(`http://localhost:3001/upload?id=${id}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/upload?id=${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/octet-stream',
           'X-Filename': file.name,
+          'Authorization': `Bearer ${token}`,
         },
         body: file,
       })
       .then((res) => res.json())
       .then((data) => {
         const absVolume = Math.abs(data.volume);
-        setFileUrlForStorage(`http://localhost:3001/files/${id}/${data.fileName}`)
+        setFileUrlForStorage(`${process.env.REACT_APP_API_URL}/files/${id}/${data.fileName}`, {
+          headers:{ 'Authorization': `Bearer ${token}`}
+        })
         setVolume(absVolume);
         setFace(validation.facetCount);
         if(selectedMaterial){

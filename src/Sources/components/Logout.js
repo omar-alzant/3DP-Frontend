@@ -5,11 +5,10 @@ const LogoutButton = () => {
     try {
         const email = sessionStorage.getItem("email")?.replace(/^"|"$/g, '');
         const token = sessionStorage.getItem("token");
-        const response = await fetch('http://localhost:3001/supabase/logout', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/supabase/logout`, {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json',
-            },
+            'Content-Type': 'application/json'            },
             // If you need to send cookies/session info, include credentials
             body: JSON.stringify({ email, token}), // ✅ stringify
     });

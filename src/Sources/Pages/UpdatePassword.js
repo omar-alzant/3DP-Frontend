@@ -9,12 +9,14 @@ export default function UpdatePassword() {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+    const token = sessionStorage.getItem('token');
 
     try {
-      const res = await fetch('http://localhost:3001/supabase/updatePwd', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/supabase/updatePwd`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', // ✅ correct content type
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ email, password }), // ✅ stringify
       });

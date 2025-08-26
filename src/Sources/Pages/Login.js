@@ -13,12 +13,11 @@ export default function Login() {
     e.preventDefault();
     sessionStorage.clear();      // Optional: redirect to login page
     setLoading(true)
-    console.log(loading);
     
-    const res = await fetch('http://localhost:3001/supabase/login', {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/supabase/login`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', // ✅ correct content type
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({ email, password }), // ✅ stringify
     });

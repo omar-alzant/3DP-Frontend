@@ -1,7 +1,7 @@
 /* الحاوية الأساسية */
 .admin-container {
   display: flex;
-  height: 90dvh;
+  height: 83dvh;
   min-height: 150px;
   font-family: 'Cairo', sans-serif;
   background: #0077b630;

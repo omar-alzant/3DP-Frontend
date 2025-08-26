@@ -5,9 +5,13 @@
     margin: auto;
     /* background-color: #fdfdfd; */
     background: #0077b630;
-
     color: #333;
     border-radius: 16px;
+    background: url('../Img/Backgrounds/3D\ printing.jfif') left top no-repeat,
+    url('../Img/Backgrounds/3D\ printing.jfif') right top no-repeat;
+    background-size: 200px auto; /* حجم الصور */
+    background-color: #e6f3fc;   /* نفس لون الخلفية */
+
   }
   
   .home-header {

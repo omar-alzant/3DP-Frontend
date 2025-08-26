@@ -1,5 +1,5 @@
 // src/components/Navbar.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import LogoutButton from './Logout';
 import { NavLink } from "react-router-dom";
 // import { Link } from 'react-router-dom';
@@ -8,12 +8,13 @@ import { useCart } from '../context/CartContext'; // 👈 import cart context
 import '../Style/navbar.css';
 
 const Navbar = () => {
-  const token  = sessionStorage.getItem("token");
   let decoded = "";
   let isAdmin = false;
   const [benefits, setBenefits] = useState([]);
   const [current, setCurrent] = useState(0); // الفائدة الحالية
   const [expanded, setExpanded] = useState(false); // 👈 new state
+  const [token, settoken] = useState(sessionStorage.getItem("token") || ""); // 👈 new state
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     // Check if data already exists in localStorage
@@ -21,9 +22,14 @@ const Navbar = () => {
     if (storedBenefits) {
       // Parse and set state from localStorage
       setBenefits(JSON.parse(storedBenefits));
-    } else {
+    } else if(token)
+    {
       // Fetch from API if not in localStorage
-      fetch("http://localhost:3001/benefits")
+      fetch(`${process.env.REACT_APP_API_URL}/benefits`,{
+        headers:{        
+          'Authorization': `Bearer ${token}`,
+      }
+      })
         .then((res) => res.json())
         .then((data) => {
           setBenefits(data);
@@ -33,12 +39,14 @@ const Navbar = () => {
     }
   }, []);
   const nextBenefit = () => {
-    setCurrent((prev) => (prev + 1) % benefits.length);
+    scrollRef.current.scrollBy({ left: 280, behavior: "smooth" });
   };
-
+  
   const prevBenefit = () => {
-    setCurrent((prev) => (prev - 1 + benefits.length) % benefits.length);
+    scrollRef.current.scrollBy({ left: -280, behavior: "smooth" });
   };
+  
+  
   if(token){
     decoded = jwtDecode(token);
     isAdmin = decoded.isAdmin;    
@@ -119,14 +127,25 @@ const Navbar = () => {
     </ul>
   </div>
 
-    <div className="benefits">
+    <div className="benefits" >
       {(benefits !== null && expanded) && 
       (
-        <div className="benefits-section">
+        <div className="benefits-section" ref={scrollRef}>
         <button className="slider-btn left" onClick={prevBenefit}>⬅</button>
         {benefits.map((b, i) => (
           <div key={i} className="benefit-card">
-            <img src={`${b.Image}`} alt={b.Title} className="benefit-image" />
+            {b.Image.startsWith("data:video") ? (
+              <video
+                src={b.Image}
+                className="benefit-image"
+                controls
+                autoPlay={false}
+                loop
+                muted
+              />
+            ) : (
+              <img src={b.Image} alt={b.Title} className="benefit-image" />
+            )}
             <h3 className="benefit-title">{b.Title}</h3>
             <p className="benefit-text">{b.Details}</p>
           </div>
