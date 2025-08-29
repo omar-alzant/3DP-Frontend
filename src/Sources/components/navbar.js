@@ -6,6 +6,31 @@ import { NavLink } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
 import { useCart } from '../context/CartContext'; // 👈 import cart context
 import '../Style/navbar.css';
+import { OrbitControls, useGLTF } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
+
+
+function Logo({ rotationSpeed = 0.004, color = "white" }) {
+  const { scene } = useGLTF("/logo.gltf");
+  const ref = useRef();
+
+  // Rotate every frame
+  useFrame(() => {
+    if (ref.current) {
+      ref.current.rotation.y += rotationSpeed; // rotate around Y axis
+      // ref.current.rotation.x += 0.01; // X axis
+      // ref.current.rotation.z += 0.01; // Z axis
+    }
+  });
+  scene.traverse((child) => {
+    if (child.isMesh) {
+      child.material.color.set(color);
+    }
+  });
+
+  return <primitive ref={ref} object={scene} scale={1} />;
+}
 
 const Navbar = () => {
   let decoded = "";
@@ -56,7 +81,15 @@ const Navbar = () => {
   <nav className="nav-container">
     <div className="navbar">
       <div className="nav-links">
-        <h2 className="logo">3D Studio</h2>
+      <Canvas style={{width: "300px", height: "90px"}} camera={{ position: [5, 5, 10] }}>
+      <ambientLight intensity={0.9} />
+      <directionalLight position={[10, 2, 2]} />
+      <Logo />
+      <OrbitControls />
+    </Canvas>
+
+        {/* <img src="../Img/logo512.jpg" alt="logo" /> */}
+        {/* <h2 className="logo">3D Studio</h2> */}
       </div>
 
     <ul className="nav-links">
@@ -128,26 +161,20 @@ const Navbar = () => {
       {(benefits !== null && expanded) && 
       (
         <div className="benefits-section" ref={scrollRef}>
-        <button className="slider-btn left" onClick={prevBenefit}>⬅</button>
+        {/* <button className="slider-btn left" onClick={prevBenefit}>⬅</button> */}
         {benefits.map((b, i) => (
+          b.display && 
           <div key={i} className="benefit-card">
-            {b.Image.startsWith("data:video") ? (
-              <video
-                src={b.Image}
-                className="benefit-image"
-                controls
-                autoPlay={false}
-                loop
-                muted
-              />
-            ) : (
+            {b.Image ?
               <img src={b.Image} alt={b.Title} className="benefit-image" />
-            )}
+              :
+              <img src={"/favicon.jpg"} alt={b.Title} className="benefit-image" />
+            }
             <h3 className="benefit-title">{b.Title}</h3>
             <p className="benefit-text">{b.Details}</p>
           </div>
         ))}
-          <button className="slider-btn right" onClick={nextBenefit}>➡</button>
+          {/* <button className="slider-btn right" onClick={nextBenefit}>➡</button> */}
         </div>
       )}
     </div>  

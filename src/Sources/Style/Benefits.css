@@ -85,3 +85,88 @@
     border: 1px solid #ddd;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
+
+  
+.benefit-list {
+  list-style: none;
+  direction: rtl;
+  padding: 0;
+  margin: 0;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  border: 2px dashed #4caf50;
+  border-radius: 12px;
+  background-color: #f0fff0;
+  gap: 15px;
+}
+
+.benefit-item:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+
+}
+
+.benefit-item h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.benefit-item p {
+  margin: 4px 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.benefit-thumb {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+/* Action Buttons */
+.edit-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ffc107;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.delete-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ff4d4f;
+  color: #fff;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.checkboxLabel{
+  display: flex;
+  align-items: center;
+  grid-column: span 2;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+  
+.btns{
+  display:  flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

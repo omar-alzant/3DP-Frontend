@@ -5,17 +5,28 @@
   justify-content: center;
   align-items: center;
   max-height: 100dvh;
-  min-height: 80dvh;
-  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  min-height: 75dvh;
+  background: #3134f4;
+  /* background: linear-gradient(135deg, #3134f4, #06b5d4); */
   padding: 20px;
   font-family: 'Cairo', sans-serif;
   border-radius: 16px;
 
 }
-
+.login-svg {
+  width: auto;
+  height: auto;
+  margin: 10px 0;
+  border-radius: 1%;
+}
 /* === Card === */
 .auth-card {
-  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: #B0D7FF;
   padding: 2.5rem;
   border-radius: 16px;
   box-shadow: 0 10px 28px rgba(0,0,0,0.12);
@@ -29,12 +40,13 @@
   transform: translateY(-4px);
 }
 
-.auth-card h2 {
+.auth-container h2 {
   text-align: center;
-  margin-bottom: 1.5rem;
-  color: #1e293b;
+  color: #ffffffea;
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 500;
+  padding: 0;
+  margin: 0;
 }
 
 /* === Inputs === */
@@ -45,7 +57,7 @@
   border-radius: 10px;
   border: 1px solid #e2e8f0;
   font-size: 15px;
-  background: #f9fafb;
+  background: #f9fafb7e;
   transition: all 0.3s ease;
 }
 
@@ -78,11 +90,11 @@
 }
 
 /* === Links === */
-.auth-card p {
+p {
   text-align: center;
   font-size: 14px;
-  color: #475569;
-  margin-top: 1rem;
+  color: #8c939e;
+  margin-top: 5px;
 }
 
 .auth-card a {

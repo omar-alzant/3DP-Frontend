@@ -23,13 +23,17 @@
   height: 50px;
 }
 
-
+.benefits{
+  display: flex;
+  flex-wrap: nowrap;
+  max-width: 100dvw;
+  overflow-x: auto;
+}
 
   /* قسم الفوائد */
   .benefits-section {
     position: relative;
     display: flex;
-    position: relative;
     justify-content: center;
     gap: 5px;
     /* padding: 30px 15px; */
@@ -41,11 +45,14 @@
   
   /* كرت الفائدة */
   .benefit-card {
-    background: #fff;
+    border: 2px dashed #4caf50;
+    border-radius: 12px;
+    background-color: #f0fff0d6;
     border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.398);
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.398);
     padding: 5px;
-    max-width: 260px;
+    max-width: 200px;
+    min-width: 160px;
     text-align: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: default;
@@ -58,8 +65,8 @@
   
   /* صورة */
   .benefit-image {
-    width: 100px;
-    height: 100px;
+    max-width: 120px;
+    max-height: 120px;
     border-radius: 20%;
     object-fit: contain;
   }
@@ -175,4 +182,12 @@
   top: -6px;
   right: -10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+
+.login-svg {
+  width: auto;
+  height: 50px;
+  margin: 10px 0;
+  border-radius: 1%;
 }

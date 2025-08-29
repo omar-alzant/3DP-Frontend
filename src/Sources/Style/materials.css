@@ -29,6 +29,11 @@
     border: 2px solid #007bff;
     background-color: #eef6ff;
   }
+
+  .materialItem:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  }
     
   .badge {
     position: absolute;
@@ -80,7 +85,21 @@
     align-items: center;
     height: 100%; /* adjust depending on usage */
   }
+  .spinner {
+    border: 6px solid #3498db;
+    border-top: 6px solid #f3f3f3 ;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    animation: spin 0.1s linear infinite;
+    }
   
+    .btn-edit-delete{
+      display:  flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: end;
+    }
   
   @keyframes spin {
     0% { transform: rotate(0deg); }

@@ -16,7 +16,7 @@ function Upload() {
   const [fileName, setFileName] = useState('لم يتم اختيار ملف بعد');
   const [warningMsg, setWarningMsg] = useState('');
   const [wireframe, setwireframe] = useState(true);
-  const [setUploadMessage] = useState("");
+  const [UploadMessage, setUploadMessage] = useState("");
   const [selectedMaterial, setSelectedMaterial] = useState(null);
   const [Volume, setVolume] = useState(0);
   const [Face, setFace] = useState(null);
@@ -64,9 +64,9 @@ function Upload() {
 
       // const resultDiv = document?.getElementById('result');
       // resultDiv.textContent = '⏳ جارٍ رفع الملف وحساب الحجم...';
-      setLoading(true)
       const token = sessionStorage.getItem('token');
-
+      
+      setLoading(true)
       fetch(`${process.env.REACT_APP_API_URL}/upload?id=${id}`, {
         method: 'POST',
         headers: {
@@ -92,7 +92,6 @@ function Upload() {
               absVolume * selectedMaterial.pricePerCm3,
             facets: validation.facetCount,
           });
-          setLoading(false);
         }
       })
         .catch((err) => {
@@ -130,7 +129,7 @@ function Upload() {
   };
   
   return (
-    <div className="container">
+    <div className="upload-container">
       <div className='viewer-result'>
         <Viewer className="viewer" fileUrl={fileUrl} wireframe={wireframe} />
         {result && (
@@ -139,6 +138,7 @@ function Upload() {
             <p>{result.error}</p>
           ) : (
             <>
+              <p>📦 <strong>الاسم:</strong> {fileName} </p>
               <p>📦 <strong>الحجم:</strong> {result.volume} سم³</p>
               <p >💰 <strong>السعر التقديري:</strong> $ {result.price}</p>
               <p>📊 <strong>عدد الوجوه:</strong> {result.facets}</p>
@@ -159,24 +159,8 @@ function Upload() {
                   } 
                 } />
 
-                {/* <input 
-                  type="number" 
-                  min="1" 
-                  value={quantity} 
-                  onChange={(e) => {
-                    const q = parseInt(e.target.value) || 1;
-                    setQuantity(q);
-                    if(result){
-                      setResult({ ...result, quantity: q }); // update quantity in result
-                      console.log(q);
-                      
-                    }
-                  }}
-                  style={{ width: "60px", marginLeft: "10px" }}
-                /> */}
               </div>
-              <button onClick={() => addToCart(result)}>
-                
+              <button className='btn-add' onClick={() => addToCart(result)}>
         ➕ إضافة إلى الصندوق
       </button>
 
@@ -190,14 +174,15 @@ function Upload() {
           <h2>🧊 STL Viewer</h2>
           <div className="upload-box">
             {/* <input type="file" id="fileInput" class="file-input" /> */}
-            <input type="file" id="fileInput" accept=".stl" onChange={handleFileUpload} ref={inputRef} hidden={true}/>
-            <label htmlFor="fileInput" className="file-label">📂 اختر ملف STL</label>
-            <span className="file-name">{fileName}</span>
-            {warningMsg && (
-              <span className="warning-msg" style={{ color: 'red' }}>
-                {warningMsg}
-              </span>
-            )}
+            <div>
+              <input type="file" id="fileInput" accept=".stl" onChange={handleFileUpload} ref={inputRef} hidden={true}/>
+              <label htmlFor="fileInput" className="file-label">📂 اختر ملف STL</label>
+              {warningMsg && (
+                <span className="warning-msg" style={{ color: 'red' }}>
+                  {warningMsg}
+                </span>
+              )}
+            </div>
           { fileUrl !== null && 
           (
             <>

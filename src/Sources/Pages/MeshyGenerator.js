@@ -5,10 +5,9 @@ function MeshyGenerator() {
   const [prompt, setPrompt] = useState('');
   const [ThumbnalMeshy, setThumbnalMeshy] = useState(null);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const [setValidationError] = useState(null);
   const [Progress, setProgress] = useState(0);
   const [DownloadProgress, setDownloadProgress] = useState(0);
-  const [setStatus] = useState(0);
+  const [Status, setStatus] = useState(0);
   const [loading, setLoading] = useState(false);
   const [TaskId, setTaskId] = useState("");
   const [error, setError] = useState(null);
@@ -64,7 +63,7 @@ function MeshyGenerator() {
           
           finished = true;
         } else if (["FAILED", "CANCELED"].includes(checkData.status)) {
-          setValidationError(`Task ${checkData.status}`);
+          // setValidationError(`Task ${checkData.status}`);
           finished = true;
         } else {
           // Small delay to avoid hammering server
@@ -75,7 +74,7 @@ function MeshyGenerator() {
       clearTimeout(timeoutId);
     } catch (error) {
       console.error("Error generating STL:", error);
-      setValidationError(`Generation error: ${error.message}`);
+      // setValidationError(`Generation error: ${error.message}`);
       clearTimeout(timeoutId);
     }
   };
@@ -229,7 +228,7 @@ useEffect(() => {
         >
           {loading ? (
             <>
-              جاري التنزيل... ({DownloadProgress}%)
+              تحضير الملف... ({DownloadProgress}%)
               <span className="spinner-small" />
             </>
           ) : (

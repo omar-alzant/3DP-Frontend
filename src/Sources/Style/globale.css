@@ -9,6 +9,7 @@ body {
   border-radius: 16px;
   box-shadow: 0 0 30px rgba(59, 33, 33, 0.1);
   -moz-osx-font-smoothing: grayscale;
+  direction: rtl;
 }
 
 code {
@@ -38,4 +39,45 @@ textarea:focus, input:focus {
   background: #fff;
   outline: none;
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 40px;
+  border: 2px dashed #4caf50;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #777;
+  bottom: 0;
+}
+
+.btns-social{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.btn-social{
+  background-color: transparent;
+  margin-top: 0;
+  cursor: pointer;
+}
+
+.btn-insta:hover{
+  background-color:#b600a445;
+}
+.btn-mail:hover{
+  background-color:#647d8a45;
+}
+.btn-mess:hover{
+  background-color:#0076b645;
+}
+.btn-whats:hover{
+  background-color:#06b60045;
 }

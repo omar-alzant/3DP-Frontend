@@ -18,6 +18,7 @@ import AdminLayout from './Sources/layouts/AdminLayout';
 
 import CartPage from "./Sources/Pages/CartPage";
 import { CartProvider } from "./Sources/context/CartContext";
+import AdminHome from './Sources/Pages/AdminHome';
 
 export default function AppRoutes() {
 
@@ -40,6 +41,7 @@ export default function AppRoutes() {
           <Route index element={<Navigate to="materials" replace />} />
           <Route path="materials" element={<AdminMaterials />} />
           <Route path="benefits" element={<AdminBenefits />} />
+          <Route path="home" element={<AdminHome />} />
         </Route>
         
         <Route path="/cart" element={<MainLayout><CartPage /></MainLayout>} />

@@ -56,6 +56,10 @@
   background-color: #10b981;
 }
 
+.active-home {
+  background-color: #b9a210;
+}
+
 /* منطقة المحتوى */
 .admin-content {
   flex: 1;

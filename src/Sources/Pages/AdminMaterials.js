@@ -19,17 +19,18 @@ export default function AdminMaterials() {
   });
 
   useEffect(() => {
-    setLoading(true);
-  
+    
     const fetchMaterials = async () => {
+      setLoading(true);
       try {
         const res = await fetch(`${process.env.REACT_APP_API_URL}/admin/materials`, {
           method: 'GET',
           headers: { 'Authorization': `Bearer ${token}` },
         });
         const data = await res.json();
-        setMaterials(data);
-      } catch (err) {
+        console.log("Materials API response:", data);
+        setMaterials(Array.isArray(data) ? data : []);
+              } catch (err) {
         console.error('Error fetching materials:', err);
       } finally {
         setLoading(false);
@@ -69,7 +70,12 @@ export default function AdminMaterials() {
       .then(res => res.json())
       .then(() => {
         // Refresh the materials list
-        return fetch(`${process.env.REACT_APP_API_URL}/admin/materials`);
+        return fetch(`${process.env.REACT_APP_API_URL}/admin/materials`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+
+          }
+        });
       })
       .then(res => res.json())
       .then(data => {
@@ -145,120 +151,120 @@ export default function AdminMaterials() {
     <div style={styles.container}>
     <h2 style={styles.heading}>إدارة مواد الطباعة</h2>
     <form onSubmit={handleSubmit} style={styles.formGrid}>
-  <label style={styles.label}>
-    الإسم
-    <input
-      id="name"
-      required
-      placeholder="الإسم"
-      type="text"
-      value={form.name}
-      onChange={e => setForm({ ...form, name: e.target.value })}
-      style={styles.input}
-    />
-  </label>
+      <label style={styles.label}>
+        الإسم
+        <input
+          id="name"
+          required
+          placeholder="الإسم"
+          type="text"
+          value={form.name}
+          onChange={e => setForm({ ...form, name: e.target.value })}
+          style={styles.input}
+        />
+      </label>
 
-  <label style={styles.label}>
-    النوع
-    <input
-      id="materialType"
-      required
-      placeholder="النوع"
-      type="text"
-      value={form.materialType}
-      onChange={e => setForm({ ...form, materialType: e.target.value })}
-      style={styles.input}
-    />
-  </label>
+      <label style={styles.label}>
+        النوع
+        <input
+          id="materialType"
+          required
+          placeholder="النوع"
+          type="text"
+          value={form.materialType}
+          onChange={e => setForm({ ...form, materialType: e.target.value })}
+          style={styles.input}
+        />
+      </label>
 
-  <label style={styles.label}>
-    السعر الأولي
-    <input
-      id="basePrice"
-      required
-      placeholder="السعر الأولي"
-      type="number"
-      value={form.basePrice}
-      onChange={e => setForm({ ...form, basePrice: parseFloat(e.target.value) })}
-      style={styles.input}
-    />
-  </label>
+      <label style={styles.label}>
+        السعر الأولي
+        <input
+          id="basePrice"
+          required
+          placeholder="السعر الأولي"
+          type="number"
+          value={form.basePrice}
+          onChange={e => setForm({ ...form, basePrice: parseFloat(e.target.value) })}
+          style={styles.input}
+        />
+      </label>
 
-  <label style={styles.label}>
-    السعر/cm³
-    <input
-      id="pricePerCm3"
-      required
-      placeholder="السعر/cm³"
-      type="number"
-      value={form.pricePerCm3}
-      onChange={e => setForm({ ...form, pricePerCm3: parseFloat(e.target.value) })}
-      style={styles.input}
-    />
-  </label>
+      <label style={styles.label}>
+        السعر/cm³
+        <input
+          id="pricePerCm3"
+          required
+          placeholder="السعر/cm³"
+          type="number"
+          value={form.pricePerCm3}
+          onChange={e => setForm({ ...form, pricePerCm3: parseFloat(e.target.value) })}
+          style={styles.input}
+        />
+      </label>
 
-  <label style={{ ...styles.label, gridColumn: 'span 2' }}>
-    تفاصيل 
-    <textarea
-      id="description"
-      required
-      rows={3}
-      placeholder="تفاصيل"
-      value={form.description}
-      onChange={e => setForm({ ...form, description: e.target.value })}
-      style={{ ...styles.input, resize: 'vertical' }}
-    />
-  </label>
+      <label style={{ ...styles.label, gridColumn: 'span 2' }}>
+        تفاصيل 
+        <textarea
+          id="description"
+          required
+          rows={3}
+          placeholder="تفاصيل"
+          value={form.description}
+          onChange={e => setForm({ ...form, description: e.target.value })}
+          style={{ ...styles.input, resize: 'vertical' }}
+        />
+      </label>
 
-  <label style={{ ...styles.label, gridColumn: 'span 2' }}>
-  📤 ارفع صورة
-    <div style={styles.imageContainer}>
-      <input 
-        id="imageUpload"         
-        type="file"
-        hidden={true} 
-        accept="image/*" 
-        onChange={handleImageChange} 
-      />
-      {form.imgPreview && (
-        <img src={form.imgPreview} alt="preview" style={styles.previewImage} />
+      <label style={{ ...styles.label, gridColumn: 'span 2' }}>
+      📤 ارفع صورة
+        <div style={styles.imageContainer}>
+          <input 
+            id="imageUpload"         
+            type="file"
+            hidden={true} 
+            accept="image/*" 
+            onChange={handleImageChange} 
+          />
+          {form.imgPreview && (
+            <img src={form.imgPreview} alt="preview" style={styles.previewImage} />
+          )}
+        </div>
+      </label>
+
+      <label style={styles.checkboxLabel}>
+        <input
+          id="isNew"
+          type="checkbox"
+          checked={form.isNew}
+          onChange={e => setForm({ ...form, isNew: e.target.checked })}
+        />{' '}
+        جديد
+      </label>
+
+      <button type='submit' style={styles.addButton}>
+        {editingId ? 'عدل العنصر' : 'أضف عنصر'}
+      </button>
+
+      {editingId && (
+        <button type="button" onClick={resetForm} style={styles.cancelButton}>
+          Cancel
+        </button>
       )}
-    </div>
-  </label>
-
-  <label style={styles.checkboxLabel}>
-    <input
-      id="isNew"
-      type="checkbox"
-      checked={form.isNew}
-      onChange={e => setForm({ ...form, isNew: e.target.checked })}
-    />{' '}
-    جديد
-  </label>
-
-  <button type='submit' style={styles.addButton}>
-    {editingId ? 'عدل العنصر' : 'أضف عنصر'}
-  </button>
-
-  {editingId && (
-    <button type="button" onClick={resetForm} style={styles.cancelButton}>
-      Cancel
-    </button>
-  )}
     </form>
 
 
 {/* *************************** All Existed materials list *************************** */}
     {loading 
     ?
-    <span className="spinner" />
+    <p>⏳ جارٍ التحميل...</p>
     :
     (
       <>
-    {(materials) &&
+    {(Array.isArray(materials)) &&
     (<ul style={styles.materialList}>
       {materials.map(m => (
-        <li key={m.id} style={styles.materialItem}>
+        <li key={m.id} className='materialItem' style={styles.materialItem}>
           <div >
             {m.isNew &&  <div style={styles.badge}>جديد</div>}
             {m.color ? 
@@ -270,7 +276,7 @@ export default function AdminMaterials() {
               }
             </div>
           {m.materialType}   -   {m.name} — ${m.basePrice} + ${m.pricePerCm3}/cm³ 
-          <div>
+          <div className='btn-edit-delete'>
             <button 
               style={styles.editButton} 
               onClick={() => startEditing(m)}
@@ -418,9 +424,11 @@ export default function AdminMaterials() {
       alignItems: 'center',
       padding: '12px 15px',
       borderBottom: '1px solid #eee',
-      borderRadius: '6px',
       marginBottom: '8px',
-      backgroundColor: '#f9f9f9',
+      border: '2px dashed #4caf50',
+      borderRadius: '12px',
+      backgroundColor: '#f0fff0'
+      
     },
     deleteButton: {
       fontFamily: "Cairo",

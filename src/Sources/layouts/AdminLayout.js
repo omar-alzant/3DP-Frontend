@@ -14,6 +14,9 @@ function AdminLayout() {
         <Link to="benefits" className={`admin-link ${location.pathname.includes("benefits") ? "active-benefits" : ""}`}>
           الفوائد
         </Link>
+        <Link to="Home" className={`admin-link ${location.pathname.includes("Home") ? "active-home" : ""}`}>
+          الرئيسية
+        </Link>
       </div>
   
       <div className="admin-content">

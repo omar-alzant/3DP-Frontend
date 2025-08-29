@@ -59,7 +59,7 @@ const CheckoutForm = () => {
         setMessage(data?.message);
         setForm({ name: "", phone: "", address: "" }); // تفريغ الفورم
         clearCart(); // مسح الكارت بعد الدفع
-        const saveStlToCloud = await fetch(`${process.env.REACT_APP_API_URL}/supabase/UploadedSTL?id=${id}`, {
+        const saveStlToCloud = await fetch(`${process.env.REACT_APP_API_URL}/supabase/UploadedSTL`, {
           method: "POST",
           headers: { 
             "Content-Type": "application/json",

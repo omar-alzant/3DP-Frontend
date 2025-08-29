@@ -2,30 +2,38 @@ import React, { useEffect, useState } from "react";
 import '../Style/materials.css';
 
 function MaterialGrid({ FileExist, onMaterialSelect }) {
-  const [printerTypes, setPrinterTypes] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
+  const [materials, setMaterials] = useState(() => {
+    const saved = localStorage.getItem('materials');
+    return saved ? JSON.parse(saved) : null; // ✅ parse JSON
+  });
+  
   const token = sessionStorage.getItem('token');
-
+  
   useEffect(() => {
-    if (!FileExist) return;
+    // ✅ if file doesn’t exist OR we already have materials → do nothing
+    if (!FileExist || (materials && materials.length > 0)) return;
   
     fetch(`${process.env.REACT_APP_API_URL}/admin/materials`, {
-      headers: { 'Authorization': `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}` },
     })
       .then(res => res.json())
       .then(data => {
-        setSelectedId(data[0].id);
-        setPrinterTypes(data);
+        if (data?.length) {
+          setSelectedId(data[0].id);
+          setMaterials(data);
+          localStorage.setItem('materials', JSON.stringify(data)); // ✅ save it
+        }
       })
       .catch(err => console.error('Error fetching materials:', err));
-  }, [FileExist, token]); // ✅ include token
-  
+  }, [FileExist, token, materials]);
+    
 
-  if (!FileExist || printerTypes.length === 0 || printerTypes === null) return null;
+  if (!FileExist || materials.length === 0 || materials === null) return null;
 
   return (
     <div className="grid-container">
-      {(printerTypes.length !== 0 && printerTypes !== null ) && (printerTypes?.map((item, idx) => (
+      {(materials.length !== 0 && materials !== null ) && (materials?.map((item, idx) => (
         <div 
         onClick={() => {
           setSelectedId(item.id);
