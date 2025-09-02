@@ -12,7 +12,7 @@ function MaterialGrid({ FileExist, onMaterialSelect }) {
   
   useEffect(() => {
     // ✅ if file doesn’t exist OR we already have materials → do nothing
-    if (!FileExist || (materials && materials.length > 0)) return;
+    if (!FileExist || (Array.isArray(materials))) return;
   
     fetch(`${process.env.REACT_APP_API_URL}/admin/materials`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -29,11 +29,11 @@ function MaterialGrid({ FileExist, onMaterialSelect }) {
   }, [FileExist, token, materials]);
     
 
-  if (!FileExist || materials.length === 0 || materials === null) return null;
+  if (!FileExist || !Array.isArray(materials) || materials === null) return null;
 
   return (
     <div className="grid-container">
-      {(materials.length !== 0 && materials !== null ) && (materials?.map((item, idx) => (
+      {(Array.isArray(materials) && materials !== null ) && (materials?.map((item, idx) => (
         <div 
         onClick={() => {
           setSelectedId(item.id);

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import "../Style/Auth.css";
-import { ReactComponent as Logo } from '../../logo.svg';
+// import { ReactComponent as Logo } from '../../logo.svg';
+
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -27,6 +28,7 @@ export default function Login() {
     
     if (error) {
       setError(error)
+      setLoading(false)
     }
     else {
       sessionStorage.setItem("email", JSON.stringify(data.user.email))
@@ -42,7 +44,8 @@ export default function Login() {
   return (
     <div className="auth-container">
       <h2>Login To</h2>
-      <Logo className="login-svg" />
+      <img src='/logo.jpg' alt='logo' className='login-svg' />
+      {/* <Logo className="login-svg" /> */}
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form className="auth-card" onSubmit={handleLogin}>
         <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />

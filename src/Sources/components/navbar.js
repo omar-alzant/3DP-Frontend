@@ -37,6 +37,7 @@ const Navbar = () => {
   let isAdmin = false;
   const [benefits, setBenefits] = useState([]);
   const [expanded, setExpanded] = useState(false); // 👈 new state
+  const [Expand, setExpand] = useState(true); // 👈 new state
   const [token] = useState(sessionStorage.getItem("token") || ""); // 👈 new state
   const scrollRef = useRef(null);
 
@@ -59,125 +60,129 @@ const Navbar = () => {
     else if (token) fetchBenefits();
   }, [token]); // ✅ no ESLint warning now
   
-
-  const nextBenefit = () => {
-    scrollRef.current.scrollBy({ left: 280, behavior: "smooth" });
-  };
-  
-  const prevBenefit = () => {
-    scrollRef.current.scrollBy({ left: -280, behavior: "smooth" });
-  };
-  
-  
   if(token){
     decoded = jwtDecode(token);
     isAdmin = decoded.isAdmin;    
   }
-  
+
+
   const { cart } = useCart();       // 👈 get cart items
   const totalItems = cart.length;   // if you want quantities: cart.reduce((sum,i)=>sum+i.quantity,0)
-
+  const collapseNavBar = () => { setExpand(false)} 
   return (
   <nav className="nav-container">
-    <div className="navbar">
-      <div className="nav-links">
-      <Canvas style={{width: "300px", height: "90px"}} camera={{ position: [5, 5, 10] }}>
-      <ambientLight intensity={0.9} />
-      <directionalLight position={[10, 2, 2]} />
-      <Logo />
-      <OrbitControls />
-    </Canvas>
-
-        {/* <img src="../Img/logo512.jpg" alt="logo" /> */}
-        {/* <h2 className="logo">3D Studio</h2> */}
-      </div>
-
-    <ul className="nav-links">
-      <li>
-        <NavLink 
-          to="/" 
-          className={({ isActive }) => isActive ? "active-link" : ""}
-        >
-          الرئيسية
-        </NavLink>
-      </li>
-
-      <li>
-        <NavLink 
-          to="/upload" 
-          className={({ isActive }) => isActive ? "active-link" : ""}
-        >
-          رفع ملف
-        </NavLink>
-      </li>
-
-      <li>
-        <NavLink 
-          to="/OpenAIGenerator" 
-          className={({ isActive }) => isActive ? "active-link" : ""}
-        >
-          إنشاء تصاميم
-        </NavLink>
-      </li>
-
-      {isAdmin && (
-        <li>
-          <NavLink 
-            to="/admin" 
-            className={({ isActive }) => isActive ? "active-link" : ""}
-          >
-            الإدارة
-          </NavLink>
-        </li>
-      )}
-
-      <li>
-        <NavLink 
-          to="/cart" 
-          className={({ isActive }) => isActive ? "active-link nav-link" : "nav-link"}
-          style={{ position: 'relative' }}
-        >
-          {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
-          الصندوق
-        </NavLink>
-      </li>
-
-      <li>
-        <LogoutButton />
-      </li>
-
-      <li>
-        <button 
-          className="expand-btn" 
-          onClick={() => setExpanded(!expanded)}
-        >
-          {expanded ? "إخفاء الفوائد ⬆" : "عرض الفوائد ⬇"}
-        </button>
-      </li>
-    </ul>
-  </div>
-
-    <div className="benefits" >
-      {(benefits !== null && expanded) && 
-      (
-        <div className="benefits-section" ref={scrollRef}>
-        {/* <button className="slider-btn left" onClick={prevBenefit}>⬅</button> */}
-        {benefits.map((b, i) => (
-          b.display && 
-          <div key={i} className="benefit-card">
-            {b.Image ?
-              <img src={b.Image} alt={b.Title} className="benefit-image" />
-              :
-              <img src={"/favicon.jpg"} alt={b.Title} className="benefit-image" />
-            }
-            <h3 className="benefit-title">{b.Title}</h3>
-            <p className="benefit-text">{b.Details}</p>
+    {
+      Expand &&
+      <>
+        <div className="navbar">
+          <div>
+            <Canvas style={{ height: "90px"}} camera={{ position: [5, 5, 10] }}>
+              <ambientLight intensity={0.9} />
+              <directionalLight position={[10, 2, 2]} />
+              <Logo />
+              <OrbitControls />
+            </Canvas>
           </div>
-        ))}
-          {/* <button className="slider-btn right" onClick={nextBenefit}>➡</button> */}
-        </div>
-      )}
-    </div>  
+        <ul className="nav-links">
+          <li>
+            <NavLink 
+              to="/" 
+              className={({ isActive }) => isActive ? "active-link" : ""}
+            onClick={collapseNavBar}
+           >
+              الرئيسية
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink 
+              to="/upload" 
+              className={({ isActive }) => isActive ? "active-link" : ""}
+              onClick={collapseNavBar}
+
+            >
+              رفع ملف
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink 
+              to="/OpenAIGenerator" 
+              className={({ isActive }) => isActive ? "active-link" : ""}
+              onClick={collapseNavBar}
+
+            >
+              إنشاء تصاميم
+            </NavLink>
+          </li>
+
+          {isAdmin && (
+            <li>
+              <NavLink 
+                to="/admin" 
+                className={({ isActive }) => isActive ? "active-link" : ""}
+                onClick={collapseNavBar}
+
+              >
+                الإدارة
+              </NavLink>
+            </li>
+          )}
+
+          <li>
+            <NavLink 
+              to="/cart" 
+              className={({ isActive }) => isActive ? "active-link nav-link" : "nav-link"}
+              onClick={collapseNavBar}
+              style={{ position: 'relative' }}
+            >
+              {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
+              الصندوق
+            </NavLink>
+          </li>
+
+          <li>
+            <LogoutButton />
+          </li>
+
+          <li>
+            <button 
+              className="expand-btn" 
+              onClick={() => setExpanded(!expanded)}
+            >
+              {expanded ? "إخفاء الفوائد ⬆" : "عرض الفوائد ⬇"}
+            </button>
+          </li>
+        </ul>
+          </div>
+
+
+        <div className="benefits" >
+          {(Array.isArray(benefits) && expanded) && 
+          (
+            <div className="benefits-section" ref={scrollRef}>
+            {/* <button className="slider-btn left" onClick={prevBenefit}>⬅</button> */}
+            {benefits.map((b, i) => (
+              b.display && 
+              <div key={i} className="benefit-card">
+                {b.Image ?
+                  <img src={b.Image} alt={b.Title} className="benefit-image" />
+                  :
+                  <img src={"/favicon.jpg"} alt={b.Title} className="benefit-image" />
+                }
+                <h3 className="benefit-title">{b.Title}</h3>
+                <p className="benefit-text">{b.Details}</p>
+              </div>
+            ))}
+              {/* <button className="slider-btn right" onClick={nextBenefit}>➡</button> */}
+            </div>
+          )}
+        </div>  
+      </>
+    }
+    <button className="btn-expand" onClick={() => {setExpand(!Expand)}}>
+      ☰
+    </button>
 </nav>
   );
 };

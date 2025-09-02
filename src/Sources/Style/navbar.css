@@ -1,18 +1,21 @@
 /* src/components/Navbar.css */
-.nav-ontainer{
-  position: relative;
+.nav-container{
+  /* position: relative; */
+  /* position: sticky; */
   display: flex;
   flex-direction: column;
   z-index: 1000;
   height: 50px;
-  position: sticky; /* stays on top when scrolling */
-  font-family: "Cairo";
-  top: 0;
+  font-family: 'Cairo';
+  justify-content: center;
+  /* top: 0; */
+  align-items: center;
+  width: 99dvw;
 }
 
 .navbar {
   display: flex;
-  font-family: "Cairo";
+  font-family: 'Cairo';
   justify-content: space-between;
   align-items: center;
   background-color: #0077b6; /* unify with your theme color */
@@ -86,17 +89,6 @@
     line-height: 1.5;
   }
   
-    
-    @media (max-width: 600px) {
-      .home-container {
-        padding: 15px;
-      }
-      
-      .home-header h1 {
-        font-size: 1.8rem;
-      }
-    }
-  
     /* الأزرار */
   .slider-btn {
     position: absolute;
@@ -137,6 +129,7 @@
   list-style: none;
   display: flex;
   gap: 24px;
+  align-items: self-end;
 }
 
 .nav-links a {
@@ -190,4 +183,162 @@
   height: 50px;
   margin: 10px 0;
   border-radius: 1%;
+}
+.nav-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-expand{
+  display: none;
+}
+
+/* === Responsive Navbar & Benefits === */
+
+/* Tablets (<= 1024px) */
+/* @media (max-width: 1024px) {
+
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: auto;
+    align-items: flex-start;
+    overflow-x: auto;
+    padding: 10px 16px;
+    max-width: 900px;
+
+  }
+
+  .nav-links {
+    gap: 16px;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+  }
+
+  .benefit-card {
+    max-width: 180px;
+    min-width: 150px;
+  }
+
+  .benefit-image {
+    max-width: 100px;
+    max-height: 100px;
+  }
+} */
+
+/* Smartphones (<= 768px) */
+@media (max-width: 1200px) {
+  .nav-container{
+    /* position: relative; */
+    display: flex;
+    height: 100%;
+  }
+
+  .btn-expand{
+    display: block;
+  }
+
+  .navbar {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    flex-wrap: no-wrap;
+    height: auto;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 10px 12px;
+    width: 100%;
+    justify-content: space-around;
+}
+
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    padding: 4px 8px;
+  }
+
+  .login-svg {
+    height: 40px;
+    margin: 6px 0;
+  }
+
+  /* Benefits Section */
+  .benefits-section {
+    /* flex-direction: column; */
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .benefits {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    gap: 8px;
+  }
+
+  .benefit-card {
+    display: flex;
+    min-width: 140px;
+    max-width: 160px;
+    padding: 8px;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+  }
+
+  .benefit-title {
+    font-size: 16px;
+  }
+
+  .benefit-text {
+    font-size: 13px;
+  }
+}
+
+/* Extra Small Screens (<= 480px) */
+@media (max-width: 480px) {
+  .nav-container{
+    /* position: relative; */
+    display: flex;
+  }
+  
+  .btn-expand{
+    display: block;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .login-svg {
+    height: 35px;
+  }
+
+  .benefit-card {
+    min-width: 130px;
+    max-width: 150px;
+  }
 }

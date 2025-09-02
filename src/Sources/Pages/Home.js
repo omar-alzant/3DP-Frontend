@@ -11,6 +11,7 @@ function Home() {
         const res = await fetch(`${process.env.REACT_APP_API_URL}/Home`, {
           headers: { 'Authorization': `Bearer ${token}` },
         });
+
         if (!res.ok) throw new Error("Failed to fetch home details");
         const data = await res.json();
         sethomeDet(data);

@@ -114,3 +114,59 @@ p {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* === Responsive Design === */
+
+/* For tablets (portrait and landscape, <= 1024px wide) */
+@media (max-width: 1024px) {
+  .auth-container {
+    padding: 16px;
+  }
+
+  .auth-card {
+    max-width: 70%;
+    padding: 2rem;
+  }
+
+  .auth-container h2 {
+    font-size: 1.6rem;
+  }
+  .login-svg {
+    max-width: 80%; /* limit size */
+    height: auto;
+  }
+}
+
+/* For smartphones (<= 768px wide) */
+@media (max-width: 768px) {
+  .auth-container {
+    min-height: 90dvh; /* fill more of the screen */
+    padding: 12px;
+    border-radius: 0; /* better for full-screen look */
+  }
+
+  .auth-card {
+    max-width: 90%;
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .auth-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .auth-card input {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .auth-card button {
+    font-size: 15px;
+    padding: 12px;
+  }
+  .login-svg {
+    max-width: 80%; /* smaller for phones */
+    height: auto;
+    margin: 8px 0;
+  }
+}

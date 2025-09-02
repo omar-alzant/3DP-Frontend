@@ -18,10 +18,11 @@ const LogoutButton = () => {
       if (!response.ok) {
         throw new Error(data.error || 'Logout failed');
       }
+      else{
         localStorage.clear();
-        sessionStorage.clear();
-
+        sessionStorage.clear(); 
         window.location.href = '/login';
+      }
     } catch (err) {
       console.error('Logout error:', err.message);
       alert('Logout failed: ' + err.message);
