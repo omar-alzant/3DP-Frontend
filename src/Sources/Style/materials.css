@@ -1,3 +1,238 @@
+
+/* === Container === */
+.material-container {
+  font-family: "Cairo", sans-serif;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* === Heading === */
+.heading {
+  font-family: "Cairo", sans-serif;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* === Badge === */
+.badge-new {
+  margin-bottom: 5px;
+  top: 12px;
+  left: 12px;
+  background: #e74c3c;
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.3rem;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+/* === Form Grid === */
+.form-grid-admin-material {
+  font-family: "Cairo", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+/* === Input === */
+.input {
+  font-family: "Cairo", sans-serif;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+  transition: 0.2s all;
+}
+
+.input:focus {
+  border-color: #007bff;
+}
+
+/* === Image Container === */
+.image-container {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.preview-image {
+  max-width: 200px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.textarea{
+  font-family: "Cairo", sans-serif;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+  transition: 0.2s all;
+  resize: vertical;
+  margin: 0;
+}
+
+.label-Img {
+  display: flex;
+  cursor: pointer;
+  grid-column: span 2;
+  font-family: "Cairo", sans-serif;
+  flex-direction: column;
+  font-weight: bold;
+  color: #444;
+  font-size: 14px;
+  gap: 6px;
+}
+
+/* === Checkbox Label === */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  grid-column: span 2;
+  font-size: 16px;
+}
+
+/* === Buttons === */
+.add-button {
+  padding: 12px 25px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 25px;
+  transition: 0.2s all;
+}
+
+.add-button:hover {
+  background-color: #0056b3;
+}
+
+.edit-button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ffc107;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.cancel-button {
+  font-family: "Cairo", sans-serif;
+  padding: 12px 25px;
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 25px;
+  transition: 0.2s all;
+}
+
+.delete-button {
+  font-family: "Cairo", sans-serif;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ff4d4f;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* === Material List === */
+.material-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* === Labels === */
+.label {
+  display: flex;
+  cursor: pointer;
+  font-family: "Cairo", sans-serif;
+  flex-direction: column;
+  font-weight: bold;
+  color: #444;
+  font-size: 14px;
+  gap: 6px;
+}
+
+.part1-material{
+
+  display: grid;
+  grid-template-columns:  1fr 1fr;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1200px) {
+  .material-container {
+    padding: 20px;
+    margin: 20px;
+  }
+  .part1{
+    display: grid;
+    grid-template-columns:  1fr;
+
+  }
+
+  .form-grid-admin-material {
+    grid-template-columns: 1fr; /* switch to single column */
+  }
+
+  .image-container {
+    grid-column: span 1;
+    align-items: center;
+  }
+
+  .preview-image {
+    max-width: 100%;
+  }
+
+  .add-button,
+  .cancel-button {
+    width: 100%; /* full-width buttons on small screens */
+  }
+
+  .materialItem {
+    /* flex-direction: column; */
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 1.3rem;
+  }
+
+  .input {
+    font-size: 14px;
+  }
+
+  .add-button,
+  .cancel-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
+
+
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -28,6 +263,18 @@
   .card.selected {
     border: 2px solid #007bff;
     background-color: #eef6ff;
+  }
+
+  .materialItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 8px;
+    border: 2px dashed #4caf50;
+    border-radius: 12px;
+    background-color: #f0fff0
   }
 
   .materialItem:hover{

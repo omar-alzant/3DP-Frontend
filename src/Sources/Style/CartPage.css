@@ -64,11 +64,12 @@
 /* --- Cart Details --- */
 .cart-details {
   display: flex;
-  flex: 1 1 250px;
+  /* flex: 1 1 250px; */
   flex-direction: column;
   /* gap: 6px; */
   font-size: 15px;
   line-height: 1.4;
+  align-self: anchor-center;
 }
 
 /* --- Cart Preview --- */
@@ -150,6 +151,13 @@ button {
   box-shadow: 0 6px 16px rgba(42,157,143,0.3);
 }
 
+.form-grid {
+  font-family: 'Cairo', sans-serif;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 20px;
+}
+
 /* --- Checkout Form --- */
 .checkout-form {
   max-width: 520px;
@@ -194,6 +202,7 @@ button {
 .checkout-form textarea {
   resize: vertical;
   min-height: 100px;
+  margin: 0;
 }
 
 .checkout-form button {
@@ -223,7 +232,7 @@ button {
 }
 
 /* --- Responsive --- */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .cart-style {
     flex-direction: column;
     align-items: flex-start;

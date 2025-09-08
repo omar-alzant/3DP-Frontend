@@ -170,3 +170,16 @@
   justify-content: center;
   align-items: center;
 }
+
+@media (max-width: 1200px) {
+  .benefit-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .btns{
+    display: flex;
+    flex-direction: row;
+  }
+}

@@ -1,8 +1,18 @@
+/* index.css or App.css */
+@font-face {
+  font-family: 'Cairo';
+  src: url('../Assets/fonts/Cairo-Regular.woff2') format('woff2'),
+       url('../Assets/fonts/Cairo-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
    /* display: flex;
   justify-content: center;  */
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Cairo",
+  font-family: -apple-system, BlinkMacSystemFont, 'Cairo',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   background: #0077b630;

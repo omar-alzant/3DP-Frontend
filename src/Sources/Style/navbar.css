@@ -293,6 +293,21 @@
     gap: 8px;
   }
 
+    /* Chrome, Edge, Safari */
+    .benefits::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .benefits::-webkit-scrollbar-track {
+        background: #f0f0f0;
+    }
+
+    .benefits::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 4px;
+    }
+
   .benefit-card {
     display: flex;
     min-width: 140px;

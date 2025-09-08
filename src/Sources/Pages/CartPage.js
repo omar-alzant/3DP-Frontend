@@ -1,7 +1,7 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
 import Viewer from "../components/preview";
-import { FaFolder, FaCube, FaCoins, FaTrash, FaTimes, FaQuora } from "react-icons/fa";
+import { FaFolder, FaCube, FaCoins, FaTrash, FaTimes, FaQuora, FaTape } from "react-icons/fa";
 import CheckoutForm from "../components/CheckoutForm";
 import "../Style/CartPage.css";
 
@@ -33,6 +33,7 @@ function CartPage() {
                 <p><FaFolder /> {item.name}</p>
                 <p><FaCube /> الحجم: {item.volume} سم³</p>
                 <p><FaCoins /> السعر: ${item.price}</p>
+                <p><FaTape /> النوع: {item.type}</p>
                 <p><FaQuora /> الكمية: {item.quantity}</p>
               </div>
               <div className="cart-preview">

@@ -28,6 +28,7 @@
   font-weight: 700;
   margin-bottom: 2rem;
   text-align: center;
+  padding: 10px;
 }
 
 /* الروابط */
@@ -79,7 +80,7 @@
 }
 
 /* استجابة للشاشات الصغيرة */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .admin-container {
     flex-direction: column;
   }
@@ -88,11 +89,18 @@
     width: 100%;
     flex-direction: row;
     justify-content: space-around;
-    padding: 1rem;
+    padding: 10px 5px;
   }
 
   .admin-content {
     max-width: 100%;
     padding: 1rem;
+  }
+
+  .admin-link{
+    padding: 10px;
+  }
+  .admin-title{
+    margin: 0;
   }
 }

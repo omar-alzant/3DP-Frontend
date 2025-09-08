@@ -28,7 +28,6 @@ export default function AdminMaterials() {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         const data = await res.json();
-        console.log("Materials API response:", data);
         setMaterials(Array.isArray(data) ? data : []);
               } catch (err) {
         console.error('Error fetching materials:', err);
@@ -111,6 +110,7 @@ export default function AdminMaterials() {
       reader.readAsDataURL(file);
     }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
   
@@ -148,10 +148,11 @@ export default function AdminMaterials() {
   };
   
   return (
-    <div style={styles.container}>
-    <h2 style={styles.heading}>إدارة مواد الطباعة</h2>
-    <form onSubmit={handleSubmit} style={styles.formGrid}>
-      <label style={styles.label}>
+    <div className='material-container'>
+    <h2 className='heading'>إدارة مواد الطباعة</h2>
+    <form onSubmit={handleSubmit} className="form-grid-admin-material">
+      <div className='part1-material'>
+      <label className="label">
         الإسم
         <input
           id="name"
@@ -160,11 +161,11 @@ export default function AdminMaterials() {
           type="text"
           value={form.name}
           onChange={e => setForm({ ...form, name: e.target.value })}
-          style={styles.input}
+          className="input"
         />
       </label>
 
-      <label style={styles.label}>
+      <label className='label'>
         النوع
         <input
           id="materialType"
@@ -173,11 +174,11 @@ export default function AdminMaterials() {
           type="text"
           value={form.materialType}
           onChange={e => setForm({ ...form, materialType: e.target.value })}
-          style={styles.input}
+          className="input"
         />
       </label>
 
-      <label style={styles.label}>
+      <label className='label'>
         السعر الأولي
         <input
           id="basePrice"
@@ -186,11 +187,11 @@ export default function AdminMaterials() {
           type="number"
           value={form.basePrice}
           onChange={e => setForm({ ...form, basePrice: parseFloat(e.target.value) })}
-          style={styles.input}
+          className="input"
         />
       </label>
 
-      <label style={styles.label}>
+      <label className="label">
         السعر/cm³
         <input
           id="pricePerCm3"
@@ -199,26 +200,13 @@ export default function AdminMaterials() {
           type="number"
           value={form.pricePerCm3}
           onChange={e => setForm({ ...form, pricePerCm3: parseFloat(e.target.value) })}
-          style={styles.input}
+          className="input"
         />
       </label>
 
-      <label style={{ ...styles.label, gridColumn: 'span 2' }}>
-        تفاصيل 
-        <textarea
-          id="description"
-          required
-          rows={3}
-          placeholder="تفاصيل"
-          value={form.description}
-          onChange={e => setForm({ ...form, description: e.target.value })}
-          style={{ ...styles.input, resize: 'vertical' }}
-        />
-      </label>
-
-      <label style={{ ...styles.label, gridColumn: 'span 2' }}>
+      <label className="label-Img">
       📤 ارفع صورة
-        <div style={styles.imageContainer}>
+        <div className="image-Container">
           <input 
             id="imageUpload"         
             type="file"
@@ -227,12 +215,12 @@ export default function AdminMaterials() {
             onChange={handleImageChange} 
           />
           {form.imgPreview && (
-            <img src={form.imgPreview} alt="preview" style={styles.previewImage} />
+            <img src={form.imgPreview} alt="preview" className="preview-Image" />
           )}
         </div>
       </label>
 
-      <label style={styles.checkboxLabel}>
+      <label className="checkbox-Label">
         <input
           id="isNew"
           type="checkbox"
@@ -241,16 +229,32 @@ export default function AdminMaterials() {
         />{' '}
         جديد
       </label>
+    </div>
 
-      <button type='submit' style={styles.addButton}>
-        {editingId ? 'عدل العنصر' : 'أضف عنصر'}
-      </button>
+      <label className='label-Img'>
+        تفاصيل 
+        <textarea
+          id="description"
+          required
+          rows={3}
+          placeholder="تفاصيل"
+          value={form.description}
+          onChange={e => setForm({ ...form, description: e.target.value })}
+          className="textarea"
+        />
+      </label>
 
-      {editingId && (
-        <button type="button" onClick={resetForm} style={styles.cancelButton}>
-          Cancel
+      <div>
+        <button type='submit' className="add-button">
+          {editingId ? 'عدل العنصر' : 'أضف عنصر'}
         </button>
-      )}
+
+        {editingId && (
+          <button type="button" onClick={resetForm} className="cancel-button">
+            إلغاء
+          </button>
+        )}
+      </div>
     </form>
 
 
@@ -262,11 +266,11 @@ export default function AdminMaterials() {
     (
       <>
     {(Array.isArray(materials)) &&
-    (<ul style={styles.materialList}>
+    (<ul className="material-list">
       {materials.map(m => (
-        <li key={m.id} className='materialItem' style={styles.materialItem}>
+        <li key={m.id} className='materialItem'>
           <div >
-            {m.isNew &&  <div style={styles.badge}>جديد</div>}
+            {m.isNew &&  <div className="badge-new">جديد</div>}
             {m.color ? 
               <div className="image-container">
                 <img width="10px" height="10px" src={`data:image/png;base64,${m.color}`} alt={m.name} className="material-image" />
@@ -278,13 +282,13 @@ export default function AdminMaterials() {
           {m.materialType}   -   {m.name} — ${m.basePrice} + ${m.pricePerCm3}/cm³ 
           <div className='btn-edit-delete'>
             <button 
-              style={styles.editButton} 
+              className="edit-button" 
               onClick={() => startEditing(m)}
             >
               ✏️
             </button>
             <button 
-              style={styles.deleteButton} 
+              className="delete-button" 
               onClick={() => deleteMaterial(m.id)}
               >
               ❌
@@ -299,145 +303,3 @@ export default function AdminMaterials() {
   </div>
 );
 }
-
-  const styles = {
-    editButton: {
-      padding: '6px 12px',
-      border: 'none',
-      borderRadius: '6px',
-      backgroundColor: '#ffc107',
-      color: '#fff',
-      cursor: 'pointer',
-      marginRight: '8px',
-      marginBottom: '8px',
-
-    },
-    cancelButton: {
-      fontFamily: "Cairo",
-      padding: '12px 25px',
-      backgroundColor: '#6c757d',
-      color: '#fff',
-      border: 'none',
-      borderRadius: '8px',
-      cursor: 'pointer',
-      fontSize: '16px',
-      marginBottom: '25px',
-      transition: '0.2s all',
-    },    
-    label: {
-      display: 'flex',
-      cursor: 'Pointer',
-      fontFamily: "Cairo",
-      flexDirection: 'column',
-      fontWeight: 'bold',
-      color: '#444',
-      fontSize: '14px',
-      gap: '6px',
-    },    
-    container: {
-      fontFamily: "Cairo",
-      maxWidth: '800px',
-      margin: '40px auto',
-      padding: '30px',
-      backgroundColor: '#fff',
-      borderRadius: '12px',
-      boxShadow: '0 6px 18px rgba(0,0,0,0.1)',
-    },
-    heading: {
-      fontFamily: "Cairo",
-      textAlign: 'center',
-      marginBottom: '25px',
-      color: '#333',
-    },
-    badge: {
-      // position: absolute,
-      fontFamily: "Cairo",
-      marginBottom: '5px',
-      top: '12px',
-      left: '12px',
-      background: '#e74c3c',
-      color: 'white',
-      fontSize: '0.7rem',
-      padding: '0.3rem',
-      borderRadius: '12px',
-      fontWeight: 'bold',
-    },
-    formGrid: {
-      fontFamily: "Cairo",
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      gap: '15px',
-      marginBottom: '20px',
-    },
-    input: {
-      fontFamily: "Cairo",
-      padding: '12px 15px',
-      borderRadius: '8px',
-      border: '1px solid #ccc',
-      fontSize: '16px',
-      outline: 'none',
-      transition: '0.2s all',
-    },
-    inputFocus: {
-      borderColor: '#007bff',
-    },
-    imageContainer: {
-      gridColumn: 'span 2',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '10px',
-    },
-    previewImage: {
-      maxWidth: '200px',
-      borderRadius: '8px',
-      border: '1px solid #ddd',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-    },
-    checkboxLabel: {
-      display: 'flex',
-      alignItems: 'center',
-      gridColumn: 'span 2',
-      fontSize: '16px',
-    },
-    addButton: {
-      padding: '12px 25px',
-      backgroundColor: '#007bff',
-      color: '#fff',
-      border: 'none',
-      borderRadius: '8px',
-      cursor: 'pointer',
-      fontSize: '16px',
-      marginBottom: '25px',
-      transition: '0.2s all',
-    },
-    addButtonHover: {
-      backgroundColor: '#0056b3',
-    },
-    materialList: {
-      listStyle: 'none',
-      padding: 0,
-      margin: 0,
-    },
-    materialItem: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: '12px 15px',
-      borderBottom: '1px solid #eee',
-      marginBottom: '8px',
-      border: '2px dashed #4caf50',
-      borderRadius: '12px',
-      backgroundColor: '#f0fff0'
-      
-    },
-    deleteButton: {
-      fontFamily: "Cairo",
-      padding: '6px 12px',
-      border: 'none',
-      borderRadius: '6px',
-      backgroundColor: '#ff4d4f',
-      color: '#fff',
-      cursor: 'pointer',
-    },
-  };
-  

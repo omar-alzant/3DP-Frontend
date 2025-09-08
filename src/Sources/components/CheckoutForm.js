@@ -85,7 +85,8 @@ const CheckoutForm = () => {
     <div className="checkout-form">
       <h2>إدخال بيانات العميل</h2>
 
-      <form onSubmit={handleSubmitWithCard}>
+      <form onSubmit={handleSubmitWithCard} className="form-grid">
+      <label id="name"> الاسم الكامل</label>
       <input
           type="text"
           name="name"
@@ -94,6 +95,8 @@ const CheckoutForm = () => {
           onChange={handleChange}
           required
         />
+
+        <label id="phone"> رقم الهاتف</label>
         <input
           type="text"
           name="phone"
@@ -102,6 +105,8 @@ const CheckoutForm = () => {
           onChange={handleChange}
           required
         />
+
+        <label id="address"> العنوان</label>
         <textarea
           name="address"
           placeholder="العنوان"

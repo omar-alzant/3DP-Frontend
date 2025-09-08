@@ -39,6 +39,7 @@ const Navbar = () => {
   const [expanded, setExpanded] = useState(false); // 👈 new state
   const [Expand, setExpand] = useState(true); // 👈 new state
   const [token] = useState(sessionStorage.getItem("token") || ""); // 👈 new state
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const scrollRef = useRef(null);
 
   useEffect(() => {
@@ -54,7 +55,13 @@ const Navbar = () => {
         console.error("Error fetching benefits:", err);
       }
     };
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1200);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   
+
     const stored = localStorage.getItem("benefits");
     if (stored) setBenefits(JSON.parse(stored));
     else if (token) fetchBenefits();
@@ -68,7 +75,11 @@ const Navbar = () => {
 
   const { cart } = useCart();       // 👈 get cart items
   const totalItems = cart.length;   // if you want quantities: cart.reduce((sum,i)=>sum+i.quantity,0)
-  const collapseNavBar = () => { setExpand(false)} 
+  const collapseNavBar = () => {     
+    if (isMobile) {
+      setExpand(false)
+    }
+  } 
   return (
   <nav className="nav-container">
     {

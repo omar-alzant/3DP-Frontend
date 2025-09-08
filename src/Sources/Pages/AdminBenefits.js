@@ -26,7 +26,6 @@ export default function AdminBenefits() {
         });
         const data = await res.json();
         setBenefits(Array.isArray(data) ? data : []);
-        console.log(benefits)
       } catch (err) {
         console.error("Error fetching benefits:", err);
       } finally {
@@ -129,6 +128,7 @@ export default function AdminBenefits() {
     }
   };
 
+
   // 🔹 Submit handler
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -204,7 +204,7 @@ export default function AdminBenefits() {
       </button>
 
       {editingId && !isSaving && (
-        <button type="button" onClick={() => setForm({})} className="cancel-btn">
+        <button type="button" onClick={resetForm} className="cancel-btn">
           إلغاء
         </button>
       )}

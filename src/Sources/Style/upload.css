@@ -1,4 +1,3 @@
-
 .upload-container {
   display: flex;
   flex-direction: row;
@@ -12,139 +11,201 @@
   box-shadow: 0 0 30px rgba(59, 33, 33, 0.1);
   text-align: center;
 }
-  
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .icon {
-    width: 30px;
-    height: 30px;
-  }
-  
-  .upload-box {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-  }
-  
-  .file-input {
-    display: none;
-  }
-  
-  .file-label {
-    padding: 12px 25px;
-    background-color: #4caf50;
-    color: #fff;
-    font-size: 16px;
-    border-radius: 8px;
-    margin-inline: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .file-label:hover {
-    background-color: #45a049;
-  }
-  
-  .file-name {
-    font-size: 14px;
-    color: #555;
-  }
 
-  .viewer-result{
-    display: flex;
-    flex-direction: column;
-  }
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
 
-  .result-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    text-align: right;
-    margin-top: 20px;
-    width: auto;
-    height: auto;
-    padding: 3px;
-    border: 2px dashed #4caf50;
-    border-radius: 12px;
-    background-color: #f0fff0;
-    color: #333;
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .result-box p {
-    margin: 3px 0;
-    direction: rtl;
-    font-size: 18px;
-  }
-  
-  .result-box strong {
-    color: #2e7d32;
-  }
-  
-  .result-box.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .result-box:hover {
-    box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
-  }
-    
-  .stlFile-volumePrice{
-    display: flex;
-    flex-direction: column;
-    justify-items: flex-start;
-    width: 60dvw;
-    max-width: 60dvw;
-  }
+.icon {
+  width: 30px;
+  height: 30px;
+}
 
-  Viewer {
-    margin-top: 30px;
-    width: 30dvw;
-    height: 300px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f8f8f8;
-  }
-  
-  .warning-msg {
-    font-size: 14px;
-    margin-top: 8px;
-    display: block;
-  }
-  
-  
-  button {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    background: #444;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background: #222;
-  }
+.upload-box {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
 
- .quantity-input{
+.file-input {
+  display: none;
+}
+
+.file-label {
+  padding: 12px 25px;
+  background-color: #4caf50;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 8px;
+  margin-inline: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.file-label:hover {
+  background-color: #45a049;
+}
+
+.file-name {
+  font-size: 14px;
+  color: #555;
+}
+
+.viewer-result {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: right;
+  margin-top: 20px;
+  width: auto;
+  height: auto;
+  padding: 3px;
+  border: 2px dashed #4caf50;
+  border-radius: 12px;
+  background-color: #f0fff0;
+  color: #333;
+  transition: box-shadow 0.3s ease;
+}
+
+.result-box p {
+  margin: 3px 0;
+  direction: rtl;
+  font-size: 18px;
+}
+
+.result-box strong {
+  color: #2e7d32;
+}
+
+.result-box.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.result-box:hover {
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
+}
+
+.stlFile-volumePrice {
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-start;
+  width: 60dvw;
+  max-width: 60dvw;
+}
+
+Viewer {
+  margin-top: 30px;
+  width: 30dvw;
+  height: 300px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+}
+
+.warning-msg {
+  font-size: 14px;
+  margin-top: 8px;
+  display: block;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  background: #444;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #222;
+}
+
+.quantity-input {
   display: flex;
   justify-content: center;
   flex-direction: row;
   align-items: center;
   direction: rtl;
   gap: 10px;
- }
+}
+
+/* === RESPONSIVE ADJUSTMENTS === */
+@media (max-width: 1024px) {
+  .upload-container {
+    gap: 15px;
+    height: auto;
+    padding: 20px;
+  }
+
+  .stlFile-volumePrice {
+    width: 80dvw;
+    max-width: 80dvw;
+  }
+
+  Viewer {
+    width: 40dvw;
+    height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .upload-container {
+    flex-direction: column; /* stack vertically */
+    align-items: center;
+    gap: 20px;
+  }
+
+  .stlFile-volumePrice {
+    width: 90%;
+    max-width: 90%;
+  }
+
+  Viewer {
+    width: 90%;
+    height: 250px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .file-label {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 18px;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  Viewer {
+    height: 200px;
+  }
+
+  .file-label {
+    width: 100%;
+    text-align: center;
+  }
+}
