@@ -114,8 +114,6 @@ export default function Login() {
                   sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
                   onChange={(token) => setRecaptchaToken(token)} // <-- here
                 />
-
-
                 <div className="modal-buttons">
                   <button className="confirm-btn" hidden={!recaptchaToken} onClick={handleConfirmLogout}>
                     تأكيد
