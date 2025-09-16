@@ -27,6 +27,19 @@ code {
     monospace;
 }
 
+a {
+  color: #06b6d4;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #0891b2;
+}
+
+
 .spinner-large {
   border: 6px solid #f3f3f3;
   border-top: 6px solid #3498db;

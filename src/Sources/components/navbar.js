@@ -36,42 +36,53 @@ const Navbar = () => {
   let decoded = "";
   let isAdmin = false;
   const [benefits, setBenefits] = useState([]);
-  const [expanded, setExpanded] = useState(false); // 👈 new state
+  const [expandedBenefits, setExpandedBenefits] = useState(false); // 👈 new state
   const [Expand, setExpand] = useState(true); // 👈 new state
   const [token] = useState(sessionStorage.getItem("token") || ""); // 👈 new state
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const scrollRef = useRef(null);
-
   useEffect(() => {
     const fetchBenefits = async () => {
+      console.log("fetching benefits...");
       try {
         const res = await fetch(`${process.env.REACT_APP_API_URL}/benefits`, {
-          headers: { 'Authorization': `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
         setBenefits(data);
+        console.log(data);
         localStorage.setItem("benefits", JSON.stringify(data));
       } catch (err) {
         console.error("Error fetching benefits:", err);
       }
     };
+  
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1200);
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   
-
+    window.addEventListener("resize", handleResize);
+  
+    // ✅ Load from storage or fetch
     const stored = localStorage.getItem("benefits");
-    if (stored) setBenefits(JSON.parse(stored));
-    else if (token) fetchBenefits();
-  }, [token]); // ✅ no ESLint warning now
+    if (stored) {
+      setBenefits(JSON.parse(stored));
+    } else if (token) {
+      fetchBenefits();
+    }
+  
+    // ✅ Cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, [token]);
   
   if(token){
     decoded = jwtDecode(token);
     isAdmin = decoded.isAdmin;    
   }
 
+  const benefitsEvent = () => {
+    setExpandedBenefits(!expandedBenefits);
+  }
 
   const { cart } = useCart();       // 👈 get cart items
   const totalItems = cart.length;   // if you want quantities: cart.reduce((sum,i)=>sum+i.quantity,0)
@@ -159,36 +170,33 @@ const Navbar = () => {
           <li>
             <button 
               className="expand-btn" 
-              onClick={() => setExpanded(!expanded)}
+              onClick={benefitsEvent}
             >
-              {expanded ? "إخفاء الفوائد ⬆" : "عرض الفوائد ⬇"}
+              {expandedBenefits ? "إخفاء الفوائد ⬆" : "عرض الفوائد ⬇"}
             </button>
           </li>
         </ul>
-          </div>
-
-
-        <div className="benefits" >
-          {(Array.isArray(benefits) && expanded) && 
-          (
-            <div className="benefits-section" ref={scrollRef}>
-            {/* <button className="slider-btn left" onClick={prevBenefit}>⬅</button> */}
-            {benefits.map((b, i) => (
-              b.display && 
-              <div key={i} className="benefit-card">
-                {b.Image ?
-                  <img src={b.Image} alt={b.Title} className="benefit-image" />
-                  :
-                  <img src={"/favicon.jpg"} alt={b.Title} className="benefit-image" />
-                }
-                <h3 className="benefit-title">{b.Title}</h3>
-                <p className="benefit-text">{b.Details}</p>
-              </div>
+        </div>
+      {( expandedBenefits) && 
+      (
+        <div className="benefits" ref={scrollRef}>
+          {/* <div className="benefits-section" > */}
+            {
+              benefits?.map((b, i) => (
+                b.display && 
+                <div key={i} className="benefit-card">
+                  {b.Image ?
+                    <img src={b.Image} alt={b.Title} className="benefit-image" />
+                    :
+                    <img src={"/favicon.jpg"} alt={b.Title} className="benefit-image" />
+                  }
+                  <h3 className="benefit-title">{b.Title}</h3>
+                  <p className="benefit-text">{b.Details}</p>
+                </div>
             ))}
-              {/* <button className="slider-btn right" onClick={nextBenefit}>➡</button> */}
-            </div>
-          )}
+          {/* </div> */}
         </div>  
+      )}
       </>
     }
     <button className="btn-expand" onClick={() => {setExpand(!Expand)}}>

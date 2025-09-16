@@ -35,24 +35,28 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div>
-      <h2>Forgot Password</h2>
+    <div className="auth-container">
+      <h2>نسيت كلمة السر!</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {message && 
         (<>
           <div>
-            <p style={{ color: 'green' }}>{message}</p>
-              <Link to="/login">
-                Redirect to login page.
+            <p style={{ color: 'white', display: 'flex', flexDirection: 'Column'}}>{message}
+              <Link to="/login" style={{ color: 'white'}}>
+                العودة لصفحة تسجيل الدخول
               </Link>
+            </p>
           </div>
         </>)
       }
 
-      <form onSubmit={handleReset}>
-        <input type="email" placeholder="Your email" value={email} onChange={e => setEmail(e.target.value.replace(/^"|"$/g, ''))} required />
-        <button disabled={message} type="submit">Send Reset Email</button>
+      <form className="auth-card"  onSubmit={handleReset}>
+        <input type="email" placeholder="الايميل الخاص بك" value={email} onChange={e => setEmail(e.target.value.replace(/^"|"$/g, ''))} required />
+        <button disabled={message} type="submit">ارسال طلب اعادة التعيين</button>
       </form>
+      <p style={{color : 'white'}}>
+          العودة الى صفحة <Link to="/login">تسجيل الدخول</Link>
+      </p>
     </div>
   );
 }

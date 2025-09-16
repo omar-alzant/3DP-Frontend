@@ -4,32 +4,39 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-height: 100dvh;
-  min-height: 75dvh;
-  background: #3134f4;
-  /* background: linear-gradient(135deg, #3134f4, #06b5d4); */
-  padding: 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
   font-family: 'Cairo', sans-serif;
-  border-radius: 16px;
+  padding: 20px;
+  border-radius: 12px;
+}
 
+/* === Title === */
+.auth-container h2 {
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
+
+/* === Logo === */
 .login-svg {
-  width: auto;
+  margin: 10px 0 20px;
+  max-width: 180px;
   height: auto;
-  margin: 10px 0;
-  border-radius: 1%;
 }
+
 /* === Card === */
 .auth-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  background: #B0D7FF;
+  gap: 1rem;
+  background: #ffffff;
   padding: 2.5rem;
   border-radius: 16px;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12),
+              0 0 12px rgba(6, 182, 212, 0.15); /* Glow خفيف */
   max-width: 420px;
   width: 100%;
   animation: fadeIn 0.4s ease-in-out;
@@ -40,43 +47,35 @@
   transform: translateY(-4px);
 }
 
-.auth-container h2 {
-  text-align: center;
-  color: #ffffffea;
-  font-size: 1.8rem;
-  font-weight: 500;
-  padding: 0;
-  margin: 0;
-}
-
 /* === Inputs === */
 .auth-card input {
   width: 100%;
   padding: 14px;
-  margin-bottom: 1rem;
   border-radius: 10px;
   border: 1px solid #e2e8f0;
   font-size: 15px;
-  background: #f9fafb7e;
+  background: #f9fafb;
   transition: all 0.3s ease;
 }
 
 .auth-card input:focus {
-  border-color: #6366f1;
+  border-color: #06b6d4;
   background: #fff;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
 }
 
-/* === Buttons === */
+/* === Button === */
 .auth-card button {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 6px;
   width: 100%;
   padding: 14px;
   border: none;
   border-radius: 10px;
-  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  background: linear-gradient(135deg, #3b82f6, #06b6d4);
   color: #fff;
   font-size: 16px;
   font-weight: 600;
@@ -86,28 +85,110 @@
 
 .auth-card button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 6px 18px rgba(6, 182, 212, 0.3);
 }
 
 /* === Links === */
-p {
+.auth-container p {
   text-align: center;
   font-size: 14px;
-  color: #8c939e;
-  margin-top: 5px;
+  color: #64748b;
+  margin-top: 10px;
 }
 
-.auth-card a {
-  color: #6366f1;
+.auth-container a {
+  color: #06b6d4;
   font-weight: 600;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.auth-card a:hover {
+.auth-container a:hover {
   text-decoration: underline;
-  color: #4f46e5;
+  color: #0891b2;
 }
+
+/* overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* popup modal */
+.modal {
+  background-color: white;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.confirm-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.confirm-btn:hover {
+  background-color: #0056b3;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: #999;
+}
+
+/* logout main button */
+.logout-btn {
+  padding: 10px 20px;
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #d9363e;
+}
+
 
 /* === Animation === */
 @keyframes fadeIn {
@@ -116,35 +197,7 @@ p {
 }
 
 /* === Responsive Design === */
-
-/* For tablets (portrait and landscape, <= 1024px wide) */
-@media (max-width: 1024px) {
-  .auth-container {
-    padding: 16px;
-  }
-
-  .auth-card {
-    max-width: 70%;
-    padding: 2rem;
-  }
-
-  .auth-container h2 {
-    font-size: 1.6rem;
-  }
-  .login-svg {
-    max-width: 80%; /* limit size */
-    height: auto;
-  }
-}
-
-/* For smartphones (<= 768px wide) */
 @media (max-width: 768px) {
-  .auth-container {
-    min-height: 90dvh; /* fill more of the screen */
-    padding: 12px;
-    border-radius: 0; /* better for full-screen look */
-  }
-
   .auth-card {
     max-width: 90%;
     padding: 1.5rem;
@@ -164,9 +217,8 @@ p {
     font-size: 15px;
     padding: 12px;
   }
+
   .login-svg {
-    max-width: 80%; /* smaller for phones */
-    height: auto;
-    margin: 8px 0;
+    max-width: 70%;
   }
 }
