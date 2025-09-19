@@ -109,8 +109,8 @@ const Navbar = () => {
           <li>
             <NavLink 
               to="/" 
-              className={({ isActive }) => isActive ? "active-link" : ""}
-            onClick={collapseNavBar}
+              className={({ isActive }) => isActive ? "active-link nav-link" : "nav-link"}
+              onClick={collapseNavBar}
            >
               الرئيسية
             </NavLink>
@@ -119,7 +119,7 @@ const Navbar = () => {
           <li>
             <NavLink 
               to="/upload" 
-              className={({ isActive }) => isActive ? "active-link" : ""}
+              className={({ isActive }) => isActive ? "active-link nav-link" : "nav-link"}
               onClick={collapseNavBar}
 
             >
@@ -130,7 +130,7 @@ const Navbar = () => {
           <li>
             <NavLink 
               to="/OpenAIGenerator" 
-              className={({ isActive }) => isActive ? "active-link" : ""}
+              className={({ isActive }) => isActive ? "active-link nav-link" : "nav-link"}
               onClick={collapseNavBar}
 
             >
@@ -142,7 +142,7 @@ const Navbar = () => {
             <li>
               <NavLink 
                 to="/admin" 
-                className={({ isActive }) => isActive ? "active-link" : ""}
+                className={({ isActive }) => isActive ? "active-link nav-link" : "nav-link"}
                 onClick={collapseNavBar}
 
               >

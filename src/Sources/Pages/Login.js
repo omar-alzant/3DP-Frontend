@@ -13,13 +13,31 @@ export default function Login() {
   const [logoutFromOtherDevicesBtn, setLogoutFromOtherDevicesBtn] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState(""); // <-- define state
+  const [recaptchaValid, setRecaptchaValid] = useState(false);
 
   const navigate = useNavigate();
+  const handleRecaptchaChange = (token) => {
+    // token === null means no token
+    setRecaptchaToken(token);
+    setRecaptchaValid(!!token);
+    setError(""); // clear previous messages
+  };
+
+  const handleRecaptchaExpired = () => {
+    setRecaptchaToken(null);
+    setRecaptchaValid(false);
+    setError("انتهت صلاحية reCAPTCHA. الرجاء إعادة التحقق.");
+  };
+
+  const handleRecaptchaError = () => {
+    setRecaptchaToken(null);
+    setRecaptchaValid(false);
+    setError("حصل خطأ في reCAPTCHA. حاول مرة أخرى.");
+  };
 
   const handleLogoutClick = () => {
     setShowForm(true);
     if (!recaptchaToken) {
-      alert("الرجاء تأكيد أنك لست روبوتًا");
       return;
     }
 
@@ -31,19 +49,25 @@ export default function Login() {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/supabase/logoutAlldevices`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, recaptchaToken }),
       });
       const data = await res.json();
 
-      if (res.ok) {
-        alert(data.message);
-        setShowForm(false);
-      } else {
-        alert(data.error);
-      }
+      if (data.ok) {
+        setError(null);
+        setRecaptchaToken(null);
+        setRecaptchaValid(false);
+        window.location.reload();
+        return;
+      } 
+
+      setShowForm(false);
+
     } catch (err) {
       console.error(err);
-      alert('حدث خطأ ما');
+      setError('حدث خطأ ما');
+      setRecaptchaToken(null);
+      setRecaptchaValid(false);
     }
   };
   
@@ -57,7 +81,7 @@ export default function Login() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email, password, recaptchaToken }), // ✅ stringify
+      body: JSON.stringify({ email, password }), // ✅ stringify
     });
     const data = await res.json();
     const error = data.error;    
@@ -111,10 +135,18 @@ export default function Login() {
                           {/* reCAPTCHA widget */}
                 <ReCAPTCHA
                   sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
-                  onChange={(token) => setRecaptchaToken(token)} // <-- here
-                />
+                  onChange={handleRecaptchaChange}
+                  onExpired={handleRecaptchaExpired}
+                  onErrored={handleRecaptchaError}
+  
+               />
                 <div className="modal-buttons">
-                  <button className="confirm-btn" hidden={!recaptchaToken} onClick={handleConfirmLogout}>
+                  <button className="confirm-btn" 
+                          disabled={!recaptchaValid}
+                          style={{ display: recaptchaValid ? "inline-block" : "none" }}
+                          aria-disabled={!recaptchaValid}
+                          onClick={handleConfirmLogout}
+                  >
                     تأكيد
                   </button>
                   <button className="cancel-btn" onClick={() => setShowForm(false)}>

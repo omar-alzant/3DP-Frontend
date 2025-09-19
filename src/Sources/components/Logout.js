@@ -25,7 +25,6 @@ const LogoutButton = () => {
       }
     } catch (err) {
       console.error('Logout error:', err.message);
-      alert('Logout failed: ' + err.message);
     }
   };
 
