@@ -36,8 +36,6 @@ function Upload() {
       decoded = jwtDecode(token);
       id = decoded.id
     }
-  
-    console.log(navigator);
     
     if (!file.name) return;
  
@@ -123,7 +121,8 @@ function Upload() {
         volume: Volume,
         price: Number(Math.abs(material.basePrice + Volume * material.pricePerCm3).toFixed(2)),
         facets: Face,
-        quantity: quantity
+        quantity: quantity,
+        isStl: true,
       });      
     }
   };
@@ -161,8 +160,8 @@ function Upload() {
 
               </div>
               <button className='btn-add' onClick={() => addToCart(result)}>
-        ➕ إضافة إلى الصندوق
-      </button>
+                ➕ إضافة إلى الصندوق
+              </button>
 
             </>
           )}

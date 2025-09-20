@@ -30,14 +30,18 @@ function CartPage() {
           {cart.map((item, index) => (
             <div key={index} className="cart-style">
               <div className="cart-details">
-                <p><FaFolder /> {item.name}</p>
-                <p><FaCube /> الحجم: {item.volume} سم³</p>
-                <p><FaCoins /> السعر: ${item.price}</p>
-                <p><FaTape /> النوع: {item.type}</p>
-                <p><FaQuora /> الكمية: {item.quantity}</p>
+                { item.name && <p><FaFolder /> {item.name}</p>}
+                { item.volume && <p><FaCube /> الحجم: {item.volume} سم³</p>}
+                { item.price && <p><FaCoins /> السعر: ${item.price}</p>}
+                { item.type && <p><FaTape /> النوع: {item.type}</p>}
+                { item.quantity && <p><FaQuora /> الكمية: {item.quantity}</p>}
               </div>
               <div className="cart-preview">
-                <Viewer fileUrl={item.fileUrl} wireframe={false} />
+              { item.isStl ?
+                  <Viewer fileUrl={item.fileUrl} wireframe={false} />
+                :
+                  <img src={item.fileUrl} alt={item.name} className="cart-store-image" />
+              }
               </div>
               <button className="delete-btn" onClick={() => {
                 total = total - (item.price * item.quantity);

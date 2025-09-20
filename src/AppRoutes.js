@@ -19,6 +19,8 @@ import AdminLayout from './Sources/layouts/AdminLayout';
 import CartPage from "./Sources/Pages/CartPage";
 import { CartProvider } from "./Sources/context/CartContext";
 import AdminHome from './Sources/Pages/AdminHome';
+import Shop from './Sources/Pages/Shop';
+import AdminShop from './Sources/Pages/AdminShop';
 
 export default function AppRoutes() {
 
@@ -34,6 +36,7 @@ export default function AppRoutes() {
         {/* Main Pages with Navbar */}
         <Route path="/" element={<MainLayout><Home /></MainLayout>} />
         <Route path="/viewer" element={<MainLayout><Upload /></MainLayout>} />
+        <Route path="/shop" element={<MainLayout><Shop /></MainLayout>} />
         <Route path="/Upload" element={<MainLayout><Upload /></MainLayout>} />
         <Route path="/OpenAIGenerator" element={<MainLayout><OpenAI /></MainLayout>} />
         
@@ -42,6 +45,7 @@ export default function AppRoutes() {
           <Route path="materials" element={<AdminMaterials />} />
           <Route path="benefits" element={<AdminBenefits />} />
           <Route path="home" element={<AdminHome />} />
+          <Route path="shop" element={<AdminShop />} />
         </Route>
         
         <Route path="/cart" element={<MainLayout><CartPage /></MainLayout>} />

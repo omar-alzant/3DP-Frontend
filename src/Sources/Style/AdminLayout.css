@@ -45,6 +45,7 @@
 
 .admin-link:hover {
   background-color: #374151;
+  text-decoration: none;
   transform: translateX(-4px);
 }
 
@@ -59,6 +60,10 @@
 
 .active-home {
   background-color: #b9a210;
+}
+
+.active-shop {
+  background-color: #9d10b9;
 }
 
 /* منطقة المحتوى */
@@ -103,4 +108,12 @@
   .admin-title{
     margin: 0;
   }
+
+}
+
+a{
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: none;
 }

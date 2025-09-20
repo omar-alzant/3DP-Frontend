@@ -9,16 +9,49 @@ export const CartProvider = ({ children }) => {
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
+  // Save cart to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (item) => setCart([...cart, item]);
-  const removeFromCart = (index) => setCart(cart.filter((_, i) => i !== index));
+  // ✅ Add item (or update quantity if it exists)
+  const addToCart = (item) => {
+    setCart((prev) => {
+      const exists = prev.find((p) => p.id === item.id);
+      if (exists) {
+        return prev.map((p) =>
+          p.id === item.id ? { ...p, quantity: p.quantity + (item.quantity || 1) } : p
+        );
+      }
+      return [...prev, { ...item, quantity: item.quantity || 1 }];
+    });
+  };
+
+  // ✅ Remove completely by product id
+  const removeFromCart = (id) => {
+    setCart((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  // ✅ Update quantity
+  const updateQuantity = (id, qty) => {
+    setCart((prev) => {
+      if (qty <= 0) {
+        // remove if 0
+        return prev.filter((item) => item.id !== id);
+      }
+      return prev.map((item) =>
+        item.id === id ? { ...item, quantity: qty } : item
+      );
+    });
+  };
+
+  // ✅ Clear all
   const clearCart = () => setCart([]);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );

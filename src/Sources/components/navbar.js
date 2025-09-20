@@ -115,6 +115,15 @@ const Navbar = () => {
               الرئيسية
             </NavLink>
           </li>
+          <li>
+            <NavLink 
+              to="/shop" 
+              className={({ isActive }) => isActive ? "active-link nav-link" : "nav-link"}
+              onClick={collapseNavBar}
+           >
+              المتجر 
+            </NavLink>
+          </li>
 
           <li>
             <NavLink 

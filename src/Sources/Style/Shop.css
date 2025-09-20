@@ -1,0 +1,110 @@
+/* --- Theme Variables --- */
+:root {
+    --primary: #2a9d8f;
+    --primary-dark: #21867a;
+    --secondary: #ffbe0b;
+    --secondary-dark: #fca311;
+    --danger: #e63946;
+    --danger-dark: #c1121f;
+    --neutral-bg: #fafafa88;
+    --neutral-border: #e0e0e0;
+    --text-main: #333;
+    --text-muted: #777;
+    --radius: 12px;
+    --transition: all 0.3s ease;
+  }
+  
+.shop-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-main);
+    background: #0077b630;
+    border-radius: 1%;
+  }
+  
+  .product-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 200px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    background: #fff;
+    transition: transform 0.2s;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.03);
+  }
+  
+  
+  .product-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .shop-part2{
+    padding: 0;
+    gap: 5px;
+    line-height: 5px;
+
+  }
+
+  .quantity-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    min-width: 300px;
+    max-width: 30dvw;
+    max-height: 80dvh;
+    overflow: auto;
+  }
+  
+  .modal-image {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .close-btn {
+    margin-top: 15px;
+  }
+  

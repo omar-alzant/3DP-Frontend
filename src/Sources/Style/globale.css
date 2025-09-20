@@ -1,3 +1,19 @@
+:root {
+  --primary: #2a9d8f;
+  --primary-dark: #21867a;
+  --secondary: #ffbe0b;
+  --secondary-dark: #fca311;
+  --danger: #e63946;
+  --danger-dark: #c1121f;
+  --neutral-bg: #fafafa88;
+  --neutral-border: #e0e0e0;
+  --text-main: #333;
+  --text-muted: #777;
+  --radius: 12px;
+  --transition: all 0.3s ease;
+}
+
+
 /* index.css or App.css */
 @font-face {
   font-family: 'Cairo';

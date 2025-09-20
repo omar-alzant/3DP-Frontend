@@ -57,6 +57,7 @@ export default function Login() {
         setError(null);
         setRecaptchaToken(null);
         setRecaptchaValid(false);
+        setLogoutFromOtherDevicesBtn(false)
         window.location.reload();
         return;
       } 

@@ -48,7 +48,7 @@
   align-items: center;
   justify-content: space-between;
   border: 1px solid var(--neutral-border);
-  padding: 5px;
+  padding: 5px 50px;
   margin-bottom: 10px;
   border-radius: var(--radius);
   background: var(--neutral-bg);
@@ -81,6 +81,10 @@
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0,0,0,0.06);
   background: #fff;
+}
+.cart-store-image{
+  width: 100%;
+  height: 100%;
 }
 
 /* --- Buttons Shared --- */
