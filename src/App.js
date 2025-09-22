@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppRoutes from './AppRoutes';
 import { AuthProvider } from './Sources/context/AuthContext';
+import { BrowserRouter } from "react-router-dom";
 
 export default function App() {
   useEffect(() => {
@@ -39,10 +40,11 @@ export default function App() {
   };
 
   return (
-    <Router>
+    <BrowserRouter>
       <AuthProvider>
         <AppRoutes />
       </AuthProvider>
-    </Router>
+    </BrowserRouter>
+
   );
 }

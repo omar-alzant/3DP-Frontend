@@ -9,11 +9,12 @@ export default function AdminShop() {
   const [isSaving, setIsSaving] = useState(false);
 
   const [form, setForm] = useState({
-    Title: "",
-    Image: "",
-    imgPreview: "",
-    Details: "",
-    display: false,
+    name: "",
+    fileUrl: "",
+    price: 0,
+    description: "",
+    isStl: false,
+    display: true
   });
 
   // 🔹 Fetch all shop
@@ -21,11 +22,12 @@ export default function AdminShop() {
     const fetchShop = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/shop`, {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/admin/shop`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
         setShop(Array.isArray(data) ? data : []);
+        localStorage.setItem("shop", JSON.stringify(data));
       } catch (err) {
         console.error("Error fetching shop:", err);
       } finally {
@@ -36,18 +38,19 @@ export default function AdminShop() {
   }, [token]);
 
   // 🔹 Start editing
-  const startEditing = (benefit) => {
-    setEditingId(benefit.id);
+  const startEditing = (shop) => {
+    setEditingId(shop.id);
     setForm({
-      Title: benefit.Title,
-      Details: benefit.Details,
-      Image: benefit.Image, // backend should return base64 or URL
-      imgPreview: benefit.Image
-        ? benefit.Image.startsWith("data:")
-          ? benefit.Image
-          : `data:image/png;base64,${benefit.Image}`
+      name: shop.name,
+      price: shop.price,
+      description: shop.description,
+      fileUrl: shop.fileUrl, // backend should return base64 or URL
+      imgPreview: shop.fileUrl
+        ? shop.fileUrl.startsWith("data:")
+          ? shop.fileUrl
+          : `data:image/png;base64,${shop.fileUrl}`
         : "",
-      display: benefit.display
+      display: shop.display
     });
   };
 
@@ -58,12 +61,11 @@ export default function AdminShop() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        const dataUrl = reader.result; // data:image/png;base64,xxx
-        const base64Only =
-          typeof dataUrl === "string" ? dataUrl.split(",")[1] : "";
+        const dataUrl = reader.result; // e.g. data:image/png;base64,AAAA
+        const base64Only = typeof dataUrl === 'string' ? dataUrl.split(',')[1] : '';
         setForm((prev) => ({
           ...prev,
-          Image: base64Only,
+          fileUrl: base64Only,
           imgPreview: dataUrl
         }));
       };
@@ -72,9 +74,11 @@ export default function AdminShop() {
   };
 
   // 🔹 Add new benefit
-  const addBenefit = async () => {
+  const addBenefit = async (e) => {
+    e.preventDefault(); // stops page refresh
+
     try {
-      await fetch(`${process.env.REACT_APP_API_URL}/shop`, {
+      await fetch(`${process.env.REACT_APP_API_URL}/admin/shop`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,17 +89,17 @@ export default function AdminShop() {
       refreshshop();
       resetForm();
     } catch (err) {
-      console.error("Error adding benefit:", err);
+      console.error("Error adding shop:", err);
     }
   };
 
   // 🔹 Update benefit
-  const updateBenefit = async () => {
+  const updateBenefit = async (e) => {
+    e.preventDefault()
     setIsSaving(true); // يبدأ عرض "جاري الحفظ..."
-
     try {
       await fetch(
-        `${process.env.REACT_APP_API_URL}/shop/${editingId}`,
+        `${process.env.REACT_APP_API_URL}/admin/shop/${editingId}`,
         {
           method: "PUT",
           headers: {
@@ -118,13 +122,13 @@ export default function AdminShop() {
   // 🔹 Delete benefit
   const deleteBenefit = async (id) => {
     try {
-      await fetch(`${process.env.REACT_APP_API_URL}/shop/${id}`, {
+      await fetch(`${process.env.REACT_APP_API_URL}/admin/shop/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
       setShop(shop.filter((b) => b.id !== id));
     } catch (err) {
-      console.error("Error deleting benefit:", err);
+      console.error("Error deleting shop:", err);
     }
   };
 
@@ -133,14 +137,14 @@ export default function AdminShop() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editingId) {
-      updateBenefit();
+      updateBenefit(e);
     } else {
-      addBenefit();
+      addBenefit(e);
     }
   };
 
   const refreshshop = async () => {
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/shop`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/admin/shop`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -148,7 +152,7 @@ export default function AdminShop() {
   };
 
   const resetForm = () => {
-    setForm({ Title: "", Details: "", Image: "", imgPreview: "", display: false });
+    setForm({ name: "", description: "", fileUrl: "", imgPreview: "", display: false, price: 0 });
     setEditingId(null);
   };
 
@@ -159,11 +163,22 @@ export default function AdminShop() {
         <input
           type="text"
           placeholder="العنوان"
-          value={form.Title}
+          value={form.name}
           required
-          onChange={(e) => setForm({ ...form, Title: e.target.value })}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
         />
-
+        <label id="shop-price" className="label">    
+          السعر
+        </label>
+          <input
+            type="number"
+            placeholder="السعر"
+            value={form.price}
+            required
+            onChange={(e) => setForm({ ...form, price: e.target.value })}
+          />
+      
+        
         <label className="label">
           أرفق صورة📤
           <div className="imageContainer">
@@ -190,9 +205,9 @@ export default function AdminShop() {
       </label>
         <textarea
           placeholder="النص"
-          value={form.Details}
+          value={form.description}
           required
-          onChange={(e) => setForm({ ...form, Details: e.target.value })}
+          onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
 
       <button type="submit" disabled={isSaving}>
@@ -219,18 +234,19 @@ export default function AdminShop() {
           {shop.map((b) => (
             <li key={b.id} className="benefit-item">
   
-              {b.Image ? (
+              {b.fileUrl ? (
                 <img
-                  src={`${b.Image}`}
-                  alt={b.Title}
+                  src={`data:image/png;base64,${b.fileUrl}`} 
+                  alt={b.name}
                   className="benefit-thumb"
                 />
               ) : (
-                <img src={"/favicon.jpg"} alt={b.Title} className="benefit-thumb" />
+                <img src={"/favicon.jpg"} alt={b.name} className="benefit-thumb" />
                 )}
               <div>
-                <h3>{b.Title}</h3>
-                <p>{b.Details}</p>
+                <h3>{b.name}</h3>
+                <p>{b.description}</p>
+                <p>{b.price}</p>
               </div>
               <div className="btns">
               {b.display ? 

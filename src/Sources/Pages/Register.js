@@ -48,7 +48,7 @@ export default function Register() {
         <button type="submit">إنشاء</button>
       </form>
 
-      <p style={{color : 'white'}}>
+      <p >
         عندك ايميل؟ <Link to="/login">تسجيل دخول </Link>
       </p>
     </div>

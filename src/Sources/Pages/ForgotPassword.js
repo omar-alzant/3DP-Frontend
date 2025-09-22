@@ -54,7 +54,7 @@ export default function ForgotPassword() {
         <input type="email" placeholder="الايميل الخاص بك" value={email} onChange={e => setEmail(e.target.value.replace(/^"|"$/g, ''))} required />
         <button disabled={message} type="submit">ارسال طلب اعادة التعيين</button>
       </form>
-      <p style={{color : 'white'}}>
+      <p>
           العودة الى صفحة <Link to="/login">تسجيل الدخول</Link>
       </p>
     </div>

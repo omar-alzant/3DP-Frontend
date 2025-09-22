@@ -40,7 +40,10 @@ function CartPage() {
               { item.isStl ?
                   <Viewer fileUrl={item.fileUrl} wireframe={false} />
                 :
-                  <img src={item.fileUrl} alt={item.name} className="cart-store-image" />
+                  <img                   
+                    src={`data:image/png;base64,${item.fileUrl}`} 
+                    alt={item.name} 
+                    className="cart-store-image" />
               }
               </div>
               <button className="delete-btn" onClick={() => {

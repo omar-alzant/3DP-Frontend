@@ -18,8 +18,7 @@ export default function AdminMaterials() {
     materialType: '',
   });
 
-  useEffect(() => {
-    
+  useEffect(() => { 
     const fetchMaterials = async () => {
       setLoading(true);
       try {
@@ -29,7 +28,8 @@ export default function AdminMaterials() {
         });
         const data = await res.json();
         setMaterials(Array.isArray(data) ? data : []);
-              } catch (err) {
+        localStorage.setItem("materials", JSON.stringify(data));
+      } catch (err) {
         console.error('Error fetching materials:', err);
       } finally {
         setLoading(false);

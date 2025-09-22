@@ -107,7 +107,7 @@ export default function Login() {
 
   return (
     <div className="auth-container">
-      <h2>تسجيل الدخول إلى</h2>
+      {/* <h2>تسجيل الدخول إلى</h2> */}
       {/* <img src='/logo.jpg' alt='logo' className='login-svg' /> */}
       <Logo className="login-svg" />
       {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -174,10 +174,10 @@ export default function Login() {
         }
         </button>
       </form>
-      <p style={{color : 'white'}}>
+      <p >
         لا يوجد عندك حساب؟ <Link to="/register">إنشاء حساب</Link>
       </p>
-      <p style={{color : 'white'}}>
+      <p >
         نسيت كلمة السر؟ <Link to="/forgot-password">إعادة تعيين </Link>
       </p>
     </div>
