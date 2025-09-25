@@ -8,7 +8,6 @@ export default function App() {
   useEffect(() => {
     const token = window.sessionStorage.getItem("token")
     const email = sessionStorage.getItem("email")?.replace(/^"|"$/g, '');
-    console.log(token)
     if(!token && email) { handleLogout()}
   }, []);
 
@@ -41,9 +40,9 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <AuthProvider>
+      {/* <AuthProvider> */}
         <AppRoutes />
-      </AuthProvider>
+      {/* </AuthProvider> */}
     </BrowserRouter>
 
   );

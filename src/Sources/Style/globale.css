@@ -1,3 +1,6 @@
+@import "./variables.css";
+
+
 :root {
   --primary: #2a9d8f;
   --primary-dark: #21867a;
@@ -11,6 +14,7 @@
   --text-muted: #777;
   --radius: 12px;
   --transition: all 0.3s ease;
+
 }
 
 
@@ -23,15 +27,29 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'jazzera';
+  src: url('../Assets/fonts/aljazzera.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'jazzerar';
+  src: url('../Assets/fonts/Al-Jazeera-Arabic-Regular.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 body {
    /* display: flex;
   justify-content: center;  */
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Cairo',
+  font-family: -apple-system, BlinkMacSystemFont, 'jazzerar',
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  background: #0077b630;
+  background: var(--bg);
   border-radius: 16px;
   box-shadow: 0 0 30px rgba(59, 33, 33, 0.1);
   -moz-osx-font-smoothing: grayscale;
@@ -43,8 +61,18 @@ code {
     monospace;
 }
 
+button{
+  border: 2px solid var(--c1);
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+button:hover{
+  background-color: var(--c1);
+}
+
 a {
-  color: #06b6d4;
+  color: var(--c1);
   font-weight: 600;
   text-decoration: none;
   transition: color 0.2s ease;
@@ -52,7 +80,7 @@ a {
 
 a:hover {
   text-decoration: underline;
-  color: #0891b2;
+  color: var(--c2);
 }
 
 

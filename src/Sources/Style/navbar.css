@@ -1,3 +1,6 @@
+@import "./variables.css";
+
+
 /* src/components/Navbar.css */
 .nav-container{
   /* position: relative; */
@@ -6,90 +9,30 @@
   flex-direction: column;
   z-index: 1000;
   height: auto;
-  font-family: 'Cairo';
+  font-family: 'cairo';
   justify-content: center;
   /* top: 0; */
   align-items: center;
   width: 99dvw;
+  position: sticky; /* stays on top when scrolling */
+  top:0;
 }
 
 .navbar {
   display: flex;
-  font-family: 'Cairo';
+  font-family: 'cairo';
   justify-content: space-between;
+  align-self: stretch;
   align-items: center;
-  background-color: #0077b6; /* unify with your theme color */
+  background-color: var(--bg); /* unify with your theme color */
   padding: 12px 24px;
   color: white;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  position: sticky; /* stays on top when scrolling */
   height: 50px;
 }
 
-.benefits{
-  display: flex;
-  flex-wrap: nowrap;
-  max-width: 100dvw;
-  overflow-x: auto;
-}
 
-  /* قسم الفوائد */
-  .benefits-section {
-    /* position: relative; */
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    /* padding: 30px 15px; */
-    border-radius: 16px;
-    margin-bottom: 5px;
-    background: #f9fafb5a; /* لون خفيف تحت الـ navbar */
-    margin-top: 0; /* يلتصق بالـ navbar */
-  }
-  
-  /* كرت الفائدة */
-  .benefit-card {
-    border: 2px dashed #4caf50;
-    border-radius: 12px;
-    background-color: #f0fff0d6;
-    border-radius: 16px;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.398);
-    padding: 5px;
-    max-width: 200px;
-    min-width: 160px;
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    cursor: default;
-  }
-  
-  .benefit-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-  }
-  
-  /* صورة */
-  .benefit-image {
-    max-width: 120px;
-    max-height: 120px;
-    border-radius: 20%;
-    object-fit: contain;
-  }
-  
-  /* العنوان */
-  .benefit-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 8px;
-    color: #333;
-  }
-  
-  /* النص */
-  .benefit-text {
-    font-size: 14px;
-    color: #555;
-    line-height: 1.5;
-  }
-  
-    
+
 .logo {
   font-size: 1.6rem;
   font-weight: 700;
@@ -134,7 +77,7 @@
 }
 
 .active-link {
-  border-bottom: 2px solid #ffcc00; /* highlight active */
+  border-bottom: 2px solid var(--c3); /* highlight active */
   font-weight: bold;
 }
 .cart-link {    
@@ -261,53 +204,6 @@
     height: 40px;
     margin: 6px 0;
   }
-
-  /* Benefits Section */
-  .benefits-section {
-    /* flex-direction: column; */
-    gap: 10px;
-    padding: 10px;
-  }
-
-  .benefits {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: thin;
-    gap: 8px;
-  }
-
-    /* Chrome, Edge, Safari */
-    .benefits::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-    }
-
-    .benefits::-webkit-scrollbar-track {
-        background: #f0f0f0;
-    }
-
-    .benefits::-webkit-scrollbar-thumb {
-        background-color: #888;
-        border-radius: 4px;
-    }
-
-  .benefit-card {
-    display: flex;
-    min-width: 140px;
-    max-width: 160px;
-    padding: 8px;
-    flex-direction: column;
-    gap: 0;
-    align-items: center;
-  }
-
-  .benefit-title {
-    font-size: 16px;
-  }
-
-  .benefit-text {
-    font-size: 13px;
-  }
 }
 
 /* Extra Small Screens (<= 480px) */
@@ -335,8 +231,4 @@
     height: 35px;
   }
 
-  .benefit-card {
-    min-width: 130px;
-    max-width: 150px;
-  }
 }

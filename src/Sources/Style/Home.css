@@ -1,11 +1,33 @@
-.home-container {
-  font-family: 'Cairo', sans-serif;
+@import "./variables.css";
+
+.home-screen-container {
+  display: flex;
+  flex-direction: column;
+  font-family: 'jazeera', sans-serif;
   padding: 30px;
-  max-width: 900px;
+  color: var(--white);
+  max-width: 100%;
   margin: auto;
-  background: linear-gradient(135deg, #e6f3fc, #f8fbff);
-  color: #333;
+  background: var(--bg1);
+  color: var(--white);
   border-radius: 16px;
+  gap: 20px;
+}
+
+.logo-home-screen{
+  max-width: 1000px;
+  max-height: 100px;
+}
+
+.home-screen-part1{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  border: 2px solid var(--c1);
+  padding: 10px;
+  border-radius: 10px;
+  /* justify-content: space-between; */
 }
 
 /* صورة */
@@ -30,35 +52,165 @@
   align-items: center;
   margin-bottom: 30px;
   direction: rtl;
-  background-color: #ffffff;
+  /* background-color: ; */
   padding: 20px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--c1);
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .home-section h2 {
-  color: #06b6d4;
+  color: var(--white);
 }
 
 .home-section p {
   font-size: 16px;
   font-weight: 500;
-  color: #334155;
+  color: var(--white);
 }
 
 .home-section:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px var(--c2);
 }
+
+.home-part1{
+  background-color: var(--bg);
+  padding: 5px;
+  margin-block-end: 10px;
+}
+
+.home-screen-part3{
+  border: 2px solid var(--c2);
+  padding: 10px;
+  border-radius: 10px;
+  
+}
+
+.benefits{
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 10px;
+}
+
+  /* قسم الفوائد */
+  .benefits-section {
+    /* position: relative; */
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    /* padding: 30px 15px; */
+    border-radius: 16px;
+    margin-bottom: 5px;
+    background: #f9fafb5a; /* لون خفيف تحت الـ navbar */
+    margin-top: 0; /* يلتصق بالـ navbar */
+  }
+  
+  /* كرت الفائدة */
+  .benefit-card {
+    border: 2px solid var(--c2);
+    border-radius: 12px;
+    background-color: transparent;
+    border-radius: 16px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.398);
+    padding: 5px;
+    max-width: 200px;
+    min-width: 160px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+  }
+  
+  .benefit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  }
+  
+  /* صورة */
+  .benefit-image {
+    max-width: 120px;
+    max-height: 120px;
+    border-radius: 20%;
+    object-fit: contain;
+  }
+  
+  /* العنوان */
+  .benefit-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  /* النص */
+  .benefit-text {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+  }
+  
 
 @media (max-width: 1200px) {
   .home-container {
-    background: #f8fbff;
+    background: var(--bg1);
+  color: var(--white);
+
   }
   .home-section {
     flex-direction: column;
     text-align: center;
+  }
+
+  
+  /* Benefits Section */
+  .benefits-section {
+    /* flex-direction: column; */
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .benefits {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    gap: 8px;
+  }
+
+    /* Chrome, Edge, Safari */
+    .benefits::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .benefits::-webkit-scrollbar-track {
+        background: #f0f0f0;
+    }
+
+    .benefits::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 4px;
+    }
+
+  .benefit-card {
+    display: flex;
+    min-width: 140px;
+    max-width: 160px;
+    padding: 8px;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+  }
+
+  .benefit-title {
+    font-size: 16px;
+  }
+
+  .benefit-text {
+    font-size: 13px;
   }
 }

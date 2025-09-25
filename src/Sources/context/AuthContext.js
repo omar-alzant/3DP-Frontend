@@ -70,15 +70,24 @@ export function AuthProvider({ children }) {
       return { success: false, error: err.message };
     }
   };
+
   useEffect(() => {
     const storedEmail = sessionStorage.getItem("email");
     setIsAdmin(Boolean(storedEmail));
     setemail(storedEmail || null);
 
-    const publicRoutes = ['/login', '/register', '/forgot-password', '/update-password'];
+const publicRoutes = [
+  '/', 
+  '/shop',
+  '/login', 
+  '/register', 
+  '/forgot-password', 
+  '/update-password'
+];
 
-    if (!storedEmail && !publicRoutes.includes(location.pathname)) {
-      navigate('/login'); // ✅ only redirect if on a protected page
+    // if (!storedEmail && !publicRoutes.includes(location.pathname)) {
+    if (!publicRoutes.includes(location.pathname)) {
+      navigate('/'); // ✅ only redirect if on a protected page
     }
 
     setLoading(false);
