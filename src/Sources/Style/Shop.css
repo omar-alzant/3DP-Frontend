@@ -1,54 +1,46 @@
 /* --- Theme Variables --- */
-:root {
-    --primary: #2a9d8f;
-    --primary-dark: #21867a;
-    --secondary: #ffbe0b;
-    --secondary-dark: #fca311;
-    --danger: #e63946;
-    --danger-dark: #c1121f;
-    --neutral-bg: #fafafa88;
-    --neutral-border: #e0e0e0;
-    --text-main: #333;
-    --text-muted: #777;
-    --radius: 12px;
-    --transition: all 0.3s ease;
-  }
-  
+@import "./variables.css";
+
 .shop-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content center; */
     align-items: center;
     padding: 24px;
-    max-width: 1200px;
     margin: 0 auto;
     font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--text-main);
-    background: #0077b630;
+    color: var(--white);
+    background: var(--bg1);
     border-radius: 1%;
+    min-height: calc(100dvh - 120px); /* 120px ≈ navbar+footer height */
+    height: auto;                     /* let it grow with content */
+    padding-bottom: 2rem;             /* keep footer from overlapping */
+
   }
   
   .product-grid {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
+  
   }
   
   .product-card {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
-    border: 1px solid #ddd;
+    border: 1px solid var(--ccc);
     border-radius: 8px;
-    width: 200px;
+    width: 15%;
+    height: auto;
     padding: 15px;
     text-align: center;
     cursor: pointer;
-    background: #fff;
+    background: var(--inputInFill);
     transition: transform 0.2s;
   }
   
@@ -79,10 +71,10 @@
   
   .modal-overlay {
     position: fixed;
-    top: 0;
+    top: 50px;
     left: 0;
     width: 100%;
-    height: 100%;
+    /* height: auto; */
     background: rgba(0,0,0,0.6);
     display: flex;
     justify-content: center;
@@ -90,7 +82,7 @@
   }
   
   .modal-content {
-    background: white;
+    background: var(--bg);
     padding: 20px;
     border-radius: 8px;
     min-width: 300px;
@@ -106,5 +98,20 @@
   
   .close-btn {
     margin-top: 15px;
+  }
+
+  @media (max-width: 1200px) {
+    .product-card {
+      width: 25%;
+    }
+
+    .product-card h3 {
+      font-size: small;
+    }
+
+    .product-image {
+      width: 50%;
+      height: 50%;      
+    }
   }
   

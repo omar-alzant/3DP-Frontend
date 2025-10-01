@@ -3,10 +3,9 @@
   flex-direction: column;
   gap: 20px;
   direction: rtl;
-  margin-top: 40px;
   padding: 30px 20px;
-  background: linear-gradient(135deg, #1e293b, #0f172a);
-  color: #f1f5f9;
+  background: var(--inputBorder);
+  color: var(--white);
   font-size: 0.95rem;
 }
 

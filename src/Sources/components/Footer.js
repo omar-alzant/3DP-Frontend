@@ -47,7 +47,7 @@ export default function Footer() {
         </div>
 
         <div className='footer-part'>
-          <Logo className="login-svg" />
+          <Logo className="logo-svg" />
         </div>
       </div>
 

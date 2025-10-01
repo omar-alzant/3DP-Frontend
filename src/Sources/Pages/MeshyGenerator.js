@@ -180,7 +180,7 @@ useEffect(() => {
   };
   
   return (
-    <div className='container'>
+    <div className='mechy-container'>
       <div className='part1'>
         {(Progress === 100) && 
           (
@@ -191,17 +191,18 @@ useEffect(() => {
               onLoad={() => setIsImageLoaded(true)}
           />)}
       </div>
-      <div>
+      <div className='txt-generator'>
         <h2>مولد الصور ثلاثية الأبعاد</h2>
-        <label htmlFor="details">تفاصيل النموذج</label>
-        <textarea
-          id="details"
-          name="details"
-          value={prompt}
-          onChange={e => setPrompt(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="أكتب التفاصيل الخاصة بك هنا"
-          />
+        <label htmlFor="meshy-generator-details">تفاصيل النموذج
+          <textarea
+            id="meshy-generator-details"
+            name="meshy-generator-details"
+            value={prompt}
+            onChange={e => setPrompt(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="أكتب التفاصيل الخاصة بك هنا"
+            />
+          </label>
         <br />
         {(!isImageLoaded && Progress !== 100 && loading) && (
           <div style={{ marginTop: 20 }}>

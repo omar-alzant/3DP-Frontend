@@ -144,23 +144,41 @@ const validateBinarySTL = (uint8Array) => {
  */
 export const validateSTLFileFromFile = async (file) => {
   if (!file) return { isValid: false, error: 'No file provided' };
-  
-  if (!file.name.toLowerCase().endsWith('.stl') && !file.name.toLowerCase().endsWith('.obj')) {
-    return { isValid: false, error: 'File must have .stl | .obj extension' };
+
+  const ext = file.name.toLowerCase();
+  if (!(ext.endsWith('.stl') || ext.endsWith('.obj'))) {
+    return { isValid: false, error: 'File must have .stl or .obj extension' };
   }
-  
+
   try {
     const arrayBuffer = await file.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
-    
-    // Check if it's a binary STL file
-    const header = uint8Array.slice(0, 80);
-    const headerText = new TextDecoder().decode(header);
-    
-    if (headerText.trim().toLowerCase().startsWith('solid')) {
-      return validateASCIISTL(uint8Array);
+
+    if (ext.endsWith('.obj')) {
+      // Basic OBJ check: should contain "v " or "f " lines
+      const text = new TextDecoder().decode(uint8Array);
+      if (/\nv\s+/.test(text) || /\nf\s+/.test(text)) {
+        return { isValid: true, type: 'obj' };
+      }
+      return { isValid: false, error: 'Invalid OBJ file format' };
+    }
+
+    // STL check
+    const header = new TextDecoder().decode(uint8Array.slice(0, 80));
+    const solidHeader = header.trim().toLowerCase().startsWith("solid");
+
+    if (solidHeader) {
+      // Try ASCII first
+      const asciiResult = validateASCIISTL(uint8Array);
+      if (asciiResult.isValid) return { ...asciiResult, type: 'stl-ascii' };
+
+      // Fallback to binary if ASCII failed
+      const binaryResult = validateBinarySTL(uint8Array);
+      if (binaryResult.isValid) return { ...binaryResult, type: 'stl-binary' };
+
+      return { isValid: false, error: 'Not a valid STL (ASCII or Binary)' };
     } else {
-      return validateBinarySTL(uint8Array);
+      return { ...validateBinarySTL(uint8Array), type: 'stl-binary' };
     }
   } catch (error) {
     return { isValid: false, error: `Validation error: ${error.message}` };

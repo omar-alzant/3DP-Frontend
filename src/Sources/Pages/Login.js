@@ -109,7 +109,7 @@ export default function Login() {
     <div className="auth-container">
       {/* <h2>تسجيل الدخول إلى</h2> */}
       {/* <img src='/logo.jpg' alt='logo' className='login-svg' /> */}
-      <Logo className="login-svg" />
+      <Logo className="logo-svg" />
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {logoutFromOtherDevicesBtn &&
         <>

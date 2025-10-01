@@ -1,16 +1,40 @@
+@import "./variables.css";
+
+
 .upload-container {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  /* justify-content: center; */
   gap: 25px;
-  height: clamp(400px, 69dvh, 800px);
-  max-width: 100%;
+  height: 95dvh;
   padding: 30px;
-  background: #0077b630;
-  border-radius: 16px;
+  background: var(--bg1);
   box-shadow: 0 0 30px rgba(59, 33, 33, 0.1);
   text-align: center;
+  color: var(--white);
+  min-height: calc(100dvh - 120px); /* 120px ≈ navbar+footer height */
+  height: auto;                     /* let it grow with content */
+  padding-bottom: 2rem;             /* keep footer from overlapping */
+
 }
+
+.sub-section-upolar-part1{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sub-section-upolar-part2 {
+  display: flex;
+  flex-direction: row;
+  gap: 40px; /* spacing between viewer + material box */
+  align-items: flex-start; /* align top edges */
+  justify-content: center;
+}
+
+
+
 
 h1 {
   font-size: 24px;
@@ -41,7 +65,6 @@ h1 {
 .file-label {
   padding: 12px 25px;
   background-color: #4caf50;
-  color: #fff;
   font-size: 16px;
   border-radius: 8px;
   margin-inline: 20px;
@@ -57,11 +80,18 @@ h1 {
   font-size: 14px;
   color: #555;
 }
-
 .viewer-result {
-  display: flex;
-  flex-direction: column;
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
 }
+
+.stlFile-volumePrice {
+  flex: 2;
+  min-width: 300px;
+  max-width: 600px;
+}
+
 
 .result-box {
   display: flex;
@@ -73,10 +103,10 @@ h1 {
   width: auto;
   height: auto;
   padding: 3px;
-  border: 2px dashed #4caf50;
+  border: 2px solid var(--c1);
   border-radius: 12px;
-  background-color: #f0fff0;
-  color: #333;
+  background-color: var(--bg1);
+  color: var(--white);
   transition: box-shadow 0.3s ease;
 }
 
@@ -86,8 +116,14 @@ h1 {
   font-size: 18px;
 }
 
+
+.result-box{
+  
+}
+
+
 .result-box strong {
-  color: #2e7d32;
+  color: var(--white);
 }
 
 .result-box.visible {
@@ -99,21 +135,21 @@ h1 {
   box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
 }
 
-.stlFile-volumePrice {
+/* .stlFile-volumePrice {
   display: flex;
   flex-direction: column;
   justify-items: flex-start;
   width: 60dvw;
   max-width: 60dvw;
-}
+} */
 
-Viewer {
+.viewer {
   margin-top: 30px;
-  width: 30dvw;
-  height: 300px;
-  border: 1px solid #ddd;
+  width: 20dvw;
+  height: 30dvh;
+  border: 2px solid var(--c1);
   border-radius: 8px;
-  background-color: #f8f8f8;
+  background-color: #c43a3a;
 }
 
 .warning-msg {
@@ -122,20 +158,20 @@ Viewer {
   display: block;
 }
 
-button {
+.btn-add {
   display: flex;
   justify-content: center;
   margin-top: 10px;
-  background: #444;
-  color: white;
+  background: var(--bg1);
+  color: var(--white);
   padding: 8px 16px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
 }
 
-button:hover {
-  background: #222;
+.btn-add:hover {
+  background: var(--c1);
 }
 
 .quantity-input {
@@ -148,64 +184,34 @@ button:hover {
 }
 
 /* === RESPONSIVE ADJUSTMENTS === */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .upload-container {
     gap: 15px;
-    height: auto;
-    padding: 20px;
-  }
+    min-height: calc(100dvh - 120px); /* 120px ≈ navbar+footer height */
+    height: auto;                     /* let it grow with content */
+    padding-bottom: 2rem;        
 
+  }
+/* 
   .stlFile-volumePrice {
     width: 80dvw;
     max-width: 80dvw;
+  } */
+
+  .sub-section-upolar-part2 {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
   }
 
-  Viewer {
+  .viewer-result,
+  .stlFile-volumePrice {
+    max-width: 90%;
+    width: 100%;
+  }
+
+  .viewer {
     width: 40dvw;
     height: 250px;
-  }
-}
-
-@media (max-width: 768px) {
-  .upload-container {
-    flex-direction: column; /* stack vertically */
-    align-items: center;
-    gap: 20px;
-  }
-
-  .stlFile-volumePrice {
-    width: 90%;
-    max-width: 90%;
-  }
-
-  Viewer {
-    width: 90%;
-    height: 250px;
-  }
-
-  h1 {
-    font-size: 20px;
-  }
-
-  .file-label {
-    font-size: 14px;
-    padding: 10px 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 18px;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  Viewer {
-    height: 200px;
-  }
-
-  .file-label {
-    width: 100%;
-    text-align: center;
   }
 }

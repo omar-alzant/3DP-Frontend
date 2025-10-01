@@ -6,11 +6,10 @@
   font-family: 'jazeera', sans-serif;
   padding: 30px;
   color: var(--white);
-  max-width: 100%;
   margin: auto;
   background: var(--bg1);
   color: var(--white);
-  border-radius: 16px;
+  /* border-radius: 16px; */
   gap: 20px;
 }
 

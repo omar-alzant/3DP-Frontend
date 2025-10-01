@@ -14,7 +14,7 @@ import "../Style/CartPage.css";
 function CartPage() {
   const { cart, removeFromCart, clearCart } = useCart();
   let total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
+  console.log({cart})
   return (
     <div className="cart-cont">
       <h2>🛒 الصندوق</h2>
@@ -55,14 +55,7 @@ function CartPage() {
           ))}
 
           <h3 className="cart-total">💵 المجموع: {total.toFixed(2)} $</h3>
-
           <CheckoutForm />
-
-        {/* FOR CREDIT CARD PAY */}
-          {/* <Elements stripe={stripePromise}>
-            <CheckoutForm />
-          </Elements> */}
-        {/* ************************************ */}
         </>
       )}
     </div>

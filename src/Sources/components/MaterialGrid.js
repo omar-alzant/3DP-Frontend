@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import '../Style/materials.css';
 
-function MaterialGrid({ FileExist, onMaterialSelect }) {
+function MaterialGrid({ FileExist, onMaterialSelect, isMobile }) {
   const [selectedId, setSelectedId] = useState(null);
   const [materials, setMaterials] = useState(() => {
     const saved = localStorage.getItem('materials');
@@ -22,6 +22,7 @@ function MaterialGrid({ FileExist, onMaterialSelect }) {
         if (data?.length) {
           setSelectedId(data[0].id);
           setMaterials(data);
+          console.log("materialGrid:   ", data)
           localStorage.setItem('materials', JSON.stringify(data)); // ✅ save it
         }
       })
@@ -37,8 +38,9 @@ function MaterialGrid({ FileExist, onMaterialSelect }) {
         <div 
         onClick={() => {
           setSelectedId(item.id);
-          // console.log(item.id)
           onMaterialSelect(item);
+          console.log("materialGrid:   ", item)
+
         }}
         className={`card ${selectedId === item.id ? 'selected' : ''}`}
          key={idx}>
@@ -48,7 +50,7 @@ function MaterialGrid({ FileExist, onMaterialSelect }) {
           </div>
           <h3 className="material-name">{item.name}</h3>
           <p className="material-price">Starting at ( ${item.basePrice  + item.pricePerCm3} )</p>
-          <p className="material-price">{item.description}</p>
+          {!isMobile && <p className="material-price">{item.description}</p>}
         </div>
       )))}
     </div>

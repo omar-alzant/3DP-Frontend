@@ -39,6 +39,8 @@ const Navbar = () => {
   const [Expand, setExpand] = useState(true); // 👈 new state
   const [token] = useState(sessionStorage.getItem("token") || ""); // 👈 new state
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [stuck, setStuck] = useState(true); // 👈 sticky state
+  const footerRef = useRef(document.querySelector("footer"));
 
   useEffect(() => {  
     const handleResize = () => {
@@ -51,6 +53,25 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, [token]);
   
+  useEffect(() => {
+    if (!footerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          setStuck(false); // footer visible → release navbar
+        } else {
+          setStuck(true); // footer hidden → keep navbar sticky
+        }
+      },
+      { root: null, threshold: 0.75 }
+    );
+
+    observer.observe(footerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   if(token){
     decoded = jwtDecode(token);
     isAdmin = decoded.isAdmin;    
@@ -68,7 +89,7 @@ const Navbar = () => {
     }
   } 
   return (
-  <nav className="nav-container">
+    <nav className={`nav-container ${stuck ? "sticky" : "not-sticky"}`}>
     {
       Expand &&
       <>
@@ -89,7 +110,7 @@ const Navbar = () => {
             <NavLink 
               to="/" 
               className={({ isActive }) => isActive ? "active-link nav-link" : "nav-link"}
-              onClick={collapseNavBar}
+              // onClick={collapseNavBar}
            >
               الرئيسية
             </NavLink>
@@ -98,7 +119,7 @@ const Navbar = () => {
             <NavLink 
               to="/shop" 
               className={({ isActive }) => isActive ? "active-link nav-link" : "nav-link"}
-              onClick={collapseNavBar}
+              // onClick={collapseNavBar}
            >
               المتجر 
             </NavLink>
@@ -108,7 +129,7 @@ const Navbar = () => {
             <NavLink 
               to="/upload" 
               className={({ isActive }) => isActive ? "active-link nav-link" : "nav-link"}
-              onClick={collapseNavBar}
+              // onClick={collapseNavBar}
 
             >
               رفع ملف
@@ -119,7 +140,7 @@ const Navbar = () => {
             <NavLink 
               to="/OpenAIGenerator" 
               className={({ isActive }) => isActive ? "active-link nav-link" : "nav-link"}
-              onClick={collapseNavBar}
+              // onClick={collapseNavBar}
 
             >
               إنشاء تصاميم
@@ -131,7 +152,7 @@ const Navbar = () => {
               <NavLink 
                 to="/admin" 
                 className={({ isActive }) => isActive ? "active-link nav-link" : "nav-link"}
-                onClick={collapseNavBar}
+                // onClick={collapseNavBar}
 
               >
                 الإدارة
@@ -143,7 +164,7 @@ const Navbar = () => {
             <NavLink 
               to="/cart" 
               className={({ isActive }) => isActive ? "active-link nav-link" : "nav-link"}
-              onClick={collapseNavBar}
+              // onClick={collapseNavBar}
               style={{ position: 'relative' }}
             >
               {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
@@ -155,20 +176,16 @@ const Navbar = () => {
             <LogoutButton />
           </li> 
         </ul>
-        {isMobile ?
-              // <img  src='../../logo-mini.svg' alt='logo' className="logo-svg"/> 
-              <LogoMini className="login-svg" />
-              :
-              <Logo className="login-svg" />
-            }
-
+        {!isMobile && <Logo className="logo-svg" />}
         </div>
       
       </>
     }
-    <button className="btn-expand" onClick={() => {setExpand(!Expand)}}>
-      ☰
-    </button>
+    <div className="btn-expand-nav">
+      <button className="btn-expand" onClick={() => {setExpand(!Expand)}}>
+        <LogoMini className="logo-svg" />
+      </button>
+    </div>
 </nav>
   );
 };

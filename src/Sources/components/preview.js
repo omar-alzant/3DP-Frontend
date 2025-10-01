@@ -4,7 +4,7 @@ import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 // import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import React, { Suspense } from 'react';
 
-export default function Viewer({ fileUrl, wireframe, StlFile, ObjFile }) {
+export default function Viewer({ fileUrl, wireframe, StlFile, ObjFile, width, height }) {
 
   if (!fileUrl) return;
 
@@ -12,9 +12,9 @@ export default function Viewer({ fileUrl, wireframe, StlFile, ObjFile }) {
     <Canvas
       camera={{ position: [0, 0, 100] }}
       style={{
-        maxWidth: '500px',
-        maxHeight: '500px',
-        background: '#f0f0f0',
+        width: {width},
+        height: {height},
+        background: '#6a4dff',
         borderRadius: '8px',
       }}
     >

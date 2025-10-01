@@ -1,20 +1,30 @@
 @import "./variables.css";
 
 
+
+/* Default sticky state */
+.nav-container.sticky,
+.btn-expand-nav.sticky {
+  position: sticky;
+  top: 0;
+}
+
+/* Released when footer enters */
+.nav-container.not-sticky,
+.btn-expand-nav.not-sticky {
+  position: relative;
+  top: auto;
+}
+
 /* src/components/Navbar.css */
 .nav-container{
-  /* position: relative; */
-  /* position: sticky; */
   display: flex;
   flex-direction: column;
   z-index: 1000;
   height: auto;
   font-family: 'cairo';
   justify-content: center;
-  /* top: 0; */
   align-items: center;
-  width: 99dvw;
-  position: sticky; /* stays on top when scrolling */
   top:0;
 }
 
@@ -29,6 +39,7 @@
   color: white;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   height: 50px;
+  overflow: hidden;
 }
 
 
@@ -58,7 +69,7 @@
 }
 
 .nav-links a:hover {
-  background: rgba(255,255,255,0.15);
+  /* background: rgba(255,255,255,0.15); */
   color: #fff;
   transform: translateY(-2px);
   text-decoration: none;
@@ -104,7 +115,7 @@
 }
 
 
-.login-svg {
+.logo-svg {
   width: auto;
   height: 50px;
   margin: 10px 0;
@@ -121,48 +132,25 @@
 
 .btn-expand{
   display: none;
+  border: none;
+  padding: 0;
 }
 
-/* === Responsive Navbar & Benefits === */
+.btn-expand:hover{
+  background-color: transparent;
+}
 
-/* Tablets (<= 1024px) */
-/* @media (max-width: 1024px) {
+.btn-expand-nav{
+  position: sticky;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  height: 50px;
+  width: 95dvw;
+}
 
-  .navbar {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    height: auto;
-    align-items: flex-start;
-    overflow-x: auto;
-    padding: 10px 16px;
-    max-width: 900px;
-
-  }
-
-  .nav-links {
-    gap: 16px;
-  }
-
-  .logo {
-    font-size: 1.4rem;
-  }
-
-  .benefit-card {
-    max-width: 180px;
-    min-width: 150px;
-  }
-
-  .benefit-image {
-    max-width: 100px;
-    max-height: 100px;
-  }
-} */
-
-/* Smartphones (<= 768px) */
 @media (max-width: 1200px) {
   .nav-container{
-    /* position: relative; */
     display: flex;
     height: 100%;
   }
@@ -177,10 +165,8 @@
     flex-direction: column;
     flex-wrap: no-wrap;
     height: auto;
-    overflow-x: auto;
     gap: 10px;
     padding: 10px 12px;
-    width: 100%;
     justify-content: space-around;
 }
 
@@ -191,8 +177,8 @@
   .nav-links {
     flex-wrap: wrap;
     gap: 12px;
-    width: 100%;
-    justify-content: center;
+    /* width: 100%; */
+    /* justify-content: center; */
   }
 
   .nav-links a {
@@ -200,7 +186,7 @@
     padding: 4px 8px;
   }
 
-  .login-svg {
+  .logo-svg {
     height: 40px;
     margin: 6px 0;
   }
@@ -218,7 +204,7 @@
   }
 
   .nav-links {
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
     gap: 8px;
   }
@@ -227,7 +213,7 @@
     font-size: 1.2rem;
   }
 
-  .login-svg {
+  .logo-svg {
     height: 35px;
   }
 

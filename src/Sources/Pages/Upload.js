@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState,useEffect  } from 'react';
 import Viewer from '../components/preview';
 import QuantityInput from '../components/QuantityInput.js';
 import MaterialGrid from '../components/MaterialGrid.js'
@@ -24,11 +24,21 @@ function Upload() {
   const { addToCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [token] = useState(sessionStorage.getItem("token") || ""); // 👈 new state
 
+  useEffect(() => {  
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1200);
+    };
+  
+    window.addEventListener("resize", handleResize);
+    // ✅ Cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, [token]);
 
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
-    const token  = sessionStorage.getItem("token"); // Assume user object has isAdmin boolean
     let decoded = "";
     let id = "";
     
@@ -82,6 +92,7 @@ function Upload() {
         })
         setVolume(absVolume);
         setFace(validation.facetCount);
+        console.log({selectedMaterial})
         if(selectedMaterial){
           setResult({
             volume: absVolume,
@@ -112,7 +123,7 @@ function Upload() {
   }
   
   const handleMaterialSelect = (material) => {
-    setSelectedMaterial(material);          
+    setSelectedMaterial(material);   
     if(Volume && material){
       setResult({
         name: fileName,
@@ -129,47 +140,7 @@ function Upload() {
   
   return (
     <div className="upload-container">
-      <div className='viewer-result'>
-        <Viewer className="viewer" fileUrl={fileUrl} wireframe={wireframe} />
-        {result && (
-        <div id="result" className="result-box visible">
-          {result.error ? (
-            <p>{result.error}</p>
-          ) : (
-            <>
-              <p>📦 <strong>الاسم:</strong> {fileName} </p>
-              <p>📦 <strong>الحجم:</strong> {result.volume} سم³</p>
-              <p >💰 <strong>السعر التقديري:</strong> $ {result.price}</p>
-              <p>📊 <strong>عدد الوجوه:</strong> {result.facets}</p>
-              {/* ✅ Quantity Input */}
-              <div className='quantity-input'>
-                <div>
-                  🔢 <strong>الكمية:</strong> 
-                </div>
-                <QuantityInput initial={1} min={1} onChange={(val) => 
-                  {
-                    const q = parseInt(val) || 1;
-                    setQuantity(q);
-                    if(result){
-                      setResult({ ...result, quantity: q }); // update quantity in result
-                      console.log(q);
-                      
-                    }
-                  } 
-                } />
-
-              </div>
-              <button className='btn-add' onClick={() => addToCart(result)}>
-                ➕ إضافة إلى الصندوق
-              </button>
-
-            </>
-          )}
-        </div>
-      )}
-      </div>
-      <div className="stlFile-volumePrice">
-        <div>
+        <div className='sub-section-upolar-part1'>
           <h2>🧊 STL Viewer</h2>
           <div className="upload-box">
             {/* <input type="file" id="fileInput" class="file-input" /> */}
@@ -182,30 +153,74 @@ function Upload() {
                 </span>
               )}
             </div>
-          { fileUrl !== null && 
-          (
-            <>
-              <button onClick={ChangeWireframe}>
-                {wireframe ? "Hide Wireframe" : "Show Wireframe"}
-              </button>
-            </> 
-          )}
+            { fileUrl !== null && 
+            (
+              <>
+                <button 
+                  onClick={ChangeWireframe}
+                  className='btn-add'
+                >
+                  {wireframe ? "Hide Wireframe" : "Show Wireframe"}
+                </button>
+              </> 
+            )}
           </div>
         </div>
-        {/* <MaterialsSection /> */}
-    {loading 
-    ?
-    <span className="spinner-large" />
-    :
-    (
-      
-        <MaterialGrid 
-          FileExist={fileUrl !== null} 
-          onMaterialSelect={handleMaterialSelect}
-        />
-    )}
+      <div className='sub-section-upolar-part2' >
+        <div className='viewer-result'>
+          <Viewer className="viewer" fileUrl={fileUrl} wireframe={wireframe} width={'30dvw'} height={'30dvw'}/>
+          {result && (
+          <div id="result" className="result-box visible">
+            {result.error ? (
+              <p>{result.error}</p>
+            ) : (
+              <>
+                <p>📦 <strong>الاسم:</strong> {fileName} </p>
+                <p>📦 <strong>الحجم:</strong> {result.volume} سم³</p>
+                <p >💰 <strong>السعر التقديري:</strong> $ {result.price}</p>
+                <p>📊 <strong>عدد الوجوه:</strong> {result.facets}</p>
+                {/* ✅ Quantity Input */}
+                <div className='quantity-input'>
+                  <div>
+                    🔢 <strong>الكمية:</strong> 
+                  </div>
+                  <QuantityInput initial={1} min={1} onChange={(val) => 
+                    {
+                      const q = parseInt(val) || 1;
+                      setQuantity(q);
+                      if(result){
+                        setResult({ ...result, quantity: q }); // update quantity in result                        
+                      }
+                    } 
+                  } />
+
+                </div>
+                <button className='btn-add' onClick={() => addToCart(result)}>
+                  ➕ إضافة إلى الصندوق
+                </button>
+
+              </>
+            )}
+          </div>
+            )}
+          
+        </div>
+        <div className="stlFile-volumePrice">
+            {loading 
+            ?
+            <span className="spinner-large" />
+            :
+            (
+              <MaterialGrid 
+                FileExist={fileUrl !== null} 
+                isMobile={isMobile}
+                onMaterialSelect={handleMaterialSelect}
+              />
+            )}
+        </div>
       </div>
     </div>
+
   );
 }
 

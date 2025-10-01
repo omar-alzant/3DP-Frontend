@@ -9,19 +9,22 @@
   }
   
   .quantity-btn {
+    display: flex;      
+    justify-content: center;
+    align-items: center;
     /* background: #f9f9f9; */
-    background: #0077b630;
-    border: none;
+    border: 2px solid var(--c1);
     margin: 8px 12px !important;
     cursor: pointer;
     font-size: 18px;
     max-width: 20px !important; 
     max-height: 20px !important;
-    color: #333;
+    color: var(--white);
+    padding: 15px;
   }
   
   .quantity-btn:hover {
-    background: #eee;
+    background: var(--c1);
   }
   
   .quantity-value {

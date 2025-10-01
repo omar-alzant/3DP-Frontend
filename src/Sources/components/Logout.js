@@ -1,10 +1,11 @@
 import React from 'react';
 
 const LogoutButton = () => {
+  const token = sessionStorage.getItem("token");
+  console.log(token)
   const handleLogout = async () => {
     try {
         const email = sessionStorage.getItem("email")?.replace(/^"|"$/g, '');
-        const token = sessionStorage.getItem("token");
         const response = await fetch(`${process.env.REACT_APP_API_URL}/supabase/logout`, {
             method: 'POST',
             headers: {
@@ -28,10 +29,27 @@ const LogoutButton = () => {
     }
   };
 
+  const handleLogin = () => {
+    window.location.href = '/login';
+  }
+
   return (
-    <button onClick={handleLogout} style={{ padding: '8px 16px', cursor: 'pointer' }}>
-      تسجيل خروج
-    </button>
+    <>
+    {
+      token !== null ?
+      (
+        <button onClick={handleLogout} style={{color: 'white', padding: '8px 16px', cursor: 'pointer' }}>
+        تسجيل خروج
+        </button>
+      )
+      :
+      (
+        <button onClick={handleLogin} style={{color: 'white', padding: '8px 16px', cursor: 'pointer' }}>
+        تسجيل دخول
+        </button>
+      )
+    }
+    </>
   );
 };
 

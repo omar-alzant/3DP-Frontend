@@ -235,10 +235,13 @@
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(3, minmax(120px, 1fr));
     gap: 1.2rem;
+    border: 2px solid var(--c1);
+    border-radius: 10px;
     padding: 1rem;
     max-width: 95%;
+    max-height: 15%;
     overflow-y: auto;
     font-family: "Cairo";
   }
@@ -246,7 +249,8 @@
   .card {
     font-family: "Cairo";
     position: relative;
-    background: white;
+    background: var(--white);
+    color: var(--c1);
     cursor: pointer;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -353,3 +357,8 @@
     100% { transform: rotate(360deg); }
   }
   
+  @media (max-width: 1200px) {
+    .card{
+      padding: 0.1rem;
+    }
+  }
