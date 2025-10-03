@@ -41,14 +41,13 @@ function Home() {
 
     // جلب البيانات من التخزين المحلي مباشرة
     const homeDet = localStorage.getItem("homeDet");
-    if (homeDet) sethomeDet(JSON.parse(homeDet));
-    // التحديث من السيرفر لو في توكن
-    if (token) fetchHomeDets();
+    if (homeDet) sethomeDet(JSON.parse(homeDet)) 
+    else if (token) fetchHomeDets();
 
     const stored = localStorage.getItem("benefits");
     if (stored) {
       setBenefits(JSON.parse(stored));
-    } else if (token) {
+    } else {
       fetchBenefits();
     }
 

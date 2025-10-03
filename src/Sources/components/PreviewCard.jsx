@@ -1,7 +1,7 @@
 import React from "react";
 import "../Style/PreviewCard.css";
 
-export default function PreviewCard({ title, description, image, onSeeMore }) {
+export default function PreviewCard({ title, description, image, onSeeMore, children  }) {
   return (
     <div className="preview-card">
       {/* Title + Description */}
@@ -14,6 +14,12 @@ export default function PreviewCard({ title, description, image, onSeeMore }) {
       {image && (
         <div className="preview-card-image">
           <img src={image} alt={title} />
+        </div>
+      )}
+
+      {children && (
+        <div className="preview-card-extra">
+          {children}
         </div>
       )}
 

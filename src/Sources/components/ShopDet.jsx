@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext.js";
 import "../Style/Shop.css"; // optional styling file
 
-function ShopDet({ nbrOfView }) {
+function ShopDet({ nbrOfView, short = false}) {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const { addToCart, updateQuantity, removeFromCart, cart } = useCart();
     const [loading, setLoading] = useState(false);
@@ -12,10 +12,10 @@ function ShopDet({ nbrOfView }) {
       return saved ? JSON.parse(saved) : null; // ✅ parse JSON
     });
 
+    let stored = localStorage.getItem("shop");
 
     useEffect(() => {
         const fetchShops = async () => {
-          console.log("fetching product...");
           setLoading(true);
     
           try {
@@ -23,6 +23,7 @@ function ShopDet({ nbrOfView }) {
               headers: { Authorization: `Bearer ${token}` },
             });
             const data = await res.json();
+            console.log(data)
             setProducts(data);
             localStorage.setItem("shop", JSON.stringify(data));
           } catch (err) {
@@ -32,14 +33,13 @@ function ShopDet({ nbrOfView }) {
           }
         };
       
-        // ✅ Load from storage or fetch
-        const stored = localStorage.getItem("shop");
+        stored = localStorage.getItem("shop");
         if (stored) {
           setProducts(JSON.parse(stored));
-        } else if (token) {
+        } else {
           fetchShops();
         }
-      }, [token]);
+      }, [stored]);
       
       const handleAdd = (product) => {
         addToCart({ ...product, quantity: 1 });
@@ -94,8 +94,9 @@ function ShopDet({ nbrOfView }) {
             className="product-card"
             onClick={() => setSelectedProduct(product)} // open popup
         >
-            {
-            product.fileUrl ? 
+
+            
+            {product.fileUrl ? 
                 <img 
                 src={`data:image/png;base64,${product.fileUrl}`} 
 
@@ -103,8 +104,9 @@ function ShopDet({ nbrOfView }) {
                 :
                 <img src={"/favicon.jpg"} alt={product.name} className="product-image" />
             }
+
             <div className="shop-part2">
-                <h3>{product.name}</h3>
+            { !short && <h3>{product.name}</h3>}
                 <p>💰 ${product.price}</p>
 
                 {/* Quantity Controls */}

@@ -5,6 +5,7 @@ import MaterialGrid from '../components/MaterialGrid.js'
 import { validateSTLFileFromFile } from '../utils/stlValidator';
 import { useCart } from "../context/CartContext.js";
 import { jwtDecode } from 'jwt-decode';
+import Popup from "../components/Popup";
 
 import '../Style/upload.css'; 
 
@@ -26,6 +27,7 @@ function Upload() {
   const [quantity, setQuantity] = useState(1);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [token] = useState(sessionStorage.getItem("token") || ""); // 👈 new state
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {  
     const handleResize = () => {
@@ -38,13 +40,18 @@ function Upload() {
   }, [token]);
 
   const handleFileUpload = async (event) => {
-    const file = event.target.files[0];
+    let file = event.target.files[0];
     let decoded = "";
     let id = "";
     
     if(token){
       decoded = jwtDecode(token);
       id = decoded.id
+    }
+    else{
+      setShowPopup(true);
+      file = null
+      return
     }
     
     if (!file.name) return;
@@ -140,6 +147,14 @@ function Upload() {
   
   return (
     <div className="upload-container">
+        {showPopup && (
+        <Popup 
+          message="لإكمال العملية يرجى تسجيل الدخول!" 
+          onClose={() => setShowPopup(false)}
+          navigationUrl={"login"} 
+        />
+      )}
+
         <div className='sub-section-upolar-part1'>
           <h2>🧊 STL Viewer</h2>
           <div className="upload-box">

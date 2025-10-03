@@ -97,7 +97,7 @@
 /* === Links === */
 .auth-container p {
   text-align: center;
-  font-size: 14px;
+  /* font-size: 14px; */
   color: var(--white);
   margin-top: 10px;
 }

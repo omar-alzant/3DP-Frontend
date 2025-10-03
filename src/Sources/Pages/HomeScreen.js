@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ReactComponent as Logo } from '../../logo.svg';
 import '../Style/Home.css'; 
 import React, { useEffect, useState, useRef } from "react";
+import ShopDet from '../components/ShopDet';
 
 export default function HomeScreen() {
   const navigate = useNavigate();
@@ -43,23 +44,25 @@ export default function HomeScreen() {
             <PreviewCard
                 title="3D Printing Service"
                 description="Upload your STL files and we’ll deliver your printed models fast."
-                image="/Images/3d-printing.jpg"
+                image=""
                 onSeeMore={() => navigate("/Upload")}
             />
 
             <PreviewCard
                 title="Custom 3D Designs"
                 description="Get professional help to create or modify 3D models."
-                image="/Images/3d-design.jpg"
+                image=""
                 onSeeMore={() => navigate("/OpenAIGenerator")}
             />
 
             <PreviewCard
                 title="Shop"
                 description="Browse our catalog of ready-made 3D products."
-                image="/Images/shop.jpg"
                 onSeeMore={() => navigate("/shop")}
-            />
+            >
+               <ShopDet nbrOfView="2" short={true}/>
+            </PreviewCard>
+            
         </div>
         <div className="home-screen-part3">  
             <h2> فوائد </h2>

@@ -12,6 +12,36 @@
     background-color: var(--inputInfillFocus);
     margin-block-end: 10px;
   }
+/*   
+  .preview-card-extra {
+    display: flex;             
+    flex-wrap: nowrap;        
+    overflow-x: auto;          
+    overflow-y: hidden;        
+    gap: 10px;                 
+    margin-block-end: 10px;
+    scrollbar-width: thin;    
+  }
+  
+  .preview-card-extra::-webkit-scrollbar {
+    height: 8px;              
+  }
+  
+  .preview-card-extra::-webkit-scrollbar-thumb {
+    background: #888;         
+    border-radius: 4px;
+  }
+  
+  .preview-card-extra::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  } */
+  
+  .preview-card-extra{
+    /* display: flex; */
+    /* flex-wrap: nowrap; */
+    overflow-x: auto;
+    max-width: 90dvw;
+  }
   
   /* For screens 1200px and smaller */
   @media (max-width: 1200px) {
@@ -20,7 +50,8 @@
       gap: 16px;
       padding: 16px;
     } */
-  
+
+
     .preview-card {
       max-width: 100%; /* make cards stretch */
     }
