@@ -52,19 +52,17 @@ textarea{
     transition: 0.2s all;
 }
 
-  button,
-  .upload-box button {
+  .upload-box {
     padding: 8px 16px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
   }
   
-  button:hover,
-  .upload-box button:hover {
+  /* .upload-box:hover {
     background: #222;
   }
-  
+   */
 
   .btns{
     display: flex;

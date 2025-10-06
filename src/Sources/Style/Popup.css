@@ -41,9 +41,7 @@
     border-radius: 6px;
     font-size: 14px;
   }
-  button{
-      box-shadow: none;
-    }
+
   .popup-btn.login {
     background: var(--c1) !important;
   }

@@ -13,10 +13,29 @@
   gap: 20px;
 }
 
+.home-link{
+  margin-inline-start: 10px;
+  }
+
 .logo-home-screen{
   max-width: 1000px;
   max-height: 100px;
 }
+
+.home-screen-benefits-title{
+  display: flex;
+  gap: 50px;
+  align-items: center;
+}
+
+.expand-btn{
+  display: flex;
+  font-size: larger;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+}
+
 
 .home-screen-part1{
   display: flex;
@@ -113,6 +132,7 @@
   /* كرت الفائدة */
   .benefit-card {
     border: 2px solid var(--c2);
+    color: var(--white);
     border-radius: 12px;
     background-color: transparent;
     border-radius: 16px;
@@ -143,13 +163,11 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 8px;
-    color: #333;
   }
   
   /* النص */
   .benefit-text {
     font-size: 14px;
-    color: #555;
     line-height: 1.5;
   }
   
@@ -157,7 +175,7 @@
 @media (max-width: 1200px) {
   .home-container {
     background: var(--bg1);
-  color: var(--white);
+    color: var(--white);
 
   }
   .home-section {

@@ -93,9 +93,21 @@ code {
 button{
   border: 2px solid var(--c1);
   border-radius: 10px;
+  padding: 10px;
   background-color: transparent;
   color: var(--white);
 
+}
+
+button {
+  font-family: "cairo";
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+  /* border-radius: var(--radius); */
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 button:hover{
@@ -152,4 +164,12 @@ textarea:focus, input:focus {
 }
 .btn-whats:hover{
   background-color:#06b60045;
+}
+
+
+@media (max-width: 1200px) {
+  button{
+    padding: 3px 6px;
+  }
+
 }

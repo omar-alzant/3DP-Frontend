@@ -101,6 +101,10 @@
   }
 
   @media (max-width: 1200px) {
+    .product-grid{
+      justify-content: center;
+    }
+
     .product-card {
       width: 25%;
     }
@@ -110,7 +114,7 @@
     }
 
     .product-image {
-      width: 50%;
+      /* width: 50%; */
       height: 50%;      
     }
   }

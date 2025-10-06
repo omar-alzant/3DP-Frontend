@@ -35,7 +35,6 @@ import { ReactComponent as LogoMini } from '../../logo-mini.svg';
 const Navbar = () => {
   let decoded = "";
   let isAdmin = false;
-  const [expandedBenefits, setExpandedBenefits] = useState(false); // 👈 new state
   const [Expand, setExpand] = useState(true); // 👈 new state
   const [token] = useState(sessionStorage.getItem("token") || ""); // 👈 new state
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -77,9 +76,6 @@ const Navbar = () => {
     isAdmin = decoded.isAdmin;    
   }
 
-  const benefitsEvent = () => {
-    setExpandedBenefits(!expandedBenefits);
-  }
 
   const { cart } = useCart();       // 👈 get cart items
   const totalItems = cart.length;   // if you want quantities: cart.reduce((sum,i)=>sum+i.quantity,0)
@@ -178,7 +174,6 @@ const Navbar = () => {
         </ul>
         {!isMobile && <Logo className="logo-svg" />}
         </div>
-      
       </>
     }
     <div className="btn-expand-nav">

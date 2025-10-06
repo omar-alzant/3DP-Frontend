@@ -74,20 +74,7 @@
 }
 
 /* --- Buttons Shared --- */
-input {
-  font-family: "cairo";
-}
-button {
-  font-family: "cairo";
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  transition: var(--transition);
-  border-radius: var(--radius);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+
 
 /* --- Delete Button --- */
 .delete-btn {
