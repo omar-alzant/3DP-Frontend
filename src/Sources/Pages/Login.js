@@ -33,6 +33,7 @@ export default function Login() {
     setRecaptchaToken(null);
     setRecaptchaValid(false);
     setError("حصل خطأ في reCAPTCHA. حاول مرة أخرى.");
+    console.log("ERRRRRRRRORRR")
   };
 
   const handleLogoutClick = () => {

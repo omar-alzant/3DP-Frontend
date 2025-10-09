@@ -12,9 +12,8 @@ import "../Style/CartPage.css";
 // const stripePromise = loadStripe(publishabelStripKey); // مفتاح Stripe العام
 
 function CartPage() {
-  const { cart, removeFromCart, clearCart } = useCart();
+  const { cart, removeFromCart, clearCart, deleteFileFromCache } = useCart();
   let total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  console.log({cart})
   return (
     <div className="cart-cont">
       <h2>🛒 الصندوق</h2>
@@ -30,7 +29,7 @@ function CartPage() {
           {cart.map((item, index) => (
             <div key={index} className="cart-style">
               <div className="cart-details">
-                { item.name && <p><FaFolder /> {item.name}</p>}
+                { item.fileName && <p><FaFolder /> {item.fileName}</p>}
                 { item.volume && <p><FaCube /> الحجم: {item.volume} سم³</p>}
                 { item.price && <p><FaCoins /> السعر: ${item.price}</p>}
                 { item.type && <p><FaTape /> النوع: {item.type}</p>}
@@ -46,9 +45,11 @@ function CartPage() {
                     className="cart-store-image" />
               }
               </div>
-              <button className="delete-btn" onClick={() => {
+              <button className="delete-btn" onClick={async () => {
                 total = total - (item.price * item.quantity);
-                removeFromCart(index)}}>
+                removeFromCart(index)
+                await deleteFileFromCache(item.name);
+                }}>
                 <FaTrash /> حذف
               </button>
             </div>

@@ -128,6 +128,7 @@ a:hover {
 
 
 .spinner-large {
+  display: block;
   border: 6px solid #f3f3f3;
   border-top: 6px solid var(--c1);
   border-radius: 50%;
@@ -137,6 +138,7 @@ a:hover {
 }
 
 .spinner-small {
+  display: block;
   border: 6px solid #f3f3f3;
   border-top: 6px solid var(--c1);
   border-radius: 50%;

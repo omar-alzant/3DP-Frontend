@@ -12,42 +12,47 @@ function ShopDet({ nbrOfView, short = false}) {
       return saved ? JSON.parse(saved) : null; // ✅ parse JSON
     });
 
-    let stored = localStorage.getItem("shop");
-
     useEffect(() => {
-        const fetchShops = async () => {
-          setLoading(true);
-    
-          try {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/admin/shop`, {
-              headers: { Authorization: `Bearer ${token}` },
-            });
-            const data = await res.json();
-            console.log(data)
-            setProducts(data);
-            localStorage.setItem("shop", JSON.stringify(data));
-          } catch (err) {
-            console.error("Error fetching shop:", err);
-          }finally {
-            setLoading(false);
-          }
-        };
-      
-        stored = localStorage.getItem("shop");
-        if (stored) {
-          setProducts(JSON.parse(stored));
-        } else {
-          fetchShops();
+      const fetchShops = async () => {
+        setLoading(true);
+        try {
+          const res = await fetch(`${process.env.REACT_APP_API_URL}/admin/shop`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          const data = await res.json();
+          setProducts(data);
+          localStorage.setItem("shop", JSON.stringify(data));
+        } catch (err) {
+          console.error("Error fetching shop:", err);
+        } finally {
+          setLoading(false);
         }
-      }, [stored]);
-      
-      const handleAdd = (product) => {
-        addToCart({ ...product, quantity: 1 });
+      };
+    
+      const stored = localStorage.getItem("shop");
+      if (stored) {
+        setProducts(JSON.parse(stored));
+      } else {
+        fetchShops();
+      }
+    }, [token]);
+    
+      const handleAdd = (product) => {  
+        const currentQty = cart.find((p) => p.id === product.id)?.quantity || 0;
+        if (currentQty === 0) {
+          addToCart({ ...product, quantity: 1 });
+        } else {
+          updateQuantity(product.id, currentQty + 1);
+        }
+        console.log(currentQty)
+
       };
     
       const handleRemove = (product) => {
+
         const currentQty = cart.find((p) => p.id === product.id)?.quantity || 0;
-        if (currentQty <= 1) {
+
+        if (currentQty === 0) {
           removeFromCart(product.id);
         } else {
           updateQuantity(product.id, currentQty - 1);
