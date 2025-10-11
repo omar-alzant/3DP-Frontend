@@ -146,8 +146,8 @@ export const validateSTLFileFromFile = async (file) => {
   if (!file) return { isValid: false, error: 'No file provided' };
 
   const ext = file.name.toLowerCase();
-  if (!(ext.endsWith('.stl') || ext.endsWith('.obj'))) {
-    return { isValid: false, error: 'File must have .stl or .obj extension' };
+  if (!(ext.endsWith('.stl'))) {
+    return { isValid: false, error: 'File must have .stl extension' };
   }
 
   try {

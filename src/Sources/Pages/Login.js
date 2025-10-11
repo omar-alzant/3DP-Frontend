@@ -98,6 +98,7 @@ export default function Login() {
     else {
       sessionStorage.setItem("email", JSON.stringify(data.user.email))
       sessionStorage.setItem("token", data.token)
+      setLogoutFromOtherDevicesBtn(false)
       setLoading(false)
       navigate('/');
     }

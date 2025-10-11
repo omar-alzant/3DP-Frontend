@@ -37,7 +37,7 @@ function CartPage() {
               </div>
               <div className="cart-preview">
               { item.isStl ?
-                  <Viewer fileUrl={item.fileUrl} wireframe={false} />
+                  item.fileUrl && <Viewer fileUrl={item.fileUrl} wireframe={false} />
                 :
                   <img                   
                     src={`data:image/png;base64,${item.fileUrl}`} 

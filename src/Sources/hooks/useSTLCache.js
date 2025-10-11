@@ -45,30 +45,42 @@ export function useSTLCache() {
   const [cachedFile, setCachedFile] = useState(null);
   const [cachedMeta, setCachedMeta] = useState(null);
 
-useEffect(() => {
-  (async () => {
-    const meta = localStorage.getItem('stlMeta');
-    if (!meta) return;
-
-    const parsed = JSON.parse(meta);
-    const fileKey = parsed?.fileName || 'uploadedFile'; // fallback key
-    const file = await getFile(fileKey);
-
-    if (file) {
-      const blob = file instanceof Blob ? file : new Blob([file]);
-      setCachedFile(blob);
-      setCachedMeta(parsed);
-    }
-  })();
-}, []);
-
+  useEffect(() => {
+    (async () => {
+      const meta = localStorage.getItem('stlMeta');
+      if (!meta || meta === 'undefined' || meta === 'null') return; // ✅ extra safety
+  
+      let parsed;
+      try {
+        parsed = JSON.parse(meta);
+      } catch (err) {
+        console.warn("Invalid stlMeta JSON, clearing it...");
+        localStorage.removeItem('stlMeta');
+        return;
+      }
+  
+      const fileKey = parsed?.fileName || 'uploadedFile';
+      const file = await getFile(fileKey);
+  
+      if (file) {
+        const blob = file instanceof Blob ? file : new Blob([file]);
+        setCachedFile(blob);
+        setCachedMeta(parsed);
+      }
+  
+      console.log(fileKey);
+    })();
+  }, []);
+  
 
 const saveToCache = async (file, meta) => {
     if (!file) return console.warn("No file to cache");
     await saveFile(file, file.name);
+    console.log(file.name)
     localStorage.setItem(`stlMeta_${file.name}`, JSON.stringify(meta));
     setCachedFile(file);
     setCachedMeta(meta);
+    await updateMeta(file, meta)
   };
 
 
@@ -84,7 +96,7 @@ const saveToCache = async (file, meta) => {
   }
 
 
-  const updateMeta = async (file, meta) => {
+  const updateMeta = async (file , meta) => {
     localStorage.setItem('stlMeta', JSON.stringify(meta));
     setCachedMeta(meta);
     if (file) setCachedFile(file);

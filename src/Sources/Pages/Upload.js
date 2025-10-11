@@ -12,6 +12,7 @@ import '../Style/upload.css';
 
 function Upload() {
   const [fileUrl, setFileUrl] = useState(null);
+  const [fileSelected, setFileSelected] = useState(null);
   const inputRef = useRef();
   const [fileName, setFileName] = useState('لم يتم اختيار ملف بعد');
   const [warningMsg, setWarningMsg] = useState('');
@@ -34,6 +35,8 @@ function Upload() {
   useEffect(() => {
     if (cachedFile && cachedMeta) {
       try {
+        const prevSelectMAtId = localStorage.getItem("prevSelectedMaterialId"); // ✅ remember it
+
         const url = URL.createObjectURL(cachedFile);
         setFileUrl(url);
         setFileName(cachedMeta.fileName);
@@ -42,6 +45,7 @@ function Upload() {
         setUploadMessage('✅ تم استعادة الملف السابق من التخزين المحلي');
         setResult({
           ...cachedMeta,
+          selectedMaterial: prevSelectMAtId
         });
       } catch (error) {
         console.error("Failed to create object URL:", error);
@@ -69,11 +73,14 @@ function Upload() {
       setWarningMsg(`⚠️ ${validation.error}`);
       return;
     }
-
+    setWarningMsg("")
     setLoading(true);
     setFileName(file.name);
     const url = URL.createObjectURL(file);
     setFileUrl(url);
+    setFileSelected(file)
+    localStorage.removeItem("prevSelectedMaterialId");
+    setSelectedMaterial(null);
 
     try {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/uploadTest?id=${id}`, {
@@ -95,13 +102,15 @@ function Upload() {
         fileName: file.name,
         volume: absVolume,
         facets: validation.facetCount,
-        price: data.price || 0,
+        price: selectedMaterial?.price || 0,
         fileUrl: url,
         quantity: 1,
         isStl: true,
+        selectedMaterialId: selectedMaterial?.id || 0
       };
 
       await saveToCache(file, newMeta);
+
       setResult(newMeta);
     } catch (err) {
       console.error(err);
@@ -115,15 +124,17 @@ function Upload() {
   const handleMaterialSelect = async (material) => {
     setSelectedMaterial(material);
     if (!material || !volume) return;
-
+  
     const newResult = {
       ...result,
       type: `${material.materialType} - ${material.name}`,
       price: Number(volume * (material.basePrice + material.pricePerCm3)).toFixed(2),
+      selectedMaterialId: material.id
     };
-
+  
     setResult(newResult);
-    await updateMeta(cachedFile, newResult);
+    // await updateMeta(fileSelected, newResult)
+    localStorage.setItem("prevSelectedMaterialId", material.id); // ✅ remember it
   };
 
   return (
@@ -138,11 +149,11 @@ function Upload() {
 
       <div className='sub-section-upolar-part1'>
         <h2>🧊 STL Viewer</h2>
-        {uploadMessage}
         <div className="upload-box">
           <input type="file" id="fileInput" accept=".stl" onChange={handleFileUpload} ref={inputRef} hidden />
           <label htmlFor="fileInput" className="file-label">📂 اختر ملف STL</label>
           {warningMsg && <span className="warning-msg" style={{ color: 'red' }}>{warningMsg}</span>}
+          {result?.error && <span className="warning-msg" style={{ color: 'red' }}>{result.error}</span>}
 
           {fileUrl && (
             <button onClick={() => setWireframe(!wireframe)} className='btn-add'>
@@ -190,6 +201,9 @@ function Upload() {
             <MaterialGrid 
               FileExist={fileUrl !== null} 
               isMobile={isMobile}
+              prevSelectedId={
+                result?.selectedMaterialId || localStorage.getItem("prevSelectedMaterialId")
+              }
               onMaterialSelect={handleMaterialSelect}
             />
           )}
