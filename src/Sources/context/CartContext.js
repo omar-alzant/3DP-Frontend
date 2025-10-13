@@ -57,6 +57,83 @@ export const CartProvider = ({ children }) => {
     restoreBlobs();
   }, []);
   
+  const modifyCartQuantity = (item) => {
+    setCart((prev) => {
+      // find the item index
+      const index = item.isStl
+        ? prev.findIndex((i) => i.fileName === item.fileName && i.type === item.type)
+        : prev.findIndex((i) => i.id === item.id);
+  
+      if (index === -1) return prev; // item not found, no change
+  
+      // create a copy of the cart
+      const updated = [...prev];
+      let prevPrice = prev[index].price / prev[index].quantity 
+      updated[index] = { ...updated[index], quantity: item.quantity, price: Number(prevPrice * item.quantity) };
+  
+      return updated;
+    });
+  };
+
+
+  const modifySTLType = (item) => {
+    const materials = JSON.parse(localStorage.getItem("materials") || "[]");
+    if (!materials.length) return;
+  
+    // extract materialType and name from Dropdown value (ex: "PLA-Black")
+    const [materialType, name] = item.type.split("-");
+    
+    // find the matching material
+    const matchedMaterial = materials.find(
+      (m) => m.materialType === materialType && m.name === name
+    );
+
+
+    // compute new price
+    setCart((prev) => {
+      const oldIndex = prev.findIndex(
+        (i) => i.fileName === item.fileName && i.type === item.oldType
+      );
+      if (oldIndex === -1) return prev;
+      console.log(matchedMaterial, prev[oldIndex], item)
+
+
+
+      const newPrice = matchedMaterial
+      ? Number(item.volume * (matchedMaterial.basePrice + matchedMaterial.pricePerCm3)).toFixed(2)
+      : Number(item.price);
+  
+      console.log(newPrice)
+
+      // if another item with new type already exists, merge them
+      const duplicateIndex = prev.findIndex(
+        (i) => i.fileName === item.fileName && i.type === item.type
+      );
+  
+      const updated = [...prev];
+      if (duplicateIndex !== -1) {
+
+        updated[duplicateIndex] = {
+          ...updated[duplicateIndex],
+          quantity: updated[duplicateIndex].quantity + updated[oldIndex].quantity,
+          price: newPrice,
+        };
+        updated.splice(oldIndex, 1);
+        return updated;
+      }
+  
+      // otherwise just update the type + price
+      updated[oldIndex] = {
+        ...updated[oldIndex],
+        type: item.type,
+        price: newPrice,
+      };
+      return updated;
+    });
+  };
+  
+  
+
 
   
   // ✅ Add item (or update quantity if it exists)
@@ -94,6 +171,7 @@ export const CartProvider = ({ children }) => {
           ...updatedCart[existingIndex],
           quantity: updatedCart[existingIndex].quantity + (item.quantity || 1),
         };
+        console.log("updatedCart")
         return updatedCart;
       } else {
         // Add new item
@@ -130,7 +208,7 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart, deleteFileFromCache , addToCartForSTL}}
+      value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart, deleteFileFromCache , addToCartForSTL, modifySTLType, modifyCartQuantity}}
     >
       {children}
     </CartContext.Provider>

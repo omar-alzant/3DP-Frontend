@@ -25,6 +25,7 @@
 .cart-cont p {
   text-align: center;
   font-size: 18px;
+  min-width: 80px;
 }
 
 /* --- Cart Item --- */
@@ -34,7 +35,7 @@
   align-items: center;
   justify-content: space-between;
   border: 1px solid var(--neutral-border);
-  padding: 5px 50px;
+  padding: 5px 40px;
   margin-bottom: 10px;
   border-radius: var(--radius);
   background: var(--neutral-bg);
@@ -50,18 +51,18 @@
 /* --- Cart Details --- */
 .cart-details {
   display: flex;
-  /* flex: 1 1 250px; */
-  flex-direction: column;
+  align-items: flex-start;
+    flex-direction: column;
   /* gap: 6px; */
   font-size: 15px;
-  line-height: 1.4;
+  line-height: 1;
   align-self: anchor-center;
 }
 
 /* --- Cart Preview --- */
 .cart-preview {
-  width: 280px;
-  height: 160px;
+  max-width: 280px;
+  max-height: 280px;
   margin: 10px 15px;
   border-radius: var(--radius);
   overflow: hidden;
@@ -77,14 +78,14 @@
 
 
 /* --- Delete Button --- */
-.delete-btn {
+.cart-page-delete-btn {
   background: var(--danger);
   color: white;
   padding: 8px 16px;
   font-size: 14px;
 }
 
-.delete-btn:hover {
+.cart-page-delete-btn:hover {
   background: var(--danger-dark);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(230,57,70,0.25);
@@ -212,7 +213,7 @@
 @media (max-width: 1200px) {
   .cart-style {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .cart-preview {

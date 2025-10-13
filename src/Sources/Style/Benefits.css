@@ -4,10 +4,10 @@
     margin: 50px auto;
     padding: 25px;
     gap: 5px;
-    background: #fff;
+    background-color: var(--c1);
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    font-family: 'jazeera', sans-serif;
+    font-family: 'cairo', sans-serif;
     direction: rtl; /* لأن النص عربي */
   }
   
@@ -42,24 +42,11 @@
   .benefit-form textarea:focus {
     border-color: #4a90e2;
   }
-  
-  /* زر الإضافة */
-  .benefit-form button {
-    background: #4a90e2;
-    color: #fff;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s;
+
+  .show-hide{
+    /* padding: 15px; */
+    margin-block-end: 10px;
   }
-  
-  .benefit-form button:hover {
-    background: #357ab8;
-  }
-  
 
   .label {
     display: flex;
@@ -67,7 +54,7 @@
     cursor: Pointer;
     flex-direction: column;
     font-weight: bold;
-    color: #444;
+    /* color: #444; */
     font-size: 14px;
     gap: 6px;
   }
@@ -99,30 +86,36 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 15px;
-  border-bottom: 1px solid #eee;
+  /* border-bottom: 1px solid #eee; */
   border-radius: 6px;
   margin-bottom: 8px;
-  border: 2px dashed #4caf50;
+  border: 2px solid var(--inputBorder);
   border-radius: 12px;
-  background-color: #f0fff0;
+  background-color: var(--bg1);
   gap: 15px;
 }
 
 .benefit-item:hover{
-  transform: translateY(-5px);
+  /* transform: translateY(-5px); */
+  border: 2px solid var(--secondary);
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
 
+}
+
+.benefit-item.selected {
+  background-color: var(--bg);
+  border: 2px solid var(--secondary);
 }
 
 .benefit-item h3 {
   margin: 0;
   font-size: 18px;
-  color: #333;
+  /* color: #333; */
 }
 
 .benefit-item p {
   margin: 4px 0 0;
-  color: #666;
+  /* color: #666; */
   font-size: 14px;
 }
 
@@ -134,26 +127,6 @@
   border: 1px solid #ddd;
 }
 
-/* Action Buttons */
-.edit-btn {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 6px;
-  background-color: #ffc107;
-  color: #fff;
-  cursor: pointer;
-  margin-right: 8px;
-}
-
-.delete-btn {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 6px;
-  background-color: #ff4d4f;
-  color: #fff;
-  margin-right: 8px;
-  cursor: pointer;
-}
 
 .checkboxLabel{
   display: flex;
@@ -168,7 +141,7 @@
   display:  flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: end;
 }
 
 @media (max-width: 1200px) {

@@ -1,0 +1,75 @@
+@import "./variables.css";
+
+
+.dropdown-container {
+    position: relative;
+    width: 100%;
+    text-align: right;
+    font-family: "Cairo", sans-serif;
+    color: var(--white);
+  }
+  
+  .dropdown-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: var(--white);
+  }
+  
+  .dropdown-button {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--);
+    border-radius: 6px;
+    background-color: transparent;
+    color: var(--white);
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .dropdown-button:hover,
+  .dropdown-button:focus,
+  .dropdown-button.active {
+    background-color: transparent;
+    /* border-color: var(--inputBorder); */
+    outline: none;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    width: 100%;
+    background: var(--c3);
+    backdrop-filter: blur(4px);
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    overflow: hidden;
+  }
+  
+  .dropdown-up {
+    bottom: 100%;
+    margin-bottom: 4px;
+  }
+  
+  .dropdown-down {
+    top: 100%;
+    margin-top: 4px;
+  }
+  
+  .dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .dropdown-item:hover {
+    background-color: var(--bgBtnHoverMoreLight);
+  }
+  
+  .dropdown-item.selected {
+    background-color: var(--bgBtnHover);
+    font-weight: bold;
+  }
+  

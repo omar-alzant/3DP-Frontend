@@ -6,6 +6,7 @@ export default function AdminMaterials() {
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
   const token = sessionStorage.getItem('token');
+  const [isSaving, setIsSaving] = useState(false);
 
   const [form, setForm] = useState({
     name: '',
@@ -111,7 +112,8 @@ export default function AdminMaterials() {
     }
   };
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
   
     const { name, basePrice, description, color, isNew, materialType, pricePerCm3 } = form;
@@ -119,8 +121,10 @@ export default function AdminMaterials() {
     if (editingId) {
       // UPDATE
       const token = sessionStorage.getItem('token');
+      setIsSaving(true); // يبدأ عرض "جاري الحفظ..."
+      try{
 
-      fetch(`${process.env.REACT_APP_API_URL}/admin/materials/${editingId}`, {
+       await fetch(`${process.env.REACT_APP_API_URL}/admin/materials/${editingId}`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',
@@ -136,6 +140,12 @@ export default function AdminMaterials() {
         })
         .then(res => res.json())
         .then(data => setMaterials(data));
+      }
+      catch (err) {
+        console.error("Error updating benefit:", err);
+      } finally{
+        setIsSaving(false); // ينتهي عرض "جاري الحفظ..." بعد الحفظ
+      }
     } else {
       // ADD
       addMaterial(e);
@@ -245,18 +255,24 @@ export default function AdminMaterials() {
       </label>
 
       <div>
-        <button type='submit' className="add-button">
-          {editingId ? 'عدل العنصر' : 'أضف عنصر'}
-        </button>
 
-        {editingId && (
-          <button type="button" onClick={resetForm} className="cancel-button">
-            إلغاء
-          </button>
-        )}
+      <button type="submit" disabled={isSaving} className='add-button'>
+        {isSaving
+          ? "⏳ جاري الحفظ..."
+          : editingId
+          ? "💾 حفظ التعديلات"
+          : " إضافة"}
+      </button>
+
+      {editingId && !isSaving && (
+        <button type="button" onClick={resetForm} className="cancel-btn">
+          إلغاء
+        </button>
+      )}
+
+        <hr />
       </div>
     </form>
-
 
 {/* *************************** All Existed materials list *************************** */}
     {loading 
@@ -268,7 +284,9 @@ export default function AdminMaterials() {
     {(Array.isArray(materials)) &&
     (<ul className="material-list">
       {materials.map(m => (
-        <li key={m.id} className='materialItem'>
+        <li key={m.id} 
+        className={`materialItem ${editingId === m.id ? "selected" : ""}`}
+        >
           <div >
             {m.isNew &&  <div className="badge-new">جديد</div>}
             {m.color ? 

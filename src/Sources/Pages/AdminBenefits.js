@@ -7,6 +7,7 @@ export default function AdminBenefits() {
   const [loading, setLoading] = useState(false);
   const token = sessionStorage.getItem("token");
   const [isSaving, setIsSaving] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
 
   const [form, setForm] = useState({
     Title: "",
@@ -194,30 +195,34 @@ export default function AdminBenefits() {
           required
           onChange={(e) => setForm({ ...form, Details: e.target.value })}
         />
+        <div>
+          <button type="submit" disabled={isSaving} className="add-button">
+            {isSaving
+              ? "⏳ جاري الحفظ..."
+              : editingId
+              ? "💾 حفظ التعديلات"
+              : " إضافة"}
+          </button>
 
-      <button type="submit" disabled={isSaving}>
-        {isSaving
-          ? "⏳ جاري الحفظ..." // يظهر أثناء الحفظ
-          : editingId
-          ? "💾 حفظ التعديلات"
-          : "➕ إضافة"}
-      </button>
-
-      {editingId && !isSaving && (
-        <button type="button" onClick={resetForm} className="cancel-btn">
-          إلغاء
-        </button>
-      )}
+          {editingId && !isSaving && (
+            <button type="button" onClick={resetForm} className="cancel-btn">
+              إلغاء
+            </button>
+          )}
+          <hr />
+        </div>
       </form>
 
-      <hr />
       {loading ? (
         <p>⏳ جارٍ التحميل...</p>
       ) : (
         Array.isArray(benefits) &&
         <ul className="benefit-list">
           {benefits.map((b) => (
-            <li key={b.id} className="benefit-item">
+            <li
+             key={b.id} 
+             className={`benefit-item ${editingId === b.id ? "selected" : ""}`}
+            >
   
               {b.Image ? (
                 <img
@@ -234,16 +239,16 @@ export default function AdminBenefits() {
               </div>
               <div className="btns">
               {b.display ? 
-                <>
+                <button className="show-hide">
                 👀 
-                </>
+                </button>
                 :
-                <>
+                <button className="show-hide">
                 🚫
-                </>
+                </button>
                 }
-                <button className="edit-btn" onClick={() => startEditing(b)}>✏️</button>
-                <button className="delete-btn" onClick={() => deleteBenefit(b.id)}>❌</button>
+                <button className="edit-button" onClick={() => startEditing(b)}>✏️</button>
+                <button className="delete-button" onClick={() => deleteBenefit(b.id)}>❌</button>
               </div>
             </li>
           ))}

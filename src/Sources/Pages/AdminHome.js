@@ -187,18 +187,24 @@ export default function AdminHome() {
           onChange={(e) => setForm({ ...form, Detail: e.target.value })}
         />
 
-        <button type="submit" disabled={isSaving || loading}>
-          {isSaving ? "⏳ جاري الحفظ..." : editingId ? "💾 حفظ التعديلات" : "➕ إضافة"}
-        </button>
-
-        {editingId && !isSaving && (
-          <button type="button" onClick={resetForm} className="cancel-btn">
-            إلغاء
+        <div>
+          <button type="submit" disabled={isSaving} className="add-button">
+            {isSaving
+              ? "⏳ جاري الحفظ..."
+              : editingId
+              ? "💾 حفظ التعديلات"
+              : " إضافة"}
           </button>
-        )}
-      </form>
 
-      <hr />
+          {editingId && !isSaving && (
+            <button type="button" onClick={resetForm} className="cancel-btn">
+              إلغاء
+            </button>
+          )}
+          <hr />
+        </div>
+        
+      </form>
 
       {/* List */}
       {loading ? (
@@ -206,7 +212,10 @@ export default function AdminHome() {
       ) : homeDet.length > 0 ? (
         <ul className="benefit-list">
           {homeDet.map((b) => (
-            <li key={b.id} className="benefit-item">
+            <li key={b.id} 
+            className={`benefit-item ${editingId === b.id ? "selected" : ""}`}
+
+            >
               {b.Image ? (
                 <img src={b.Image} alt={b.Title} className="benefit-thumb" />
               ) : (
@@ -216,11 +225,21 @@ export default function AdminHome() {
                 <h3>{b.Title}</h3>
                 <p>{b.Detail}</p>
               </div>
-              <div className="btns">
-                {b.Display ? "👀" : "🚫"}
-                <button className="edit-btn" onClick={() => startEditing(b)}>✏️</button>
-                <button className="delete-btn" onClick={() => deletehomeDet(b.id)}>❌</button>
+
+               <div className="btns">
+              {b.display ? 
+                <button className="show-hide">
+                👀 
+                </button>
+                :
+                <button className="show-hide">
+                🚫
+                </button>
+                }
+                <button className="edit-button" onClick={() => startEditing(b)}>✏️</button>
+                <button className="delete-button" onClick={() => deletehomeDet(b.id)}>❌</button>
               </div>
+            
             </li>
           ))}
         </ul>

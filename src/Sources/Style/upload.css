@@ -176,7 +176,7 @@ h1 {
 
 .quantity-input {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: row;
   align-items: center;
   direction: rtl;

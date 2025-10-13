@@ -3,7 +3,7 @@
 .home-screen-container {
   display: flex;
   flex-direction: column;
-  font-family: 'jazeera', sans-serif;
+  font-family: 'cairo', sans-serif;
   padding: 30px;
   color: var(--white);
   margin: auto;

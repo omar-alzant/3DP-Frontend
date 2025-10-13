@@ -9,7 +9,7 @@
   align-items: center;
   min-height: 100vh;
   /* background: linear-gradient(135deg, #1e3c72, #2a5298); */
-  font-family: 'jazeera', sans-serif;
+  font-family: 'cairo', sans-serif;
   font-weight: bold;
   padding: 20px;
   border-radius: 12px;
@@ -137,7 +137,7 @@
   width: 90%;
   max-width: 400px;
   text-align: center;
-  font-family: 'jazeera', sans-serif;
+  font-family: 'cairo', sans-serif;
   color: var(--white);
 }
 
